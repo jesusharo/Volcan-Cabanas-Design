@@ -1,0 +1,37 @@
+Actúa como un Senior Fullstack Developer y Experto en Marketing Turístico. Crea una plataforma multi-marca en Next.js (App Router) y Tailwind CSS para 'Cabañas del Volcán'.
+
+1. Arquitectura de Navegación Global:
+
+Subheader (Brand Switcher): Una franja minimalista superior para navegar entre: 'Cabañas del Volcán' (Principal), 'Inovationem' e 'Invernaderos Frescos y Orgánicos'.
+
+Header Principal: Sticky header con Logo a la izquierda, Menú de navegación central (Cabañas, Tours, Historia, Ubicación) y Selector de Idioma (ES/EN) + Botón de Reservar a la derecha.
+
+2. Estructura de la Landing Page (Cabañas del Volcán):
+
+Hero Section Dinámico: Slider de imágenes de alta resolución. Cada slide representa una cabaña con: Título, Breve descripción y un CTA (Botón) que dirija a la sección o página de esa cabaña específica.
+
+Sección de Tours (Experiencias): Grid de tarjetas resaltando el 'Tour al Volcán' con precios, duración y botón de contacto directo a WhatsApp.
+
+Social Proof (Testimonios): Carrusel de reseñas dinámicas para generar confianza.
+
+Sección de Logística: Mapa interactivo de ubicación, instrucciones de 'Cómo llegar' y FAQ breve.
+
+Historia & Valores: Sección de storytelling sobre el origen de las cabañas y su relación con el entorno natural.
+
+Footer: Enlaces legales, redes sociales, métodos de pago aceptados y logos de Airbnb/TripAdvisor.
+
+3. Integración Técnica & SEO:
+
+Notion como CMS: El contenido de las cabañas (fotos, precios, textos del hero), los tours y los testimonios deben venir de la API de Notion.
+
+SEO Turístico: Implementa etiquetas <title> y <meta description> dinámicas. Usa JSON-LD Schema de tipo 'Hotel' y 'TouristAttraction' para que Google e IAs entiendan perfectamente la oferta.
+
+Conversión: Botón flotante de WhatsApp que incluya un mensaje predefinido basado en la sección donde está el usuario.
+
+4. Stack & Diseño:
+
+Usa Tailwind CSS para un diseño 'Organic-Modern' (tonos tierra, verdes bosque, tipografía limpia).
+
+Asegura que sea 100% Mobile-First.
+
+Entregable Inicial: Genera la estructura de archivos, el layout principal con el Subheader/Header y la lógica de conexión para el cliente de la API de Notion.
