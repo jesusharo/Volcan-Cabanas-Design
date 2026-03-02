@@ -114,9 +114,12 @@ export default function Home() {
                         <Button 
                           size="lg" 
                           className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20"
-                          onClick={() => handleWhatsAppClick(`Hola, quiero reservar: ${cabin.title}`)}
+                          onClick={() => {
+                            const element = document.getElementById(`cabin-detail-${cabin.id}`);
+                            element?.scrollIntoView({ behavior: 'smooth' });
+                          }}
                         >
-                          Reservar Ahora
+                          Ver Cabaña
                         </Button>
                         <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
                           <Calendar className="w-4 h-4 mr-2" />
@@ -169,7 +172,8 @@ export default function Home() {
         <div className="flex flex-col w-full">
           {cabins.map((cabin, index) => (
             <div 
-              key={cabin.id} 
+              key={cabin.id}
+              id={`cabin-detail-${cabin.id}`} 
               className={`min-h-[85vh] w-full flex flex-col lg:flex-row items-center justify-center py-16 px-4 md:px-12 lg:px-24 gap-12 lg:gap-20 ${
                 index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'
               }`}
