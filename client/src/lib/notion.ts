@@ -6,7 +6,11 @@ export interface Cabin {
   title: string;
   description: string;
   imageUrl: string;
+  images: string[];
   capacity: string;
+  rooms: number;
+  bathrooms: number;
+  bedsDetail: string;
   slug: string;
   price?: number;
 }
@@ -34,32 +38,64 @@ export const getCabins = async (): Promise<Cabin[]> => {
       id: "1",
       title: "Casa de Campo",
       description: "Vista espectacular al volcán, con amplios espacios ideales para familias.",
-      capacity: "Hasta 8 personas",
+      capacity: "8",
+      rooms: 3,
+      bathrooms: 2,
+      bedsDetail: "1 King size, 3 matrimoniales",
       imageUrl: "/src/assets/images/cabana_1.jpg",
+      images: [
+        "/src/assets/images/cabana_1.jpg",
+        "/src/assets/images/cabana_2.jpg",
+        "/src/assets/images/cabana_3.jpg"
+      ],
       slug: "casa-de-campo"
     },
     {
       id: "2",
       title: "Cabaña Santa Helena",
       description: "Sostenibilidad y calidez en un ambiente que respeta la naturaleza.",
-      capacity: "Para 7 personas",
+      capacity: "7",
+      rooms: 2,
+      bathrooms: 1,
+      bedsDetail: "2 matrimoniales, 3 individuales",
       imageUrl: "/src/assets/images/cabana_2.jpg",
+      images: [
+        "/src/assets/images/cabana_2.jpg",
+        "/src/assets/images/cabana_1.jpg",
+        "/src/assets/images/krakatoa.jpg"
+      ],
       slug: "cabana-santa-helena"
     },
     {
       id: "3",
       title: "Monte Etna",
       description: "Rústica y acogedora en el corazón profundo del bosque.",
-      capacity: "Ideal parejas o familias pequeñas",
+      capacity: "4",
+      rooms: 1,
+      bathrooms: 1,
+      bedsDetail: "1 King size, 1 sofá cama",
       imageUrl: "/src/assets/images/cabana_3.jpg",
+      images: [
+        "/src/assets/images/cabana_3.jpg",
+        "/src/assets/images/krakatoa.jpg",
+        "/src/assets/images/cabana_1.jpg"
+      ],
       slug: "monte-etna"
     },
     {
       id: "4",
       title: "Refugio Krakatoa",
       description: "Experiencia térmica de piedra y mirador elevado hacia el coloso.",
-      capacity: "Experiencia premium",
+      capacity: "2",
+      rooms: 1,
+      bathrooms: 1,
+      bedsDetail: "1 King size",
       imageUrl: "/src/assets/images/krakatoa.jpg",
+      images: [
+        "/src/assets/images/krakatoa.jpg",
+        "/src/assets/images/cabana_3.jpg",
+        "/src/assets/images/cabana_2.jpg"
+      ],
       slug: "refugio-krakatoa"
     }
   ];

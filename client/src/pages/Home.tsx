@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock } from "lucide-react";
+import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath } from "lucide-react";
 
 export default function Home() {
   const [cabins, setCabins] = useState<Cabin[]>([]);
@@ -154,6 +154,104 @@ export default function Home() {
             <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
+      </section>
+
+      {/* Sección Detallada de Cabañas (Vertical Scroll con Horizontal Gallery) */}
+      <section id="nuestras-cabanas" className="w-full bg-background relative z-10">
+        <div className="py-20 px-6 md:px-16 max-w-7xl mx-auto text-center">
+          <span className="uppercase tracking-widest text-accent font-bold text-sm">Hospedaje</span>
+          <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-4 mb-6">Nuestras Cabañas</h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Descubre nuestros espacios diseñados para integrarse armónicamente con el entorno natural, ofreciendo confort y vistas inigualables.
+          </p>
+        </div>
+
+        <div className="flex flex-col w-full">
+          {cabins.map((cabin, index) => (
+            <div 
+              key={cabin.id} 
+              className={`min-h-[85vh] w-full flex flex-col lg:flex-row items-center justify-center py-16 px-4 md:px-12 lg:px-24 gap-12 lg:gap-20 ${
+                index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'
+              }`}
+            >
+              {/* Carrusel Horizontal de Imágenes */}
+              <div className={`w-full lg:w-3/5 h-[50vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl relative ${
+                index % 2 !== 0 ? 'lg:order-2' : 'lg:order-1'
+              }`}>
+                <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  {cabin.images?.map((img, i) => (
+                    <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
+                      <img 
+                        src={img} 
+                        alt={`${cabin.title} - imagen ${i + 1}`} 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                    </div>
+                  ))}
+                </div>
+                {/* Scroll hint indicator */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
+                  {cabin.images?.map((_, i) => (
+                    <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
+                  ))}
+                </div>
+              </div>
+
+              {/* Detalles Técnicos */}
+              <div className={`w-full lg:w-2/5 flex flex-col justify-center space-y-8 ${
+                index % 2 !== 0 ? 'lg:order-1' : 'lg:order-2'
+              }`}>
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">{cabin.title}</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">{cabin.description}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6 pt-6 border-t border-border/50">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3 text-primary">
+                      <div className="p-2.5 rounded-xl bg-primary/10">
+                        <Users className="w-6 h-6" />
+                      </div>
+                      <span className="font-semibold text-lg">{cabin.capacity} Personas</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground ml-14">Capacidad máxima</span>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3 text-primary">
+                      <div className="p-2.5 rounded-xl bg-primary/10">
+                        <BedDouble className="w-6 h-6" />
+                      </div>
+                      <span className="font-semibold text-lg">{cabin.rooms} Hab.</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground ml-14">{cabin.bedsDetail}</span>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3 text-primary">
+                      <div className="p-2.5 rounded-xl bg-primary/10">
+                        <Bath className="w-6 h-6" />
+                      </div>
+                      <span className="font-semibold text-lg">{cabin.bathrooms} Baños</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground ml-14">Completamente equipados</span>
+                  </div>
+                </div>
+
+                <div className="pt-6">
+                  <Button 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-accent text-white hover:bg-accent/90 text-lg px-8 py-6 rounded-xl shadow-lg shadow-accent/20 transition-all hover:scale-105"
+                    onClick={() => handleWhatsAppClick(`Hola, me gustaría información detallada y reservar la cabaña: ${cabin.title}`)}
+                  >
+                    Ver Disponibilidad <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Sección Exclusividad "Todo el Sitio" */}
