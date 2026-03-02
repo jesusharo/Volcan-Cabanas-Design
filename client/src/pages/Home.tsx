@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar } from "lucide-react";
+import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
 export default function Home() {
@@ -240,24 +240,24 @@ export default function Home() {
               {
                 title: "Pet Friendly",
                 desc: "Tus mejores amigos son bienvenidos. Aplica una tarifa de limpieza de $100 MXN por mascota.",
-                icon: "🐾",
+                icon: <PawPrint className="w-10 h-10" />,
                 color: "bg-orange-100 text-orange-800 border-orange-200"
               },
               {
                 title: "Seguridad Total",
                 desc: "Ubicación segura y cercada. Tranquilidad garantizada durante toda tu estadía en el bosque.",
-                icon: "🛡️",
+                icon: <ShieldCheck className="w-10 h-10" />,
                 color: "bg-green-100 text-green-800 border-green-200"
               },
               {
                 title: "Horarios",
                 desc: "Check-in a partir de las 3:00 PM. El check-out de visitas (no hospedados) es a las 10:00 PM.",
-                icon: "⏰",
+                icon: <Clock className="w-10 h-10" />,
                 color: "bg-blue-100 text-blue-800 border-blue-200"
               }
             ].map((info, i) => (
               <div key={i} className={`p-8 rounded-2xl border ${info.color} bg-opacity-50`}>
-                <div className="text-4xl mb-4">{info.icon}</div>
+                <div className="mb-4 text-current opacity-80">{info.icon}</div>
                 <h3 className="text-xl font-bold mb-2 font-serif">{info.title}</h3>
                 <p className="opacity-90">{info.desc}</p>
               </div>
