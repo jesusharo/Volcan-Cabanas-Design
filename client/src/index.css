@@ -29,71 +29,71 @@
   --color-ring: hsl(var(--ring));
 }
 
-/* Organic Modern - Light Theme Base */
+/* Bosque Moderno - Light Theme Base */
 :root {
-  /* Warm Sand Background */
-  --background: 40 33% 96%;
-  /* Dark Espresso text */
-  --foreground: 30 20% 15%;
+  /* stone-50 Background */
+  --background: 40 14% 96%;
+  --foreground: 20 14% 15%;
   
-  /* Forest Green */
-  --primary: 142 40% 30%;
+  /* green-900 */
+  --primary: 142 50% 18%;
   --primary-foreground: 0 0% 100%;
   
-  /* Earthy Clay */
-  --secondary: 30 25% 45%;
+  /* earthy muted green */
+  --secondary: 142 15% 45%;
   --secondary-foreground: 0 0% 100%;
   
   --card: 0 0% 100%;
-  --card-foreground: 30 20% 15%;
+  --card-foreground: 20 14% 15%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 30 20% 15%;
+  --popover-foreground: 20 14% 15%;
   
-  --muted: 40 20% 90%;
-  --muted-foreground: 30 10% 40%;
+  --muted: 40 14% 90%;
+  --muted-foreground: 20 10% 45%;
   
-  --accent: 142 20% 90%;
-  --accent-foreground: 142 40% 30%;
+  /* orange-800 - Fuego/Volcán Accent */
+  --accent: 25 75% 38%;
+  --accent-foreground: 0 0% 100%;
   
   --destructive: 0 60% 50%;
   --destructive-foreground: 0 0% 100%;
   
-  --border: 40 20% 85%;
-  --input: 40 20% 85%;
-  --ring: 142 40% 30%;
+  --border: 40 14% 85%;
+  --input: 40 14% 85%;
+  --ring: 142 50% 18%;
   
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   
   --font-sans: 'DM Sans', sans-serif;
   --font-serif: 'Lora', serif;
 }
 
 .dark {
-  --background: 30 20% 12%;
-  --foreground: 40 33% 96%;
+  --background: 20 14% 10%;
+  --foreground: 40 14% 96%;
   
-  --primary: 142 30% 45%;
+  --primary: 142 40% 40%;
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 30 20% 30%;
-  --secondary-foreground: 40 33% 96%;
+  --secondary: 142 15% 30%;
+  --secondary-foreground: 40 14% 96%;
   
-  --card: 30 20% 15%;
-  --card-foreground: 40 33% 96%;
+  --card: 20 14% 14%;
+  --card-foreground: 40 14% 96%;
   
-  --popover: 30 20% 15%;
-  --popover-foreground: 40 33% 96%;
+  --popover: 20 14% 14%;
+  --popover-foreground: 40 14% 96%;
   
-  --muted: 30 15% 25%;
-  --muted-foreground: 40 20% 70%;
+  --muted: 20 14% 20%;
+  --muted-foreground: 40 14% 70%;
   
-  --accent: 142 20% 25%;
-  --accent-foreground: 142 30% 80%;
+  --accent: 25 80% 55%;
+  --accent-foreground: 20 14% 10%;
   
-  --border: 30 15% 25%;
-  --input: 30 15% 25%;
-  --ring: 142 30% 45%;
+  --border: 20 14% 20%;
+  --input: 20 14% 20%;
+  --ring: 142 40% 40%;
 }
 
 @layer base {
@@ -101,7 +101,7 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground selection:bg-accent selection:text-white;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
@@ -113,6 +113,11 @@
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
   .text-shadow-md {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  }
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
   }
 }

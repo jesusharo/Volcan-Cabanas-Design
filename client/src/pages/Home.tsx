@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Star, MessageCircle } from "lucide-react";
+import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
 export default function Home() {
@@ -14,8 +14,10 @@ export default function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Mensaje dinámico para WhatsApp basado en la sección visible o interactuada
+  const [waMessage, setWaMessage] = useState("Hola, me interesa información general sobre hospedaje y tours.");
+
   useEffect(() => {
-    // Load mock data from "Notion"
     getCabins().then(setCabins);
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
@@ -25,57 +27,73 @@ export default function Home() {
     if (emblaApi) {
       emblaApi.on("select", () => {
         setCurrentSlide(emblaApi.selectedScrollSnap());
+        if (cabins.length > 0) {
+          const currentCabin = cabins[emblaApi.selectedScrollSnap()];
+          setWaMessage(`Hola, me interesa disponibilidad para: ${currentCabin.title}`);
+        }
       });
     }
-  }, [emblaApi]);
+  }, [emblaApi, cabins]);
 
-  const handleWhatsAppClick = (section: string) => {
-    const message = encodeURIComponent(`Hola, me interesa información sobre ${section}.`);
-    window.open(`https://wa.me/521234567890?text=${message}`, '_blank');
+  const handleWhatsAppClick = (customMessage?: string) => {
+    const message = encodeURIComponent(customMessage || waMessage);
+    window.open(`https://wa.me/523121500516?text=${message}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col font-sans relative">
+      {/* Texture overlay global */}
+      <div className="fixed inset-0 pointer-events-none bg-noise z-50 mix-blend-overlay"></div>
+
       <Header />
 
       {/* Floating WhatsApp Button */}
       <button 
-        onClick={() => handleWhatsAppClick("reservaciones generales")}
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-105 transition-transform"
+        onClick={() => handleWhatsAppClick()}
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300"
         aria-label="Contactar por WhatsApp"
       >
-        <MessageCircle className="w-6 h-6" />
+        <MessageCircle className="w-7 h-7" />
       </button>
 
       {/* Hero Section - Dynamic Slider */}
-      <section className="relative h-[90vh] md:h-screen w-full overflow-hidden bg-background">
+      <section id="hospedaje" className="relative h-[90vh] md:h-[95vh] w-full overflow-hidden bg-background">
         {cabins.length > 0 ? (
           <div className="w-full h-full relative" ref={emblaRef}>
             <div className="flex h-full">
               {cabins.map((cabin) => (
                 <div key={cabin.id} className="relative flex-[0_0_100%] h-full">
-                  <div className="absolute inset-0 bg-black/40 z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
                   <img 
                     src={cabin.imageUrl} 
                     alt={cabin.title} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover scale-105 animate-in slide-in-from-bottom-2 duration-[20s]"
                   />
-                  <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-16 max-w-7xl mx-auto">
-                    <span className="text-accent uppercase tracking-[0.2em] text-sm md:text-base font-medium mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                      Bienvenido a la Naturaleza
+                  <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto">
+                    <span className="text-accent bg-accent/10 px-3 py-1 rounded-full w-fit uppercase tracking-[0.15em] text-xs font-bold mb-4 border border-accent/20 backdrop-blur-sm">
+                      {cabin.capacity}
                     </span>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight max-w-2xl text-shadow-md animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
                       {cabin.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-white/90 max-w-xl mb-10 text-shadow-sm animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150">
+                    <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
                       {cabin.description}
                     </p>
-                    <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-                      <Button size="lg" className="bg-primary text-white hover:bg-primary/90 text-base px-8">
-                        Ver Detalles
+                    <div className="flex flex-wrap gap-4">
+                      <Button 
+                        size="lg" 
+                        className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20"
+                        onClick={() => handleWhatsAppClick(`Hola, quiero reservar: ${cabin.title}`)}
+                      >
+                        Reservar Ahora
                       </Button>
-                      <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-sm">
-                        Explorar
+                      <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Airbnb
+                      </Button>
+                      <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
+                        <Star className="w-4 h-4 mr-2" />
+                        TripAdvisor
                       </Button>
                     </div>
                   </div>
@@ -84,132 +102,166 @@ export default function Home() {
             </div>
             
             {/* Slider Controls */}
-            <div className="absolute bottom-8 left-0 right-0 z-30 flex justify-center gap-3">
+            <div className="absolute bottom-12 left-0 right-0 z-30 flex justify-center gap-3">
               {cabins.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => emblaApi?.scrollTo(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    currentSlide === index ? "w-8 bg-white" : "w-2 bg-white/50"
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    currentSlide === index ? "w-12 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
                   }`}
-                  aria-label={`Ir a diapositiva ${index + 1}`}
+                  aria-label={`Ir a cabaña ${index + 1}`}
                 />
               ))}
             </div>
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
       </section>
 
-      {/* Historia & Valores */}
-      <section id="historia" className="py-24 px-4 md:px-8 bg-background">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Nuestro Origen en el Bosque</h2>
-            <div className="w-20 h-1 bg-primary rounded"></div>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Nacimos de un sueño profundo: crear un santuario donde la arquitectura moderna y la naturaleza salvaje coexistan en perfecta armonía. Cabañas del Volcán no es solo alojamiento, es una pausa en el tiempo.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Diseñamos cada espacio utilizando materiales de la región, respetando el entorno y ofreciendo una experiencia inmersiva que rejuvenece el espíritu.
-            </p>
-          </div>
-          <div className="relative aspect-square md:aspect-auto md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
-            {cabins[0] && (
-              <img src={cabins[0].imageUrl} alt="Cabañas exterior" className="w-full h-full object-cover" />
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Sección de Tours (Experiencias) */}
-      <section id="tours" className="py-24 px-4 md:px-8 bg-muted/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <span className="text-primary font-medium tracking-widest uppercase text-sm">Experiencias</span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Conecta con el Entorno</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tours.map((tour) => (
-              <div key={tour.id} className="bg-card rounded-2xl overflow-hidden shadow-md group hover:shadow-xl transition-all duration-300">
-                <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src={tour.imageUrl} 
-                    alt={tour.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
-                    ${tour.price} MXN
-                  </div>
-                </div>
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
-                    <span>{tour.duration}</span>
-                  </div>
-                  <h3 className="text-xl font-serif font-bold">{tour.title}</h3>
-                  <Button 
-                    variant="outline" 
-                    className="w-full group-hover:bg-primary group-hover:text-white transition-colors"
-                    onClick={() => handleWhatsAppClick(tour.title)}
-                  >
-                    Consultar Disponibilidad <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="py-24 px-4 md:px-8 bg-primary text-primary-foreground">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12">Lo que dicen nuestros huéspedes</h2>
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            {testimonials.map((testi) => (
-              <div key={testi.id} className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20">
-                <div className="flex text-yellow-400 mb-4">
-                  {[...Array(testi.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-lg mb-4 italic text-white/90">"{testi.quote}"</p>
-                <p className="font-semibold text-accent">{testi.author}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Logística & FAQ breve */}
-      <section id="ubicacion" className="py-24 px-4 md:px-8 bg-background">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-          <div className="space-y-8">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold">Cómo Llegar</h2>
-            <p className="text-muted-foreground">
-              Estamos ubicados en las faldas del volcán, a solo 45 minutos del centro de la ciudad. El camino es accesible para cualquier vehículo.
-            </p>
-            <div className="bg-card p-6 rounded-xl shadow-sm border">
-              <h4 className="font-semibold mb-2">Dirección</h4>
-              <p className="text-muted-foreground text-sm">Carretera al Volcán Km 15, Bosque Alto, México.</p>
+      {/* Sección Exclusividad "Todo el Sitio" */}
+      <section className="py-16 px-4 md:px-8 bg-primary text-primary-foreground relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+          <span className="uppercase tracking-widest text-accent font-bold text-sm">Reserva Exclusiva</span>
+          <h2 className="text-3xl md:text-5xl font-serif font-bold">Todo el Sitio para tu Evento</h2>
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
+            Disfruta de privacidad total. Ideal para retiros, retiros corporativos o reuniones familiares grandes.
+          </p>
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+            <div className="text-left">
+              <p className="text-3xl font-bold text-accent mb-1">$7,500 <span className="text-sm font-normal text-white/80 uppercase tracking-widest">MXN</span></p>
+              <p className="font-medium text-white">2 Días / 1 Noche</p>
             </div>
-            <Button size="lg" className="w-full md:w-auto">
-              Ver Mapa en Google Maps
+            <div className="w-px h-12 bg-white/20 hidden md:block"></div>
+            <div className="text-left">
+              <p className="font-semibold text-white text-lg flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-accent"/> Hasta 25 Personas</p>
+              <p className="text-white/70 text-sm mt-1">Acceso a todas las instalaciones</p>
+            </div>
+            <Button 
+              className="bg-white text-primary hover:bg-white/90 w-full md:w-auto"
+              onClick={() => handleWhatsAppClick("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
+            >
+              Consultar Fechas
             </Button>
           </div>
-          
-          <div className="bg-muted rounded-2xl h-[400px] flex items-center justify-center border border-border">
-            {/* Placeholder for actual Interactive Map */}
-            <div className="text-center text-muted-foreground space-y-2">
-              <MapPin className="w-12 h-12 mx-auto opacity-50" />
-              <p>Mapa Interactivo</p>
-              <p className="text-sm">(Integración con Google Maps)</p>
+        </div>
+      </section>
+
+      {/* Sección de Tours (Experiencias X Volcán) */}
+      <section id="experiencias" className="py-24 px-4 md:px-8 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="space-y-4 max-w-2xl">
+              <span className="text-accent font-bold tracking-widest uppercase text-xs flex items-center gap-2">
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                Tour X Volcán®
+              </span>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Aventura y Ecoturismo</h2>
+              <p className="text-muted-foreground text-lg">Experimenta el volcán desde su corazón. Actividades diseñadas para conectar con la naturaleza a través de la adrenalina y la contemplación.</p>
             </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {tours.map((tour) => (
+              <div key={tour.id} className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500"
+                   onClick={() => handleWhatsAppClick(`Hola, me gustaría reservar la experiencia: ${tour.title}`)}>
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500 z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+                <img 
+                  src={tour.imageUrl} 
+                  alt={tour.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                />
+                <div className="absolute bottom-0 left-0 p-6 z-20 w-full transform group-hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="text-xl font-serif font-bold text-white mb-2">{tour.title}</h3>
+                  <p className="text-white/80 text-sm line-clamp-2 mb-4 group-hover:line-clamp-none transition-all duration-500">
+                    {tour.description}
+                  </p>
+                  <span className="text-accent text-xs font-bold uppercase tracking-wider flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Saber más <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Safari Fotográfico */}
+      <section id="safari" className="py-24 px-4 md:px-8 bg-muted border-y border-border">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1 relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <img src="/src/assets/images/photographer.jpg" alt="Safari Fotográfico" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent mix-blend-multiply"></div>
+          </div>
+          <div className="space-y-6 order-1 md:order-2">
+            <div className="inline-flex items-center justify-center p-3 bg-white rounded-full shadow-sm text-primary mb-2">
+              <Camera className="w-6 h-6" />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Safari Fotográfico</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Únete a nuestras expediciones especializadas para fotógrafos aficionados y profesionales. Captura la majestuosidad de las erupciones controladas, los paisajes nevados y la fauna endémica en sus mejores momentos de luz.
+            </p>
+            <ul className="space-y-3 pt-4">
+              {['Guías expertos en locaciones de luz', 'Acceso a miradores exclusivos', 'Transporte seguro al amanecer/atardecer'].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-foreground font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Button 
+              className="mt-6 bg-primary text-white hover:bg-primary/90"
+              onClick={() => handleWhatsAppClick("Hola, quiero información sobre el Safari Fotográfico.")}
+            >
+              Agendar Safari
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Logística y Mascotas */}
+      <section id="logistica" className="py-24 px-4 md:px-8 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Información Importante</h2>
+            <p className="text-muted-foreground">Todo lo que necesitas saber antes de tu visita.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Pet Friendly",
+                desc: "Tus mejores amigos son bienvenidos. Aplica una tarifa de limpieza de $100 MXN por mascota.",
+                icon: "🐾",
+                color: "bg-orange-100 text-orange-800 border-orange-200"
+              },
+              {
+                title: "Seguridad Total",
+                desc: "Ubicación segura y cercada. Tranquilidad garantizada durante toda tu estadía en el bosque.",
+                icon: "🛡️",
+                color: "bg-green-100 text-green-800 border-green-200"
+              },
+              {
+                title: "Horarios",
+                desc: "Check-in a partir de las 3:00 PM. El check-out de visitas (no hospedados) es a las 10:00 PM.",
+                icon: "⏰",
+                color: "bg-blue-100 text-blue-800 border-blue-200"
+              }
+            ].map((info, i) => (
+              <div key={i} className={`p-8 rounded-2xl border ${info.color} bg-opacity-50`}>
+                <div className="text-4xl mb-4">{info.icon}</div>
+                <h3 className="text-xl font-bold mb-2 font-serif">{info.title}</h3>
+                <p className="opacity-90">{info.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

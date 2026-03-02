@@ -1,0 +1,52 @@
+"Actúa como un Senior Fullstack Developer y Diseñador UX/UI. Crea una plataforma multi-marca usando Next.js, Tailwind CSS y la API de Notion.
+
+1. Identidad de Marcas (Subheader Switcher):
+
+Cabañas del Volcán® / Tour X Volcán®: (Principal) Enfoque en Ecoturismo extremo, hospedaje y aventura.
+
+Inventionem® (Escuela de Bosque): Educación disruptiva, investigación y tecnología.
+
+Frescos y Orgánicos®: Agroecología y productos orgánicos.
+
+2. Estructura de la Landing (Cabañas del Volcán):
+
+Hero Slider Dinámico: >   1. Casa de Campo: 'Vista espectacular al volcán, capacidad hasta 8 personas'.
+2. Cabaña Santa Helena: 'Sostenibilidad y calidez para 7 personas'.
+3. Monte Etna: 'Rústica y acogedora en el corazón del bosque'.
+4. Refugio Krakatoa: 'Experiencia térmica de piedra y mirador elevado'.
+
+Sección 'Todo el Sitio': Resaltar la oferta de exclusividad para 25 personas por $7,500 (2 días/1 noche) ideal para eventos.
+
+Experiencias (Tour X Volcán): Grid con:
+
+Sendero Aéreo (Tirolesas extremas).
+
+Caminata al Coloso (5-8 horas, 3 ecosistemas).
+
+Paseos a caballo y Ciclismo de montaña.
+
+Sección Fotógrafos: Galería para 'Safari Fotográfico' (Captura erupciones y nevadas).
+
+Logística y Mascotas: Bloque de información rápida: 'Pet Friendly ($100)', 'Ubicación Segura y Cercada', 'Check-out visitas 10:00 PM'.
+
+3. Funcionalidades y Conversión:
+
+Botón WhatsApp (3121500516): Flotante con mensaje dinámico según la sección.
+
+Multi-lenguaje: Soporte completo ES/EN.
+
+Sync Calendarios: Botones para ver disponibilidad en Airbnb y TripAdvisor.
+
+Notion CMS: Sincroniza desde Notion: Títulos, Precios por número de personas (escalonados según el contenido proporcionado), Descripciones y Fotos.
+
+4. Diseño UI (Tailwind):
+
+Estilo 'Bosque Moderno': Fondo stone-50, acentos green-900, orange-800 (fuego/volcán).
+
+Tipografía clara para que la información técnica (precios por persona) sea legible en móviles.
+
+5. SEO & AI Data:
+
+Implementa Schema.org para 'Hotel' (Cabañas) y 'Event' (Tours). Estructura el texto para ser 'AI-Friendly' (listas claras, jerarquía H1-H3).
+
+Paso 1: Configura el boilerplate de Next.js y crea el componente de navegación que diferencie las 3 marcas."
