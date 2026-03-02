@@ -1,39 +1,49 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock } from "lucide-react";
-import useEmblaCarousel from "embla-carousel-react";
 
 export default function Home() {
   const [cabins, setCabins] = useState<Cabin[]>([]);
   const [tours, setTours] = useState<Tour[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Mensaje dinámico para WhatsApp basado en la sección visible o interactuada
   const [waMessage, setWaMessage] = useState("Hola, me interesa información general sobre hospedaje y tours.");
 
   useEffect(() => {
-    getCabins().then(setCabins);
+    getCabins().then((data) => {
+      setCabins(data);
+      if (data.length > 0) {
+        setWaMessage(`Hola, me interesa disponibilidad para: ${data[0].title}`);
+      }
+    });
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
   }, []);
 
-  useEffect(() => {
-    if (emblaApi) {
-      emblaApi.on("select", () => {
-        setCurrentSlide(emblaApi.selectedScrollSnap());
-        if (cabins.length > 0) {
-          const currentCabin = cabins[emblaApi.selectedScrollSnap()];
-          setWaMessage(`Hola, me interesa disponibilidad para: ${currentCabin.title}`);
-        }
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    const slideIndex = Math.round(target.scrollLeft / target.clientWidth);
+    if (slideIndex !== currentSlide && cabins[slideIndex]) {
+      setCurrentSlide(slideIndex);
+      setWaMessage(`Hola, me interesa disponibilidad para: ${cabins[slideIndex].title}`);
+    }
+  };
+
+  const scrollToSlide = (index: number) => {
+    const container = document.getElementById('hero-scroll-container');
+    if (container) {
+      container.scrollTo({
+        left: index * container.clientWidth,
+        behavior: 'smooth'
       });
     }
-  }, [emblaApi, cabins]);
+  };
 
   const handleWhatsAppClick = (customMessage?: string) => {
     const message = encodeURIComponent(customMessage || waMessage);
@@ -59,10 +69,14 @@ export default function Home() {
       {/* Hero Section - Dynamic Slider */}
       <section id="hospedaje" className="relative h-[90vh] md:h-[95vh] w-full overflow-hidden bg-background">
         {cabins.length > 0 ? (
-          <div className="w-full h-full relative" ref={emblaRef}>
-            <div className="flex h-full">
+          <div className="w-full h-full relative">
+            <div 
+              id="hero-scroll-container"
+              className="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              onScroll={handleScroll}
+            >
               {cabins.map((cabin) => (
-                <div key={cabin.id} className="relative flex-[0_0_100%] h-full">
+                <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
                   <img 
                     src={cabin.imageUrl} 
@@ -102,13 +116,13 @@ export default function Home() {
             </div>
             
             {/* Slider Controls */}
-            <div className="absolute bottom-12 left-0 right-0 z-30 flex justify-center gap-3">
+            <div className="absolute bottom-12 right-6 md:right-16 z-30 flex justify-end gap-2">
               {cabins.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => emblaApi?.scrollTo(index)}
+                  onClick={() => scrollToSlide(index)}
                   className={`h-1.5 rounded-full transition-all duration-500 ${
-                    currentSlide === index ? "w-12 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
+                    currentSlide === index ? "w-8 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
                   }`}
                   aria-label={`Ir a cabaña ${index + 1}`}
                 />
