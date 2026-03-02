@@ -72,43 +72,47 @@ export default function Home() {
           <div className="w-full h-full relative">
             <div 
               id="hero-scroll-container"
-              className="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              className="flex h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
               onScroll={handleScroll}
             >
               {cabins.map((cabin) => (
-                <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
+                <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0 overflow-hidden">
                   <img 
                     src={cabin.imageUrl} 
                     alt={cabin.title} 
-                    className="w-full h-full object-cover scale-105 animate-in slide-in-from-bottom-2 duration-[20s]"
+                    className="absolute inset-0 w-full h-full object-cover scale-[1.05] animate-in slide-in-from-bottom-2 duration-[20s]"
                   />
-                  <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto">
-                    <span className="text-accent bg-accent/10 px-3 py-1 rounded-full w-fit uppercase tracking-[0.15em] text-xs font-bold mb-4 border border-accent/20 backdrop-blur-sm">
-                      {cabin.capacity}
-                    </span>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
-                      {cabin.title}
-                    </h1>
-                    <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
-                      {cabin.description}
-                    </p>
-                    <div className="flex flex-wrap gap-4">
-                      <Button 
-                        size="lg" 
-                        className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20"
-                        onClick={() => handleWhatsAppClick(`Hola, quiero reservar: ${cabin.title}`)}
-                      >
-                        Reservar Ahora
-                      </Button>
-                      <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        Airbnb
-                      </Button>
-                      <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
-                        <Star className="w-4 h-4 mr-2" />
-                        TripAdvisor
-                      </Button>
+                  {/* Overlay Gradient fixed to slide boundaries */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
+                  
+                  <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 w-full">
+                    <div className="max-w-7xl mx-auto w-full">
+                      <span className="text-accent bg-accent/10 px-3 py-1 rounded-full w-fit uppercase tracking-[0.15em] text-xs font-bold mb-4 border border-accent/20 backdrop-blur-sm inline-block">
+                        {cabin.capacity}
+                      </span>
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
+                        {cabin.title}
+                      </h1>
+                      <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
+                        {cabin.description}
+                      </p>
+                      <div className="flex flex-wrap gap-4">
+                        <Button 
+                          size="lg" 
+                          className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20"
+                          onClick={() => handleWhatsAppClick(`Hola, quiero reservar: ${cabin.title}`)}
+                        >
+                          Reservar Ahora
+                        </Button>
+                        <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          Airbnb
+                        </Button>
+                        <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-md">
+                          <Star className="w-4 h-4 mr-2" />
+                          TripAdvisor
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -116,17 +120,19 @@ export default function Home() {
             </div>
             
             {/* Slider Controls */}
-            <div className="absolute bottom-12 right-6 md:right-16 z-30 flex justify-end gap-2">
-              {cabins.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => scrollToSlide(index)}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    currentSlide === index ? "w-8 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
-                  }`}
-                  aria-label={`Ir a cabaña ${index + 1}`}
-                />
-              ))}
+            <div className="absolute bottom-12 left-0 right-0 px-6 md:px-16 z-30 flex justify-end gap-2 pointer-events-none">
+              <div className="max-w-7xl mx-auto w-full flex justify-end gap-2 pointer-events-auto">
+                {cabins.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => scrollToSlide(index)}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
+                      currentSlide === index ? "w-8 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
+                    }`}
+                    aria-label={`Ir a cabaña ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         ) : (
