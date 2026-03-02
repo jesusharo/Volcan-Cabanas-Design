@@ -11,9 +11,16 @@ export default function Home() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   // Mensaje dinámico para WhatsApp basado en la sección visible o interactuada
   const [waMessage, setWaMessage] = useState("Hola, me interesa información general sobre hospedaje y tours.");
+
+  useEffect(() => {
+    const handleWindowScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleWindowScroll);
+  }, []);
 
   useEffect(() => {
     getCabins().then((data) => {
@@ -77,11 +84,18 @@ export default function Home() {
             >
               {cabins.map((cabin) => (
                 <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0 overflow-hidden">
-                  <img 
-                    src={cabin.imageUrl} 
-                    alt={cabin.title} 
-                    className="absolute inset-0 w-full h-full object-cover scale-[1.05] animate-in slide-in-from-bottom-2 duration-[20s]"
-                  />
+                  <div 
+                    className="absolute inset-0 w-full h-full"
+                    style={{
+                      transform: `translateY(${scrollY * 0.5}px)`,
+                    }}
+                  >
+                    <img 
+                      src={cabin.imageUrl} 
+                      alt={cabin.title} 
+                      className="absolute inset-0 w-full h-full object-cover scale-[1.1] animate-in fade-in duration-1000"
+                    />
+                  </div>
                   {/* Overlay Gradient fixed to slide boundaries */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
                   
