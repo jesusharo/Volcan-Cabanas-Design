@@ -71,7 +71,7 @@ export function Header() {
           {/* Center: Logo */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center transition-all duration-500">
             <Link href="/" className="flex flex-col items-center group">
-              <div className={`transition-all duration-500 flex items-center justify-center overflow-hidden ${isScrolled ? 'w-15 h-15' : 'w-[201px] h-[201px]'}`}>
+              <div className={`transition-all duration-500 flex items-center justify-center overflow-hidden ${isScrolled ? 'w-10 h-10' : 'w-[160px] h-[160px]'}`}>
                 <img 
                   src={isScrolled ? "/assets/logo-small.png" : "/assets/logo.png"} 
                   alt="Cabañas del Volcán Logo" 
