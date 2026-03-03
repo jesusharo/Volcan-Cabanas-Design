@@ -41,12 +41,10 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
             ))}
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-6 left-6 md:left-12 z-10">
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-white drop-shadow-lg">{cabin.title}</h3>
-          </div>
         </div>
 
         <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-14">
+          <h3 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-8">{cabin.title}</h3>
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
             <div className="flex-1 space-y-6">
               <div className="flex flex-wrap gap-6 py-4 border-b border-border/40">
