@@ -135,8 +135,8 @@ export default function Home() {
                   <button
                     key={index}
                     onClick={() => scrollToSlide(index)}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      currentSlide === index ? "w-8 bg-accent" : "w-4 bg-white/50 hover:bg-white/80"
+                    className={`h-1.5 rounded-full transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      currentSlide === index ? "w-10 bg-white" : "w-4 bg-white/40 hover:bg-white/70"
                     }`}
                     aria-label={`Ir a cabaña ${index + 1}`}
                   />
