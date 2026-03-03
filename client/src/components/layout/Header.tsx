@@ -2,10 +2,12 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Globe, Menu, ChevronDown, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [location] = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,16 +49,16 @@ export function Header() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white text-shadow-md'}`}>
-            Cabañas del Volcán<span className="text-accent text-3xl leading-none">.</span>
+            {t.hero.title}<span className="text-accent text-3xl leading-none">.</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {[
-              { label: "Hospedaje", path: "#hospedaje" },
-              { label: "Experiencias", path: "#experiencias" },
-              { label: "Safari Fotográfico", path: "#safari" },
-              { label: "Logística", path: "#logistica" },
+              { label: t.nav.hospedaje, path: "#hospedaje" },
+              { label: t.nav.experiencias, path: "#experiencias" },
+              { label: t.nav.safari, path: "#safari" },
+              { label: t.nav.logistica, path: "#logistica" },
             ].map((item) => (
               <a 
                 key={item.label}
@@ -72,12 +74,28 @@ export function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            <div className={`hidden md:flex items-center gap-1 cursor-pointer text-sm font-medium ${isScrolled ? 'text-foreground hover:text-accent' : 'text-white hover:text-white/80'} transition-colors`}>
-              <Globe className="w-4 h-4" />
-              <span>ES</span>
-              <ChevronDown className="w-3 h-3" />
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setLanguage('es')}
+                className={`text-xs font-bold px-2 py-1 rounded transition-colors ${
+                  language === 'es' 
+                    ? 'bg-accent text-white' 
+                    : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
+                }`}
+              >
+                ES
+              </button>
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`text-xs font-bold px-2 py-1 rounded transition-colors ${
+                  language === 'en' 
+                    ? 'bg-accent text-white' 
+                    : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
+                }`}
+              >
+                EN
+              </button>
             </div>
-            
             
             <button className={`md:hidden p-2 ${isScrolled ? 'text-foreground' : 'text-white'}`}>
               <Menu className="w-6 h-6" />

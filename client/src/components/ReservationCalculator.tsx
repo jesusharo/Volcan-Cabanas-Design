@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Minus, Plus, MessageCircle, PawPrint } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/LanguageContext";
 import type { Cabin, TieredPrice } from "@/lib/notion";
 
 interface ReservationCalculatorProps {
@@ -57,6 +58,7 @@ function AnimatedPrice({ value }: { value: number }) {
 const PET_FEE = 100;
 
 export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculatorProps) {
+  const { t } = useLanguage();
   const maxCapacity = Math.max(Number(cabin.capacity) || 2, 1);
   const sortedPricing = useMemo(
     () => [...cabin.tieredPricing].sort((a, b) => a.persons - b.persons),
@@ -77,7 +79,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
   const handleIncrease = () => setPersons((p) => Math.min(maxCapacity, p + 1));
 
   const handleReserve = () => {
-    const petPart = hasPet ? ' y 1 mascotas' : '';
+    const petPart = hasPet ? (t.calculator.pets.includes('mascota') ? ' y 1 mascota' : ' and 1 pet') : '';
     const msg = `Hola, me gustaría reservar la ${cabin.title} para ${persons} personas${petPart} por un total de $${totalPrice.toLocaleString('es-MX')}.`;
     onWhatsApp(msg);
   };
@@ -87,7 +89,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
   if (!hasPricing) {
     return (
       <div data-testid={`calculator-${cabin.id}`} className="bg-card border border-border/60 rounded-2xl p-5 space-y-4">
-        <p className="text-sm text-muted-foreground text-center">Consulta disponibilidad y precios directamente.</p>
+        <p className="text-sm text-muted-foreground text-center">{t.calculator.consult}</p>
         <Button
           data-testid={`btn-reserve-${cabin.id}`}
           size="lg"
@@ -95,7 +97,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
           onClick={() => onWhatsApp(`Hola, me gustaría información sobre la ${cabin.title}.`)}
         >
           <MessageCircle className="w-4 h-4 mr-2" />
-          Consultar por WhatsApp
+          {t.calculator.cta}
         </Button>
       </div>
     );
@@ -104,7 +106,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
   return (
     <div data-testid={`calculator-${cabin.id}`} className="bg-card border border-border/60 rounded-2xl p-5 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground font-medium">¿Cuántas personas nos visitan?</span>
+        <span className="text-sm text-muted-foreground font-medium">{t.calculator.title}</span>
         <div className="flex items-center gap-3">
           <button
             data-testid={`btn-decrease-${cabin.id}`}
@@ -151,14 +153,13 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
           className="sr-only"
         />
         <PawPrint className="w-3.5 h-3.5 text-accent" />
-        <span className="text-sm text-muted-foreground">Traigo mascota</span>
-        <span className="text-xs text-accent font-semibold ml-auto">+${PET_FEE}</span>
+        <span className="text-sm text-muted-foreground">{t.calculator.pets}</span>
       </label>
 
       <div className="h-px bg-border/40" />
 
       <div className="flex items-end justify-between">
-        <span className="text-xs text-muted-foreground uppercase tracking-widest">Total / noche</span>
+        <span className="text-xs text-muted-foreground uppercase tracking-widest">{t.calculator.total} / {t.calculator.night}</span>
         <p data-testid={`price-total-${cabin.id}`} className="text-2xl font-bold text-accent leading-none">
           <AnimatedPrice value={totalPrice} />
           <span className="text-xs text-muted-foreground font-normal ml-1">MXN</span>
@@ -172,7 +173,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
         onClick={handleReserve}
       >
         <MessageCircle className="w-4 h-4 mr-2" />
-        Reservar por WhatsApp
+        {t.calculator.cta}
       </Button>
     </div>
   );

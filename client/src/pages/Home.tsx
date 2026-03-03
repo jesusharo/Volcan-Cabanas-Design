@@ -5,11 +5,13 @@ import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testi
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const DESC_TRUNCATE_LENGTH = 200;
 
 function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: number; onWhatsApp: (msg: string) => void }) {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useLanguage();
   const descText = cabin.detailedDescription || cabin.description;
   const needsTruncation = descText.length > DESC_TRUNCATE_LENGTH;
 
@@ -52,8 +54,8 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="font-semibold text-sm block">{cabin.capacity} Personas</span>
-                  <span className="text-xs text-muted-foreground">Máximo</span>
+                  <span className="font-semibold text-sm block">{cabin.capacity} {t.cabins.capacity}</span>
+                  <span className="text-xs text-muted-foreground">{t.cabins.max}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2.5 text-primary">
@@ -61,7 +63,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   <BedDouble className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="font-semibold text-sm block">{cabin.rooms} Habitaciones</span>
+                  <span className="font-semibold text-sm block">{cabin.rooms} {t.cabins.rooms}</span>
                   <span className="text-xs text-muted-foreground">{cabin.bedsDetail}</span>
                 </div>
               </div>
@@ -70,8 +72,8 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   <Bath className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="font-semibold text-sm block">{cabin.bathrooms} {cabin.bathrooms === 1 ? 'Baño' : 'Baños'}</span>
-                  <span className="text-xs text-muted-foreground">Equipados</span>
+                  <span className="font-semibold text-sm block">{cabin.bathrooms} {cabin.bathrooms === 1 ? t.cabins.bathrooms : t.cabins.bathroomsPlural}</span>
+                  <span className="text-xs text-muted-foreground">{t.cabins.equipped}</span>
                 </div>
               </div>
             </div>
@@ -96,7 +98,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   onClick={() => setExpanded(!expanded)}
                   className="mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
                 >
-                  {expanded ? 'Leer menos' : 'Leer más…'}
+                  {expanded ? t.cabins.readLess : t.cabins.readMore}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
                 </button>
               )}
@@ -113,6 +115,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
 }
 
 export default function Home() {
+  const { t } = useLanguage();
   const [cabins, setCabins] = useState<Cabin[]>([]);
   const [tours, setTours] = useState<Tour[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -144,12 +147,6 @@ export default function Home() {
   const [waMessage, setWaMessage] = useState("Hola, me interesa información general sobre hospedaje y tours.");
 
   useEffect(() => {
-    const handleWindowScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleWindowScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleWindowScroll);
-  }, []);
-
-  useEffect(() => {
     getCabins().then((data) => {
       setCabins(data);
       if (data.length > 0) {
@@ -159,25 +156,6 @@ export default function Home() {
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
   }, []);
-
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const target = e.target as HTMLDivElement;
-    const slideIndex = Math.round(target.scrollLeft / target.clientWidth);
-    if (slideIndex !== currentSlide && cabins[slideIndex]) {
-      setCurrentSlide(slideIndex);
-      setWaMessage(`Hola, me interesa disponibilidad para: ${cabins[slideIndex].title}`);
-    }
-  };
-
-  const scrollToSlide = (index: number) => {
-    const container = document.getElementById('hero-scroll-container');
-    if (container) {
-      container.scrollTo({
-        left: index * container.clientWidth,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   const handleWhatsAppClick = (customMessage?: string) => {
     const message = encodeURIComponent(customMessage || waMessage);
@@ -250,15 +228,15 @@ export default function Home() {
 
           <div className="relative z-30 h-full flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto w-full">
             <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
-              Eco-Turismo de Montaña
+              {t.hero.tag}
             </span>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
-              Cabañas del Volcán
+              {t.hero.title}
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
-              Vive la experiencia única de hospedarte frente al coloso más activo de México. Naturaleza, confort y vistas inigualables.
+              {t.hero.subtitle}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap items-center gap-6">
               <Button 
                 size="lg" 
                 className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
@@ -267,8 +245,12 @@ export default function Home() {
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Explorar Cabañas
+                {t.hero.cta}
               </Button>
+              <div className="flex items-center gap-2 text-white/70 animate-bounce-slow">
+                <ChevronDown className="w-5 h-5" />
+                <span className="text-xs uppercase tracking-widest font-bold">{t.hero.scrollHint}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -277,10 +259,10 @@ export default function Home() {
       {/* Sección Detallada de Cabañas */}
       <section id="nuestras-cabanas" className="w-full bg-background relative z-10">
         <div className="py-20 px-6 md:px-16 max-w-7xl mx-auto text-center">
-          <span className="uppercase tracking-widest text-accent font-bold text-sm">Hospedaje</span>
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-4 mb-6">Nuestras Cabañas</h2>
+          <span className="uppercase tracking-widest text-accent font-bold text-sm">{t.nav.hospedaje}</span>
+          <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-4 mb-6">{t.cabins.title}</h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Descubre nuestros espacios diseñados para integrarse armónicamente con el entorno natural, ofreciendo confort y vistas inigualables.
+            {t.cabins.subtitle}
           </p>
         </div>
 
@@ -298,26 +280,26 @@ export default function Home() {
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
         
         <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
-          <span className="uppercase tracking-widest text-accent font-bold text-sm">Reserva Exclusiva</span>
-          <h2 className="text-3xl md:text-5xl font-serif font-bold">Todo el Sitio para tu Evento</h2>
+          <span className="uppercase tracking-widest text-accent font-bold text-sm">{t.exclusive.tag}</span>
+          <h2 className="text-3xl md:text-5xl font-serif font-bold">{t.exclusive.title}</h2>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            Disfruta de privacidad total. Ideal para retiros, retiros corporativos o reuniones familiares grandes.
+            {t.exclusive.subtitle}
           </p>
           <div className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
             <div className="text-left">
-              <p className="text-3xl font-bold text-accent mb-1">$7,500 <span className="text-sm font-normal text-white/80 uppercase tracking-widest">MXN</span></p>
-              <p className="font-medium text-white">2 Días / 1 Noche</p>
+              <p className="text-3xl font-bold text-accent mb-1">{t.exclusive.price} <span className="text-sm font-normal text-white/80 uppercase tracking-widest">{t.exclusive.currency}</span></p>
+              <p className="font-medium text-white">{t.exclusive.duration}</p>
             </div>
             <div className="w-px h-12 bg-white/20 hidden md:block"></div>
             <div className="text-left">
-              <p className="font-semibold text-white text-lg flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-accent"/> Hasta 25 Personas</p>
-              <p className="text-white/70 text-sm mt-1">Acceso a todas las instalaciones</p>
+              <p className="font-semibold text-white text-lg flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-accent"/> {t.exclusive.capacity}</p>
+              <p className="text-white/70 text-sm mt-1">{t.exclusive.facilities}</p>
             </div>
             <Button 
               className="bg-accent text-accent-foreground hover:bg-accent/90 w-full md:w-auto border-0"
               onClick={() => handleWhatsAppClick("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
             >
-              Consultar Fechas
+              {t.exclusive.cta}
             </Button>
           </div>
         </div>
@@ -330,10 +312,10 @@ export default function Home() {
             <div className="space-y-4 max-w-2xl">
               <span className="text-accent font-bold tracking-widest uppercase text-xs flex items-center gap-2">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-                Tour X Volcán®
+                {t.tours.tag}
               </span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Aventura y Ecoturismo</h2>
-              <p className="text-muted-foreground text-lg">Experimenta el volcán desde su corazón. Actividades diseñadas para conectar con la naturaleza a través de la adrenalina y la contemplación.</p>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{t.tours.title}</h2>
+              <p className="text-muted-foreground text-lg">{t.tours.subtitle}</p>
             </div>
           </div>
 
@@ -354,7 +336,7 @@ export default function Home() {
                     {tour.description}
                   </p>
                   <span className="text-accent text-xs font-bold uppercase tracking-wider flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Saber más <ArrowRight className="w-3 h-3" />
+                    {t.tours.learnMore} <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
               </div>
@@ -371,12 +353,12 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent mix-blend-multiply"></div>
           </div>
           <div className="space-y-6 order-1 md:order-2">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Safari Fotográfico</h2>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{t.safari.title}</h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Únete a nuestras expediciones especializadas para fotógrafos aficionados y profesionales. Captura la majestuosidad de las erupciones controladas, los paisajes nevados y la fauna endémica en sus mejores momentos de luz.
+              {t.safari.description}
             </p>
             <ul className="space-y-3 pt-4">
-              {['Guías expertos en locaciones de luz', 'Acceso a miradores exclusivos', 'Transporte seguro al amanecer/atardecer'].map((item, i) => (
+              {t.safari.items.map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-foreground font-medium">
                   <CheckCircle2 className="w-5 h-5 text-accent" />
                   {item}
@@ -387,7 +369,7 @@ export default function Home() {
               className="mt-6 bg-primary text-white hover:bg-primary/90"
               onClick={() => handleWhatsAppClick("Hola, quiero información sobre el Safari Fotográfico.")}
             >
-              Agendar Safari
+              {t.safari.cta}
             </Button>
           </div>
         </div>
@@ -397,34 +379,26 @@ export default function Home() {
       <section id="logistica" className="py-24 px-4 md:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Información Importante</h2>
-            <p className="text-muted-foreground">Todo lo que necesitas saber antes de tu visita.</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">{t.info.title}</h2>
+            <p className="text-muted-foreground">{t.info.subtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Pet Friendly",
-                desc: "Tus mejores amigos son bienvenidos. Aplica una tarifa de limpieza de $100 MXN por mascota.",
-                icon: <PawPrint className="w-10 h-10" />
-              },
-              {
-                title: "Seguridad Total",
-                desc: "Ubicación segura y cercada. Tranquilidad garantizada durante toda tu estadía en el bosque.",
-                icon: <ShieldCheck className="w-10 h-10" />
-              },
-              {
-                title: "Horarios",
-                desc: "Check-in a partir de las 3:00 PM. El check-out de visitas (no hospedados) es a las 10:00 PM.",
-                icon: <Clock className="w-10 h-10" />
-              }
-            ].map((info, i) => (
-              <div key={i} className="p-8 rounded-2xl bg-muted text-white text-center">
-                <div className="mb-4 flex justify-center opacity-80">{info.icon}</div>
-                <h3 className="text-xl font-bold mb-2 font-serif">{info.title}</h3>
-                <p className="opacity-70 text-sm">{info.desc}</p>
-              </div>
-            ))}
+            <div className="p-8 rounded-2xl bg-muted text-white text-center">
+              <div className="mb-4 flex justify-center opacity-80"><PawPrint className="w-10 h-10" /></div>
+              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.pets.title}</h3>
+              <p className="opacity-70 text-sm">{t.info.pets.desc}</p>
+            </div>
+            <div className="p-8 rounded-2xl bg-muted text-white text-center">
+              <div className="mb-4 flex justify-center opacity-80"><ShieldCheck className="w-10 h-10" /></div>
+              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.security.title}</h3>
+              <p className="opacity-70 text-sm">{t.info.security.desc}</p>
+            </div>
+            <div className="p-8 rounded-2xl bg-muted text-white text-center">
+              <div className="mb-4 flex justify-center opacity-80"><Clock className="w-10 h-10" /></div>
+              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.hours.title}</h3>
+              <p className="opacity-70 text-sm">{t.info.hours.desc}</p>
+            </div>
           </div>
         </div>
       </section>
