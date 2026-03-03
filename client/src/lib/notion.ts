@@ -1,3 +1,8 @@
+export interface TieredPrice {
+  persons: number;
+  price: number;
+}
+
 export interface Cabin {
   id: string;
   title: string;
@@ -10,6 +15,7 @@ export interface Cabin {
   bedsDetail: string;
   slug: string;
   price?: number;
+  tieredPricing: TieredPrice[];
 }
 
 export interface Tour {
@@ -78,7 +84,8 @@ function getFallbackCabins(): Cabin[] {
       bedsDetail: "1 King size, 3 matrimoniales",
       imageUrl: "/src/assets/images/cabana_1.jpg",
       images: ["/src/assets/images/cabana_1.jpg", "/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_3.jpg"],
-      slug: "casa-de-campo"
+      slug: "casa-de-campo",
+      tieredPricing: [{persons:2,price:800},{persons:4,price:900},{persons:6,price:1000},{persons:8,price:1100}]
     },
     {
       id: "2",
@@ -90,7 +97,8 @@ function getFallbackCabins(): Cabin[] {
       bedsDetail: "2 matrimoniales, 3 individuales",
       imageUrl: "/src/assets/images/cabana_2.jpg",
       images: ["/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_1.jpg", "/src/assets/images/krakatoa.jpg"],
-      slug: "cabana-santa-helena"
+      slug: "cabana-santa-helena",
+      tieredPricing: [{persons:2,price:700},{persons:4,price:800},{persons:7,price:900}]
     },
     {
       id: "3",
@@ -102,7 +110,8 @@ function getFallbackCabins(): Cabin[] {
       bedsDetail: "1 King size, 1 sofá cama",
       imageUrl: "/src/assets/images/cabana_3.jpg",
       images: ["/src/assets/images/cabana_3.jpg", "/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_1.jpg"],
-      slug: "monte-etna"
+      slug: "monte-etna",
+      tieredPricing: [{persons:2,price:600},{persons:4,price:700}]
     },
     {
       id: "4",
@@ -114,7 +123,8 @@ function getFallbackCabins(): Cabin[] {
       bedsDetail: "1 King size",
       imageUrl: "/src/assets/images/krakatoa.jpg",
       images: ["/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_3.jpg", "/src/assets/images/cabana_2.jpg"],
-      slug: "refugio-krakatoa"
+      slug: "refugio-krakatoa",
+      tieredPricing: [{persons:2,price:500}]
     }
   ];
 }

@@ -43,6 +43,11 @@ export async function getUncachableNotionClient() {
   return new Client({ auth: accessToken });
 }
 
+export interface TieredPrice {
+  persons: number;
+  price: number;
+}
+
 export interface NotionCabin {
   id: string;
   title: string;
@@ -55,6 +60,7 @@ export interface NotionCabin {
   bedsDetail: string;
   slug: string;
   price?: number;
+  tieredPricing: TieredPrice[];
 }
 
 function getPropertyValue(page: any, name: string): any {
@@ -126,8 +132,26 @@ export async function fetchCabinsFromNotion(databaseId: string): Promise<NotionC
       bedsDetail: getPropertyValue(page, 'Camas') || '',
       slug: slugify(title),
       price: Number(getPropertyValue(page, 'Precio_Base') || 0) || undefined,
+      tieredPricing: parseTieredPricing(getPropertyValue(page, 'Precios_Escalonados')),
     };
   });
+}
+
+function parseTieredPricing(raw: any): TieredPrice[] {
+  if (!raw) return [];
+  try {
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    if (Array.isArray(parsed)) {
+      return parsed
+        .map((item: any) => ({
+          persons: Number(item.persons || item.personas || 0),
+          price: Number(item.price || item.precio || 0),
+        }))
+        .filter((p: TieredPrice) => p.persons > 0 && p.price > 0)
+        .sort((a: TieredPrice, b: TieredPrice) => a.persons - b.persons);
+    }
+  } catch (e) {}
+  return [];
 }
 
 export async function listDatabases() {
