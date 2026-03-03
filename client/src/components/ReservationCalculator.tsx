@@ -93,7 +93,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
         <Button
           data-testid={`btn-reserve-${cabin.id}`}
           size="lg"
-          className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-sm py-5 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0"
+          className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-black text-sm py-5 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0"
           onClick={() => onWhatsApp(`Hola, me gustaría información sobre la ${cabin.title}.`)}
         >
           <MessageCircle className="w-4 h-4 mr-2" />
@@ -169,7 +169,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
       <Button
         data-testid={`btn-reserve-${cabin.id}`}
         size="lg"
-        className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-sm py-5 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0"
+        className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-black text-sm py-5 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0"
         onClick={handleReserve}
       >
         <MessageCircle className="w-4 h-4 mr-2" />
