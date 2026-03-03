@@ -34,7 +34,7 @@
   --background: 0 0% 14%;
   --foreground: 0 0% 100%;
   
-  --primary: 142 50% 30%;
+  --primary: 145 63% 42%;
   --primary-foreground: 0 0% 100%;
   
   --secondary: 142 15% 35%;
@@ -58,7 +58,7 @@
   
   --border: 0 0% 25%;
   --input: 0 0% 25%;
-  --ring: 142 50% 30%;
+  --ring: 145 63% 42%;
   
   --radius: 0.75rem;
   
@@ -70,7 +70,7 @@
   --background: 0 0% 10%;
   --foreground: 0 0% 100%;
   
-  --primary: 142 50% 30%;
+  --primary: 145 63% 42%;
   --primary-foreground: 0 0% 100%;
   
   --secondary: 142 15% 35%;
@@ -90,7 +90,7 @@
   
   --border: 0 0% 22%;
   --input: 0 0% 22%;
-  --ring: 142 50% 30%;
+  --ring: 145 63% 42%;
 }
 
 @layer base {
