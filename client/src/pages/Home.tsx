@@ -11,9 +11,18 @@ const DESC_TRUNCATE_LENGTH = 200;
 
 function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: number; onWhatsApp: (msg: string) => void }) {
   const [expanded, setExpanded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { t } = useLanguage();
   const descText = cabin.detailedDescription || cabin.description;
   const needsTruncation = descText.length > DESC_TRUNCATE_LENGTH;
+
+  useEffect(() => {
+    if (!cabin.images || cabin.images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % cabin.images.length);
+    }, 5000); // Cambia cada 5 segundos
+    return () => clearInterval(interval);
+  }, [cabin.images]);
 
   return (
     <article
@@ -23,9 +32,14 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
     >
       <div className="max-w-[1440px] mx-auto w-full">
         <div className="w-full max-w-5xl mx-auto h-[40vh] md:h-[55vh] overflow-hidden relative rounded-[32px] shadow-2xl">
-          <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="relative w-full h-full">
             {cabin.images?.map((img, i) => (
-              <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
+              <div 
+                key={i} 
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  i === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              >
                 <img
                   src={img}
                   alt={`${cabin.title} - imagen ${i + 1}`}
@@ -37,10 +51,15 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
           </div>
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
             {cabin.images?.map((_, i) => (
-              <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
+              <div 
+                key={i} 
+                className={`w-2 h-2 rounded-full shadow-sm transition-all duration-300 ${
+                  i === currentImageIndex ? 'bg-white scale-125' : 'bg-white/40'
+                }`} 
+              />
             ))}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-15 pointer-events-none" />
         </div>
 
         <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-14">
