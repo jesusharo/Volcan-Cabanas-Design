@@ -23,8 +23,8 @@ export function Header() {
       <div className={`bg-foreground text-background text-xs py-2 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95`}>
         <div className="flex gap-6 items-center">
           <span className="opacity-50 text-[10px] uppercase tracking-[0.2em] font-bold">Ecosistema</span>
-          <a href="#" className="text-accent font-semibold tracking-wide flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+          <a href="#" className="text-[#27AE60] font-semibold tracking-wide flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#27AE60] animate-pulse"></span>
             Cabañas del Volcán® / Tour X Volcán®
           </a>
           <span className="opacity-20">|</span>
