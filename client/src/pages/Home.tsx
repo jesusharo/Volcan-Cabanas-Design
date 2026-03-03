@@ -205,7 +205,7 @@ function ExclusiveSection({ t, onWhatsApp }: { t: any; onWhatsApp: (msg: string)
 }
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [cabins, setCabins] = useState<Cabin[]>([]);
   const [tours, setTours] = useState<Tour[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -397,6 +397,93 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Estadía y Comodidades */}
+      <section className="py-24 px-6 md:px-16 bg-muted/30 border-y border-border/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">
+              {language === 'es' ? 'Estadía y Comodidades' : 'Stay & Amenities'}
+            </h2>
+            <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Bloque 1: Cocina */}
+            <div className="bg-background p-8 rounded-[32px] shadow-sm border border-border/50 hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+                <Users className="w-6 h-6" /> 
+              </div>
+              <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
+                {language === 'es' ? 'Equipamiento de Cocina y Hogar' : 'Kitchen & Home Equipment'}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {language === 'es' 
+                  ? 'Totalmente Equipada: Refrigerador, cocineta, parrilla y plancha eléctrica. Incluye licuadora, cafetera, ollas, sartenes y cristalería completa para el cupo de la cabaña.'
+                  : 'Fully Equipped: Refrigerator, kitchenette, electric grill, and griddle. Includes blender, coffee maker, pots, pans, and full glassware for the cabin capacity.'}
+              </p>
+            </div>
+
+            {/* Bloque 2: Confort */}
+            <div className="bg-background p-8 rounded-[32px] shadow-sm border border-border/50 hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+                <BedDouble className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
+                {language === 'es' ? 'Comodidades y Textiles' : 'Comfort & Textiles'}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {language === 'es'
+                  ? 'Confort: Agua caliente, sábanas limpias y cobertores adicionales. Proporcionamos 2 toallas y papel higiénico por estancia.'
+                  : 'Comfort: Hot water, clean linens, and extra blankets. We provide 2 towels and toilet paper per stay.'}
+              </p>
+            </div>
+
+            {/* Bloque 3: Mascotas */}
+            <div className="bg-background p-8 rounded-[32px] shadow-sm border border-border/50 hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+                <PawPrint className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
+                {language === 'es' ? 'Mascotas y Visitas (Reglas)' : 'Pets & Visitors (Rules)'}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {language === 'es'
+                  ? 'Pet Friendly: Tus perros son bienvenidos ($100 c/u). Visitas permitidas hasta las 10:00 PM ($100 p/p).'
+                  : 'Pet Friendly: Dogs are welcome ($100 fee per pet). Visitors allowed until 10:00 PM ($100 fee per person).'}
+              </p>
+            </div>
+
+            {/* Bloque 4: Seguridad */}
+            <div className="bg-background p-8 rounded-[32px] shadow-sm border border-border/50 hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
+                {language === 'es' ? 'Seguridad y Entorno' : 'Security & Environment'}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {language === 'es'
+                  ? 'Seguridad Máxima: Ubicadas en sitio de ecoturismo extremo con doble cercado. Un lugar mágico, seguro y tranquilo para el descanso o convivencia.'
+                  : 'Maximum Security: Located in an extreme ecotourism site with double fencing. A magical, safe, and quiet place for rest or gathering.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <Button 
+              size="lg"
+              className="bg-accent text-black hover:bg-accent/90 px-12 py-7 rounded-2xl font-bold uppercase tracking-[0.2em] shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+              onClick={() => {
+                const element = document.getElementById('nuestras-cabanas');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {language === 'es' ? 'Reserva Ahora' : 'Book Now'}
+            </Button>
           </div>
         </div>
       </section>
