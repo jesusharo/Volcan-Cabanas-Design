@@ -5,7 +5,6 @@ import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testi
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
-import heroStarsImg from "@assets/image_1772517939070.png";
 
 const DESC_TRUNCATE_LENGTH = 200;
 
@@ -181,83 +180,87 @@ export default function Home() {
         <MessageCircle className="w-7 h-7" />
       </button>
 
-      {/* Hero Section - Parallax Stars */}
-      <section id="hospedaje" className="relative h-[100vh] w-full overflow-hidden bg-black">
-        <div
-          className="absolute inset-0 w-full h-[130%] -top-[15%]"
-          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-        >
-          <img
-            src={heroStarsImg}
-            alt="Cielo estrellado sobre el Volcán de Fuego"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[45%] z-[5]"
-          style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-[#232323] via-[#232323]/95 to-transparent" />
-        </div>
-
-        <div className="absolute inset-0 bg-gradient-to-t from-[#232323] via-transparent to-transparent z-10 pointer-events-none" />
-
-        <div className="absolute inset-0 z-20 flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-16 w-full">
-          <div className="max-w-7xl mx-auto w-full">
-            <span className="text-accent uppercase tracking-[0.2em] text-xs font-bold mb-4 inline-block">
-              Colima, México
-            </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
-              Cabañas del Volcán
-            </h1>
-            <p className="text-lg md:text-xl text-white/80 max-w-xl mb-8 text-shadow-sm">
-              Eco-hospedaje con vistas al Volcán de Fuego. Desconéctate bajo las estrellas.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                className="bg-accent text-white hover:bg-accent/90 text-base px-8 border-0"
-                onClick={() => {
-                  const el = document.getElementById('nuestras-cabanas');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Ver Cabañas
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white/30 hover:bg-white/10 text-base px-8"
-                onClick={() => handleWhatsAppClick()}
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Contactar
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {cabins.length > 0 && (
-          <div className="absolute bottom-8 left-0 right-0 px-6 md:px-16 z-30">
-            <div className="max-w-7xl mx-auto flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-              {cabins.map((cabin, index) => (
-                <button
-                  key={cabin.id}
-                  onClick={() => {
-                    const el = document.getElementById(`cabin-detail-${cabin.id}`);
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all border border-white/20 text-white/70 hover:text-white hover:border-white/50 bg-white/5 backdrop-blur-sm"
-                >
-                  {cabin.title}
-                </button>
+      {/* Hero Section - Dynamic Slider */}
+      <section id="hospedaje" className="relative h-[90vh] md:h-[95vh] w-full overflow-hidden bg-background">
+        {cabins.length > 0 ? (
+          <div className="w-full h-full relative">
+            <div 
+              id="hero-scroll-container"
+              className="flex h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              onScroll={handleScroll}
+            >
+              {cabins.map((cabin) => (
+                <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0 overflow-hidden">
+                  <div 
+                    className="absolute inset-0 w-full h-full"
+                    style={{
+                      transform: `translateY(${scrollY * 0.5}px)`,
+                    }}
+                  >
+                    <img 
+                      src={cabin.imageUrl} 
+                      alt={cabin.title} 
+                      className="absolute inset-0 w-full h-full object-cover scale-[1.1] animate-in fade-in duration-1000"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-black/15 z-[5] pointer-events-none" />
+                  {/* Overlay Gradient fixed to slide boundaries */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
+                  
+                  <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 w-full">
+                    <div className="max-w-7xl mx-auto w-full">
+                      <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
+                        Hasta {cabin.capacity} personas
+                      </span>
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
+                        {cabin.title}
+                      </h1>
+                      <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
+                        {cabin.description}
+                      </p>
+                      <div className="flex flex-wrap gap-4">
+                        <Button 
+                          size="lg" 
+                          className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
+                          onClick={() => {
+                            const element = document.getElementById(`cabin-detail-${cabin.id}`);
+                            element?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        >
+                          Ver Cabaña
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
+            
+            {/* Slider Controls */}
+            <div className="absolute bottom-12 left-0 right-0 px-6 md:px-16 z-30 flex justify-end gap-2 pointer-events-none">
+              <div className="max-w-7xl mx-auto w-full flex justify-end gap-2 pointer-events-auto">
+                {cabins.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => scrollToSlide(index)}
+                    className="h-1.5 rounded-full"
+                    style={{
+                      width: currentSlide === index ? '2.5rem' : '1rem',
+                      backgroundColor: currentSlide === index ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.4)',
+                      transition: 'width 800ms cubic-bezier(0.22,1,0.36,1), background-color 800ms cubic-bezier(0.22,1,0.36,1)',
+                    }}
+                    aria-label={`Ir a cabaña ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
       </section>
-
 
       {/* Sección Detallada de Cabañas */}
       <section id="nuestras-cabanas" className="w-full bg-background relative z-10">
