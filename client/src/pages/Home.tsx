@@ -420,7 +420,7 @@ export default function Home() {
                 <Users className="w-6 h-6" /> 
               </div>
               <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
-                {language === 'es' ? 'Equipamiento de Cocina y Hogar' : 'Kitchen & Home Equipment'}
+                {language === 'es' ? 'Equipamiento' : 'Equipment'}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {language === 'es' 
@@ -435,7 +435,7 @@ export default function Home() {
                 <BedDouble className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
-                {language === 'es' ? 'Comodidades y Textiles' : 'Comfort & Textiles'}
+                {language === 'es' ? 'Comodidades' : 'Amenities'}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {language === 'es'
@@ -450,7 +450,7 @@ export default function Home() {
                 <PawPrint className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
-                {language === 'es' ? 'Mascotas y Visitas (Reglas)' : 'Pets & Visitors (Rules)'}
+                {language === 'es' ? 'Mascotas (Reglas)' : 'Pets (Rules)'}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {language === 'es'
@@ -465,7 +465,7 @@ export default function Home() {
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold mb-4 font-serif text-foreground">
-                {language === 'es' ? 'Seguridad y Entorno' : 'Security & Environment'}
+                {language === 'es' ? 'Seguridad' : 'Security'}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {language === 'es'
