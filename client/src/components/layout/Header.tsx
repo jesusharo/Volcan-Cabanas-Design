@@ -59,7 +59,24 @@ export function Header() {
               <a 
                 key={item.label}
                 href={item.path}
-                className={`text-[11px] uppercase tracking-widest font-bold hover:text-accent transition-colors ${
+                onClick={(e) => {
+                  e.preventDefault();
+                  const targetId = item.path.replace('#', '');
+                  const element = document.getElementById(targetId);
+                  if (element) {
+                    const offset = 80; // Compensación por el header fixed
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = element.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                className={`text-[11px] uppercase tracking-widest font-bold hover:text-[#27AE60] transition-colors ${
                   isScrolled ? 'text-foreground' : 'text-white text-shadow-sm'
                 }`}
               >
