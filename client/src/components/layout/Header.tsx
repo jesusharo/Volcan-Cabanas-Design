@@ -46,10 +46,8 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
-          <Link href="/">
-            <a className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white text-shadow-md'}`}>
-              Cabañas del Volcán<span className="text-accent text-3xl leading-none">.</span>
-            </a>
+          <Link href="/" className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-primary' : 'text-white text-shadow-md'}`}>
+            Cabañas del Volcán<span className="text-accent text-3xl leading-none">.</span>
           </Link>
 
           {/* Desktop Navigation */}

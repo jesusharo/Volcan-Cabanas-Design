@@ -150,6 +150,15 @@ function parseTieredPricing(raw: any): TieredPrice[] {
         .filter((p: TieredPrice) => p.persons > 0 && p.price > 0)
         .sort((a: TieredPrice, b: TieredPrice) => a.persons - b.persons);
     }
+    if (typeof parsed === 'object' && parsed !== null) {
+      return Object.entries(parsed)
+        .map(([key, value]) => ({
+          persons: Number(key),
+          price: Number(value),
+        }))
+        .filter((p: TieredPrice) => p.persons > 0 && p.price > 0)
+        .sort((a: TieredPrice, b: TieredPrice) => a.persons - b.persons);
+    }
   } catch (e) {}
   return [];
 }

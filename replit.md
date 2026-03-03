@@ -21,13 +21,13 @@ Modern eco-tourism landing page for "Cabañas del Volcán" (cabanasdelvolcan.mx)
 ## Notion Database
 - **ID**: Set via `NOTION_DATABASE_ID` secret
 - **Properties**: `Nombre`, `Galería` (accent!), `Description`, `Capacidad`, `Habitaciones`, `Banos`, `Camas`, `Foto_Hero`, `Precio_Base`, `Precios_Escalonados` (JSON), `Detalles_Completos`
-- `Precios_Escalonados` format: `[{"persons": 2, "price": 600}, {"persons": 4, "price": 700}]`
+- `Precios_Escalonados` format: `{"1": 700, "2": 1000, "3": 1300}` (object with person count as key, price as value) — also supports array format
 - "Renta Todo el Sitio" filtered from cabin list; fetched separately for exclusivity section
 
 ## Features
 - Parallax hero slider with smooth scroll indicators
 - Vertical cabin sections with horizontal image galleries
-- Reservation Calculator: person counter (respects Capacidad), animated price from tiered/base pricing, WhatsApp CTA with dynamic message
+- Reservation Calculator: person counter (respects Capacidad), animated price from tiered/base pricing, pet checkbox (+$100), WhatsApp CTA with dynamic message including pet info
 - Tours/Experiences section
 - Photo Safari section
 - Pet-friendly info section
