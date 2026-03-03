@@ -48,6 +48,7 @@ export const getCabins = async (): Promise<Cabin[]> => {
     
     return data
       .filter((cabin) => cabin.slug !== "renta-todo-el-sitio")
+      .reverse()
       .map((cabin, index) => ({
         ...cabin,
         imageUrl: cabin.imageUrl || PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length],
