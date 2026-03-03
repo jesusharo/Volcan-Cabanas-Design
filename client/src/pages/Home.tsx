@@ -212,6 +212,7 @@ export default function Home() {
   
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [safariImage, setSafariImage] = useState("/assets/safari-hero.jpg");
 
   // Calculate scroll progress for the night effect (0 to 1) over first 800px
   const scrollProgress = Math.min(scrollY / 800, 1);
@@ -245,6 +246,11 @@ export default function Home() {
     });
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
+    getExclusiveRental().then((data) => {
+      if (data && data.images && data.images.length >= 2) {
+        setSafariImage(data.images[1]);
+      }
+    });
   }, []);
 
   const handleWhatsAppClick = (customMessage?: string) => {
@@ -495,7 +501,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="order-2 md:order-1 relative h-[500px] rounded-3xl overflow-hidden shadow-2xl bg-muted">
             <img 
-              src="/assets/safari-hero.jpg" 
+              src={safariImage} 
               alt="Safari Fotográfico" 
               className="w-full h-full object-cover"
             />
