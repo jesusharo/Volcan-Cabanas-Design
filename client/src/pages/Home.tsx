@@ -208,7 +208,7 @@ export default function Home() {
             className="absolute inset-0 z-0 pointer-events-none"
             style={{ 
               opacity: scrollProgress,
-              transform: `translate(${mousePos.x}px, ${mousePos.y - (scrollProgress * 50)}px)`,
+              transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
               backgroundImage: 'url(/assets/volcan-night.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
@@ -224,27 +224,27 @@ export default function Home() {
           />
 
           {/* Night Volcano Image Overlay */}
-          <img 
-            src="/assets/volcan-night.jpg" 
-            alt="Volcán de Noche" 
-            className="absolute inset-0 w-full h-full object-cover z-15 transition-opacity duration-300 ease-in-out"
-            style={{
-              opacity: scrollProgress,
-              objectPosition: 'center',
-            }}
-          />
+          <div className="absolute inset-0 z-15 pointer-events-none" style={{ opacity: scrollProgress }}>
+            <img 
+              src="/assets/volcan-night.jpg" 
+              alt="Volcán de Noche" 
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center' }}
+            />
+          </div>
 
           {/* Volcano Image (Sticky Day) */}
-          <img 
-            src="/assets/volcan-day.jpg" 
-            alt="Volcán de Fuego" 
-            className="absolute inset-0 w-full h-full object-cover z-10"
-            style={{
-              filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
-              opacity: 1 - scrollProgress,
-              objectPosition: 'center',
-            }}
-          />
+          <div className="absolute inset-0 z-10 pointer-events-none" style={{ opacity: 1 - scrollProgress }}>
+            <img 
+              src="/assets/volcan-day.jpg" 
+              alt="Volcán de Fuego" 
+              className="w-full h-full object-cover"
+              style={{
+                filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
+                objectPosition: 'center',
+              }}
+            />
+          </div>
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
 
