@@ -117,19 +117,16 @@ export default function Home() {
   const [tours, setTours] = useState<Tour[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [scrollY, setScrollY] = useState(0);
-  const [isNight, setIsNight] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  // Calculate scroll progress for the night effect (0 to 1) over first 800px
+  const scrollProgress = Math.min(scrollY / 800, 1);
+
   useEffect(() => {
-    const checkTime = () => {
-      const hour = new Date().getHours();
-      setIsNight(hour < 6 || hour >= 18);
-    };
-    checkTime();
-    const interval = setInterval(checkTime, 60000);
-    return () => clearInterval(interval);
+    const handleWindowScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleWindowScroll);
   }, []);
 
   useEffect(() => {
@@ -203,68 +200,64 @@ export default function Home() {
         <MessageCircle className="w-7 h-7" />
       </button>
 
-      {/* Hero Section - Dynamic Background */}
-      <section id="hospedaje" className="relative h-[90vh] md:h-[95vh] w-full overflow-hidden bg-background">
-        <div className="absolute inset-0 z-0">
-          {/* Base Image (Day) */}
+      {/* Hero Section - Scroll-based Dynamic Background */}
+      <section id="hospedaje" className="relative h-[150vh] w-full bg-background">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {/* Stars Background (Farthest layer) */}
+          <div 
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{ 
+              opacity: scrollProgress,
+              transform: `translate(${mousePos.x}px, ${mousePos.y - (scrollProgress * 50)}px)`,
+              backgroundImage: 'url(/assets/volcan-night.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              maskImage: 'url(/assets/volcan-day.jpg)',
+              maskSize: 'cover',
+              maskPosition: 'center',
+              WebkitMaskImage: 'url(/assets/volcan-day.jpg)',
+              WebkitMaskSize: 'cover',
+              WebkitMaskPosition: 'center',
+              maskComposite: 'exclude',
+              WebkitMaskComposite: 'destination-out'
+            }}
+          />
+
+          {/* Volcano Image (Sticky) */}
           <img 
             src="/assets/volcan-day.jpg" 
             alt="Volcán de Fuego" 
-            className="absolute inset-0 w-full h-full object-cover transition-all duration-[3000ms] ease-in-out"
+            className="absolute inset-0 w-full h-full object-cover z-10"
             style={{
-              filter: isNight ? 'brightness(0.3) contrast(1.2) hue-rotate(200deg) saturate(0.8)' : 'none',
-              transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
+              filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
+              transform: 'scale(1.05)',
             }}
           />
-          
-          {/* Night Overlay Image */}
-          <img 
-            src="/assets/volcan-night.jpg" 
-            alt="Volcán de Noche" 
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out"
-            style={{
-              opacity: isNight ? 1 : 0,
-              transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
-            }}
-          />
-
-          {/* Stars Layer with Parallax */}
-          <div 
-            className="absolute inset-0 z-10 transition-opacity duration-[3000ms] ease-in-out pointer-events-none"
-            style={{ 
-              opacity: isNight ? 1 : 0,
-              transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
-            }}
-          >
-            {/* Custom Star Particles */}
-            <div className="absolute inset-0 bg-[radial-gradient(white_1px,transparent_1px)] bg-[length:50px_50px] opacity-30"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(white_1px,transparent_1px)] bg-[length:80px_80px] opacity-20 transform translate-x-10 translate-y-20"></div>
-          </div>
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
-        </div>
 
-        <div className="relative z-30 h-full flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto w-full">
-          <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
-            Eco-Turismo de Montaña
-          </span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
-            Cabañas del Volcán
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
-            Vive la experiencia única de hospedarte frente al coloso más activo de México. Naturaleza, confort y vistas inigualables.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button 
-              size="lg" 
-              className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
-              onClick={() => {
-                const element = document.getElementById('nuestras-cabanas');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Explorar Cabañas
-            </Button>
+          <div className="relative z-30 h-full flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto w-full">
+            <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
+              Eco-Turismo de Montaña
+            </span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
+              Cabañas del Volcán
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
+              Vive la experiencia única de hospedarte frente al coloso más activo de México. Naturaleza, confort y vistas inigualables.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button 
+                size="lg" 
+                className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
+                onClick={() => {
+                  const element = document.getElementById('nuestras-cabanas');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Explorar Cabañas
+              </Button>
+            </div>
           </div>
         </div>
       </section>
