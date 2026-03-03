@@ -19,7 +19,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
     <article
       id={`cabin-detail-${cabin.id}`}
       data-testid={`cabin-section-${cabin.id}`}
-      className={`w-full ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
+      className={`w-full pt-12 ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
     >
       <div className="max-w-[1440px] mx-auto w-full">
         <div className="w-full h-[40vh] md:h-[55vh] overflow-hidden relative">
@@ -239,7 +239,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-6">
               <Button 
                 size="lg" 
-                className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
+                className="bg-accent text-black hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
                 onClick={() => {
                   const element = document.getElementById('nuestras-cabanas');
                   element?.scrollIntoView({ behavior: 'smooth' });
