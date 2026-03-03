@@ -302,7 +302,7 @@ export default function Home() {
               <p className="text-white/70 text-sm mt-1">Acceso a todas las instalaciones</p>
             </div>
             <Button 
-              className="bg-accent text-accent-foreground hover:bg-accent/90 w-full md:w-auto"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 w-full md:w-auto border-0"
               onClick={() => handleWhatsAppClick("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
             >
               Consultar Fechas
