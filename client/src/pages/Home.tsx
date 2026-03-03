@@ -403,7 +403,7 @@ export default function Home() {
               ))}
             </ul>
             <Button 
-              className="mt-6 bg-primary text-white hover:bg-primary/90 uppercase tracking-widest font-bold px-8 py-6 rounded-xl"
+              className="mt-6 bg-primary text-black hover:bg-primary/90 uppercase tracking-widest font-bold px-8 py-6 rounded-xl"
               onClick={() => handleWhatsAppClick("Hola, quiero información sobre el Safari Fotográfico.")}
             >
               {t.safari.cta}
