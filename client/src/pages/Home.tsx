@@ -310,7 +310,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-6">
               <Button 
                 size="lg" 
-                className="bg-accent text-black hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
+                className="bg-accent text-black hover:bg-accent/90 text-sm py-6 px-8 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0 font-bold"
                 onClick={() => {
                   const element = document.getElementById('nuestras-cabanas');
                   element?.scrollIntoView({ behavior: 'smooth' });
