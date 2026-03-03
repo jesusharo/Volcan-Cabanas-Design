@@ -78,15 +78,6 @@ export function Header() {
               <ChevronDown className="w-3 h-3" />
             </div>
             
-            <Button 
-              className={`${
-                isScrolled 
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                  : "bg-accent text-accent-foreground hover:bg-accent/90"
-              } font-semibold px-6 shadow-lg`}
-            >
-              Ver Disponibilidad
-            </Button>
             
             <button className={`md:hidden p-2 ${isScrolled ? 'text-foreground' : 'text-white'}`}>
               <Menu className="w-6 h-6" />
