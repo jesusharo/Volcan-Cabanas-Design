@@ -85,7 +85,10 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                 ))}
               </div>
               {!expanded && needsTruncation && (
-                <div className={`absolute bottom-0 left-0 right-0 h-14 pointer-events-none ${index % 2 !== 0 ? 'bg-gradient-to-t from-muted to-transparent' : 'bg-gradient-to-t from-background to-transparent'}`} />
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-14 pointer-events-none"
+                  style={{ background: `linear-gradient(to top, ${index % 2 !== 0 ? '#2b2b2b' : '#242424'}, transparent)` }}
+                />
               )}
               {needsTruncation && (
                 <button
