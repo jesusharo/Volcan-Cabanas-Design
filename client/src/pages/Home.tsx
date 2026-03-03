@@ -394,7 +394,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500 z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
                 <img 
-                  src={exclusiveImages[idx % exclusiveImages.length] || tour.imageUrl} 
+                  src={exclusiveImages && exclusiveImages.length > 0 ? exclusiveImages[idx % exclusiveImages.length] : tour.imageUrl} 
                   alt={tour.title} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
