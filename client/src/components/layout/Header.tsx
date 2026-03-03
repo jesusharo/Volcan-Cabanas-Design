@@ -59,7 +59,7 @@ export function Header() {
               <a 
                 key={item.label}
                 href={item.path}
-                className={`text-sm font-medium hover:text-accent transition-colors ${
+                className={`text-[11px] uppercase tracking-widest font-bold hover:text-accent transition-colors ${
                   isScrolled ? 'text-foreground' : 'text-white text-shadow-sm'
                 }`}
               >
