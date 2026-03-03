@@ -213,6 +213,7 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [safariImage, setSafariImage] = useState("/assets/safari-hero.jpg");
+  const [exclusiveImages, setExclusiveImages] = useState<string[]>([]);
 
   // Calculate scroll progress for the night effect (0 to 1) over first 800px
   const scrollProgress = Math.min(scrollY / 800, 1);
@@ -247,8 +248,11 @@ export default function Home() {
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
     getExclusiveRental().then((data) => {
-      if (data && data.images && data.images.length >= 2) {
-        setSafariImage(data.images[1]);
+      if (data && data.images && data.images.length > 0) {
+        setExclusiveImages(data.images);
+        if (data.images.length >= 2) {
+          setSafariImage(data.images[1]);
+        }
       }
     });
   }, []);
@@ -384,13 +388,13 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {tours.map((tour) => (
+            {tours.map((tour, idx) => (
               <div key={tour.id} className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500"
                    onClick={() => handleWhatsAppClick(`Hola, me gustaría reservar la experiencia: ${tour.title}`)}>
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500 z-10" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
                 <img 
-                  src={tour.imageUrl} 
+                  src={exclusiveImages[idx % exclusiveImages.length] || tour.imageUrl} 
                   alt={tour.title} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
