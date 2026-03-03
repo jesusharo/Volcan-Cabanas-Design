@@ -46,9 +46,14 @@ export const getCabins = async (): Promise<Cabin[]> => {
     if (!response.ok) throw new Error("API error");
     const data: Cabin[] = await response.json();
     
+    const order = ["casa-de-campo-volcan", "cabana-santa-helena", "monte-etna", "refugio-krakatoa"];
     return data
       .filter((cabin) => cabin.slug !== "renta-todo-el-sitio")
-      .reverse()
+      .sort((a, b) => {
+        const ia = order.indexOf(a.slug);
+        const ib = order.indexOf(b.slug);
+        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      })
       .map((cabin, index) => ({
         ...cabin,
         imageUrl: cabin.imageUrl || PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length],
