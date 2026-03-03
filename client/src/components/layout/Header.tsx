@@ -79,7 +79,7 @@ export function Header() {
                 onClick={() => setLanguage('es')}
                 className={`text-xs font-bold px-2 py-1 rounded transition-colors ${
                   language === 'es' 
-                    ? 'bg-accent text-white' 
+                    ? 'bg-white text-black' 
                     : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
                 }`}
               >
@@ -89,7 +89,7 @@ export function Header() {
                 onClick={() => setLanguage('en')}
                 className={`text-xs font-bold px-2 py-1 rounded transition-colors ${
                   language === 'en' 
-                    ? 'bg-accent text-white' 
+                    ? 'bg-white text-black' 
                     : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
                 }`}
               >
