@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
+import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
 
 const DESC_TRUNCATE_LENGTH = 200;
@@ -356,9 +356,6 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/80 to-transparent mix-blend-multiply"></div>
           </div>
           <div className="space-y-6 order-1 md:order-2">
-            <div className="inline-flex items-center justify-center p-3 bg-white rounded-full shadow-sm text-primary mb-2">
-              <Camera className="w-6 h-6" />
-            </div>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">Safari Fotográfico</h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               Únete a nuestras expediciones especializadas para fotógrafos aficionados y profesionales. Captura la majestuosidad de las erupciones controladas, los paisajes nevados y la fauna endémica en sus mejores momentos de luz.
