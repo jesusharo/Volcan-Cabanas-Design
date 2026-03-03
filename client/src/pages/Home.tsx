@@ -231,6 +231,7 @@ export default function Home() {
             style={{
               opacity: scrollProgress,
               transform: 'scale(1.05)',
+              objectPosition: 'center',
             }}
           />
 
@@ -242,7 +243,8 @@ export default function Home() {
             style={{
               filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
               transform: 'scale(1.05)',
-              opacity: 1 - scrollProgress
+              opacity: 1 - scrollProgress,
+              objectPosition: 'center',
             }}
           />
 
