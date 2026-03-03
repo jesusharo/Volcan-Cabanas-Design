@@ -174,7 +174,7 @@ function ExclusiveSection({ t, onWhatsApp }: { t: any; onWhatsApp: (msg: string)
             <p className="text-white/70 text-sm mt-1">{t.exclusive.facilities}</p>
           </div>
           <Button 
-            className="bg-accent text-black font-bold hover:bg-accent/90 w-full md:w-auto border-0 px-8 py-6 rounded-xl"
+            className="bg-accent text-black font-bold hover:bg-accent/90 w-full md:w-auto border-0 px-8 py-6 rounded-xl uppercase tracking-widest"
             onClick={() => onWhatsApp("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
           >
             {t.exclusive.cta}
@@ -310,7 +310,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-6">
               <Button 
                 size="lg" 
-                className="bg-accent text-black hover:bg-accent/90 text-sm py-6 px-8 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0 font-bold"
+                className="bg-accent text-black hover:bg-accent/90 text-sm py-6 px-8 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0 font-bold uppercase tracking-widest"
                 onClick={() => {
                   const element = document.getElementById('nuestras-cabanas');
                   element?.scrollIntoView({ behavior: 'smooth' });
@@ -403,7 +403,7 @@ export default function Home() {
               ))}
             </ul>
             <Button 
-              className="mt-6 bg-primary text-white hover:bg-primary/90"
+              className="mt-6 bg-primary text-white hover:bg-primary/90 uppercase tracking-widest font-bold px-8 py-6 rounded-xl"
               onClick={() => handleWhatsAppClick("Hola, quiero información sobre el Safari Fotográfico.")}
             >
               {t.safari.cta}
