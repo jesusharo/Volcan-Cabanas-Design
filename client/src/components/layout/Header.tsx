@@ -32,8 +32,8 @@ export function Header() {
           <span className="opacity-20">|</span>
           <a href="#" className="opacity-60 hover:opacity-100 hover:text-white transition-all font-medium">Frescos y Orgánicos®</a>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider opacity-80 hover:opacity-100 transition-opacity">
-          <Phone className="w-3 h-3 text-accent" />
+        <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider opacity-80 hover:opacity-100 transition-opacity font-bold">
+          <Phone className="w-3 h-3 text-[#27AE60]" />
           <a href="tel:3121500516">312 150 0516</a>
         </div>
       </div>
