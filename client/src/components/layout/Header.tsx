@@ -82,7 +82,7 @@ export function Header() {
               className={`${
                 isScrolled 
                   ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                  : "bg-white text-primary hover:bg-white/90"
+                  : "bg-accent text-accent-foreground hover:bg-accent/90"
               } font-semibold px-6 shadow-lg`}
             >
               Ver Disponibilidad
