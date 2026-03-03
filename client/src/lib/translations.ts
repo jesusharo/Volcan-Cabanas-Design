@@ -77,6 +77,20 @@ export const translations = {
       night: "por noche",
       cta: "Reservar por WhatsApp",
       consult: "Consultar por WhatsApp",
+    },
+    inventionem: {
+      title: "Inventionem: El Arte del Sabor",
+      description: "Una experiencia gastronómica diseñada para los paladares más exigentes. Fusionamos técnicas ancestrales con ingredientes locales para crear platos que cuentan la historia de nuestra tierra.",
+      cta: "Ver Menú",
+    },
+    frescos: {
+      title: "Del Campo a tu Mesa",
+      description: "Creemos en la pureza. Todos nuestros ingredientes son cultivados de manera orgánica en el Ejido San Antonio, garantizando frescura total y respeto por el medio ambiente.",
+      items: [
+        { title: "Cosecha Local", desc: "Ingredientes frescos recolectados diariamente de nuestras tierras." },
+        { title: "Sin Pesticidas", desc: "Cultivos 100% orgánicos, libres de químicos y respetuosos con la salud." },
+        { title: "Apoyo al Productor", desc: "Fomentamos el comercio justo y el crecimiento de nuestra comunidad local." }
+      ]
     }
   },
   en: {
@@ -155,6 +169,20 @@ export const translations = {
       night: "per night",
       cta: "Book via WhatsApp",
       consult: "Inquire via WhatsApp",
+    },
+    inventionem: {
+      title: "Inventionem: The Art of Flavor",
+      description: "A gastronomic experience designed for the most demanding palates. We fuse ancestral techniques with local ingredients to create dishes that tell the story of our land.",
+      cta: "View Menu",
+    },
+    frescos: {
+      title: "From Farm to Table",
+      description: "We believe in purity. All our ingredients are organically grown in Ejido San Antonio, guaranteeing total freshness and respect for the environment.",
+      items: [
+        { title: "Local Harvest", desc: "Fresh ingredients collected daily from our lands." },
+        { title: "Pesticide Free", desc: "100% organic crops, free of chemicals and health-conscious." },
+        { title: "Producer Support", desc: "We promote fair trade and the growth of our local community." }
+      ]
     },
     howToGet: "How to get there?",
     howToGetDesc: "Kilometer 0.5 of the Yerbabuena to Volcano road, in Ejido San Antonio, Comala, Colima, Mexico.",
@@ -235,6 +263,20 @@ export const translations = {
       night: "por noche",
       cta: "Reservar por WhatsApp",
       consult: "Consultar por WhatsApp",
+    },
+    inventionem: {
+      title: "Inventionem: El Arte del Sabor",
+      description: "Una experiencia gastronómica diseñada para los paladares más exigentes. Fusionamos técnicas ancestrales con ingredientes locales para crear platos que cuentan la historia de nuestra tierra.",
+      cta: "Ver Menú",
+    },
+    frescos: {
+      title: "Del Campo a tu Mesa",
+      description: "Creemos en la pureza. Todos nuestros ingredientes son cultivados de manera orgánica en el Ejido San Antonio, garantizando frescura total y respeto por el medio ambiente.",
+      items: [
+        { title: "Cosecha Local", desc: "Ingredientes frescos recolectados diariamente de nuestras tierras." },
+        { title: "Sin Pesticidas", desc: "Cultivos 100% orgánicos, libres de químicos y respetuosos con la salud." },
+        { title: "Apoyo al Productor", desc: "Fomentamos el comercio justo y el crecimiento de nuestra comunidad local." }
+      ]
     },
     howToGet: "¿Cómo llegar?",
     howToGetDesc: "Kilómetro 0.5 de la brecha de la Yerbabuena al Volcán en el Ejido San Antonio, Comala, Colima, México.",
