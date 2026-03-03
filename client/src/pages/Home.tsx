@@ -493,8 +493,12 @@ export default function Home() {
       {/* Safari Fotográfico */}
       <section id="safari" className="py-24 px-4 md:px-8 bg-muted border-y border-border">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1 relative h-[500px] rounded-3xl overflow-hidden shadow-2xl">
-            <img src="/assets/safari-hero.jpg" alt="Safari Fotográfico" className="w-full h-full object-cover" />
+          <div className="order-2 md:order-1 relative h-[500px] rounded-3xl overflow-hidden shadow-2xl bg-muted">
+            <img 
+              src="/assets/safari-hero.jpg" 
+              alt="Safari Fotográfico" 
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
           </div>
           <div className="space-y-6 order-1 md:order-2">
