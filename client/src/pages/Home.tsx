@@ -353,7 +353,9 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col w-full">
-          {cabins.map((cabin, index) => (
+          {cabins
+            .filter(cabin => cabin.title && cabin.title !== "Sin nombre" && cabin.slug !== "sin-nombre")
+            .map((cabin, index) => (
             <CabinSection key={cabin.id} cabin={cabin} index={index} onWhatsApp={handleWhatsAppClick} />
           ))}
         </div>
