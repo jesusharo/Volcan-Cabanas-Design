@@ -20,7 +20,7 @@ export function Header() {
   return (
     <div className="w-full fixed top-0 z-50 transition-all duration-500">
       {/* Subheader / Brand Switcher */}
-      <div className={`bg-foreground text-background text-xs py-2 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden' : 'opacity-95'}`}>
+      <div className={`bg-foreground text-background text-xs py-2 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95`}>
         <div className="flex gap-6 items-center">
           <span className="opacity-50 text-[10px] uppercase tracking-[0.2em] font-bold">Ecosistema</span>
           <a href="#" className="text-accent font-semibold tracking-wide flex items-center gap-2">
