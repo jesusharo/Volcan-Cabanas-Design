@@ -96,6 +96,7 @@ export default function Home() {
                       className="absolute inset-0 w-full h-full object-cover scale-[1.1] animate-in fade-in duration-1000"
                     />
                   </div>
+                  <div className="absolute inset-0 bg-black/15 z-[5] pointer-events-none" />
                   {/* Overlay Gradient fixed to slide boundaries */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
                   
