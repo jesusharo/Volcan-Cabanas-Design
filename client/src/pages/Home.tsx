@@ -520,34 +520,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Logística y Mascotas */}
-      <section id="logistica" className="py-24 px-4 md:px-8 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">{t.info.title}</h2>
-            <p className="text-muted-foreground">{t.info.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-2xl bg-muted text-white text-center">
-              <div className="mb-4 flex justify-center opacity-80"><PawPrint className="w-10 h-10" /></div>
-              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.pets.title}</h3>
-              <p className="opacity-70 text-sm">{t.info.pets.desc}</p>
-            </div>
-            <div className="p-8 rounded-2xl bg-muted text-white text-center">
-              <div className="mb-4 flex justify-center opacity-80"><ShieldCheck className="w-10 h-10" /></div>
-              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.security.title}</h3>
-              <p className="opacity-70 text-sm">{t.info.security.desc}</p>
-            </div>
-            <div className="p-8 rounded-2xl bg-muted text-white text-center">
-              <div className="mb-4 flex justify-center opacity-80"><Clock className="w-10 h-10" /></div>
-              <h3 className="text-xl font-bold mb-2 font-serif">{t.info.hours.title}</h3>
-              <p className="opacity-70 text-sm">{t.info.hours.desc}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Sección 'Cómo llegar' */}
       <section id="como-llegar" className="py-20 px-4 md:px-8 bg-[#f9f9f9]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">

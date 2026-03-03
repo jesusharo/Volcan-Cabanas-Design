@@ -23,7 +23,6 @@ export function Header() {
     { label: t.nav.hospedaje, path: "#hospedaje" },
     { label: t.nav.experiencias, path: "#experiencias" },
     { label: t.nav.safari, path: "#safari" },
-    { label: t.nav.logistica, path: "#logistica" },
   ];
 
   const scrollToSection = (path: string) => {
