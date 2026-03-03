@@ -22,7 +22,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
       className={`w-full pt-12 ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
     >
       <div className="max-w-[1440px] mx-auto w-full">
-        <div className="w-full h-[40vh] md:h-[55vh] overflow-hidden relative">
+        <div className="w-full max-w-5xl mx-auto h-[40vh] md:h-[55vh] overflow-hidden relative rounded-[32px] shadow-2xl">
           <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {cabin.images?.map((img, i) => (
               <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
