@@ -86,7 +86,7 @@ export function Header() {
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => setLanguage('es')}
-                className={`text-[10px] font-bold px-2 py-1 rounded-[12px] transition-colors ${
+                className={`text-[10px] font-bold px-2 py-1 rounded-[8px] transition-colors ${
                   language === 'es' 
                     ? 'bg-white text-black' 
                     : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
@@ -96,7 +96,7 @@ export function Header() {
               </button>
               <button 
                 onClick={() => setLanguage('en')}
-                className={`text-[10px] font-bold px-2 py-1 rounded-[12px] transition-colors ${
+                className={`text-[10px] font-bold px-2 py-1 rounded-[8px] transition-colors ${
                   language === 'en' 
                     ? 'bg-white text-black' 
                     : isScrolled ? 'text-foreground hover:bg-muted' : 'text-white hover:bg-white/20'
