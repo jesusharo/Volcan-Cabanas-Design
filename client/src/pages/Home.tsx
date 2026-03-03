@@ -119,6 +119,29 @@ export default function Home() {
   
   const [currentSlide, setCurrentSlide] = useState(0);
   const [scrollY, setScrollY] = useState(0);
+  const [isNight, setIsNight] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const checkTime = () => {
+      const hour = new Date().getHours();
+      setIsNight(hour < 6 || hour >= 18);
+    };
+    checkTime();
+    const interval = setInterval(checkTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   // Mensaje dinámico para WhatsApp basado en la sección visible o interactuada
   const [waMessage, setWaMessage] = useState("Hola, me interesa información general sobre hospedaje y tours.");
@@ -180,86 +203,70 @@ export default function Home() {
         <MessageCircle className="w-7 h-7" />
       </button>
 
-      {/* Hero Section - Dynamic Slider */}
+      {/* Hero Section - Dynamic Background */}
       <section id="hospedaje" className="relative h-[90vh] md:h-[95vh] w-full overflow-hidden bg-background">
-        {cabins.length > 0 ? (
-          <div className="w-full h-full relative">
-            <div 
-              id="hero-scroll-container"
-              className="flex h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-              onScroll={handleScroll}
+        <div className="absolute inset-0 z-0">
+          {/* Base Image (Day) */}
+          <img 
+            src="/assets/volcan-day.jpg" 
+            alt="Volcán de Fuego" 
+            className="absolute inset-0 w-full h-full object-cover transition-all duration-[3000ms] ease-in-out"
+            style={{
+              filter: isNight ? 'brightness(0.3) contrast(1.2) hue-rotate(200deg) saturate(0.8)' : 'none',
+              transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
+            }}
+          />
+          
+          {/* Night Overlay Image */}
+          <img 
+            src="/assets/volcan-night.jpg" 
+            alt="Volcán de Noche" 
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[3000ms] ease-in-out"
+            style={{
+              opacity: isNight ? 1 : 0,
+              transform: `translateY(${scrollY * 0.5}px) scale(1.1)`,
+            }}
+          />
+
+          {/* Stars Layer with Parallax */}
+          <div 
+            className="absolute inset-0 z-10 transition-opacity duration-[3000ms] ease-in-out pointer-events-none"
+            style={{ 
+              opacity: isNight ? 1 : 0,
+              transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
+            }}
+          >
+            {/* Custom Star Particles */}
+            <div className="absolute inset-0 bg-[radial-gradient(white_1px,transparent_1px)] bg-[length:50px_50px] opacity-30"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(white_1px,transparent_1px)] bg-[length:80px_80px] opacity-20 transform translate-x-10 translate-y-20"></div>
+          </div>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
+        </div>
+
+        <div className="relative z-30 h-full flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto w-full">
+          <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
+            Eco-Turismo de Montaña
+          </span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
+            Cabañas del Volcán
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
+            Vive la experiencia única de hospedarte frente al coloso más activo de México. Naturaleza, confort y vistas inigualables.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <Button 
+              size="lg" 
+              className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
+              onClick={() => {
+                const element = document.getElementById('nuestras-cabanas');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              {cabins.map((cabin) => (
-                <div key={cabin.id} className="relative w-full h-full flex-[0_0_100%] snap-center shrink-0 overflow-hidden">
-                  <div 
-                    className="absolute inset-0 w-full h-full"
-                    style={{
-                      transform: `translateY(${scrollY * 0.5}px)`,
-                    }}
-                  >
-                    <img 
-                      src={cabin.imageUrl} 
-                      alt={cabin.title} 
-                      className="absolute inset-0 w-full h-full object-cover scale-[1.1] animate-in fade-in duration-1000"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-black/15 z-[5] pointer-events-none" />
-                  {/* Overlay Gradient fixed to slide boundaries */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-10 pointer-events-none" />
-                  
-                  <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 w-full">
-                    <div className="max-w-7xl mx-auto w-full">
-                      <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
-                        Hasta {cabin.capacity} personas
-                      </span>
-                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
-                        {cabin.title}
-                      </h1>
-                      <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
-                        {cabin.description}
-                      </p>
-                      <div className="flex flex-wrap gap-4">
-                        <Button 
-                          size="lg" 
-                          className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
-                          onClick={() => {
-                            const element = document.getElementById(`cabin-detail-${cabin.id}`);
-                            element?.scrollIntoView({ behavior: 'smooth' });
-                          }}
-                        >
-                          Ver Cabaña
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Slider Controls */}
-            <div className="absolute bottom-12 left-0 right-0 px-6 md:px-16 z-30 flex justify-end gap-2 pointer-events-none">
-              <div className="max-w-7xl mx-auto w-full flex justify-end gap-2 pointer-events-auto">
-                {cabins.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => scrollToSlide(index)}
-                    className="h-1.5 rounded-full"
-                    style={{
-                      width: currentSlide === index ? '2.5rem' : '1rem',
-                      backgroundColor: currentSlide === index ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.4)',
-                      transition: 'width 800ms cubic-bezier(0.22,1,0.36,1), background-color 800ms cubic-bezier(0.22,1,0.36,1)',
-                    }}
-                    aria-label={`Ir a cabaña ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
+              Explorar Cabañas
+            </Button>
           </div>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
+        </div>
       </section>
 
       {/* Sección Detallada de Cabañas */}
