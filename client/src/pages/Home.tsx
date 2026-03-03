@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
+import { getCabins, getTours, getTestimonials, getExclusiveRental, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
@@ -111,6 +111,77 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
         </div>
       </div>
     </article>
+  );
+}
+
+function ExclusiveSection({ t, onWhatsApp }: { t: any; onWhatsApp: (msg: string) => void }) {
+  const [exclusiveData, setExclusiveData] = useState<Cabin | null>(null);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    getExclusiveRental().then(setExclusiveData);
+  }, []);
+
+  useEffect(() => {
+    if (!exclusiveData || !exclusiveData.images || exclusiveData.images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % exclusiveData.images.length);
+    }, 30000); // 30 seconds
+    return () => clearInterval(interval);
+  }, [exclusiveData]);
+
+  if (!exclusiveData) return null;
+
+  const images = exclusiveData.images && exclusiveData.images.length > 0 
+    ? exclusiveData.images 
+    : [exclusiveData.imageUrl];
+
+  return (
+    <section className="py-24 px-4 md:px-8 relative overflow-hidden min-h-[600px] flex items-center justify-center">
+      {/* Background Ken Burns Gallery */}
+      <div className="absolute inset-0 z-0">
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-[3000ms] ease-in-out ${
+              idx === currentImgIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div 
+              className={`w-full h-full bg-cover bg-center ${idx === currentImgIndex ? "animate-ken-burns" : ""}`}
+              style={{ backgroundImage: `url(${img})` }}
+            />
+          </div>
+        ))}
+        {/* Overlay 000000 at 30% */}
+        <div className="absolute inset-0 bg-black/30 z-10"></div>
+      </div>
+      
+      <div className="max-w-5xl mx-auto text-center relative z-20 space-y-6">
+        <span className="uppercase tracking-widest text-accent font-bold text-sm">{t.exclusive.tag}</span>
+        <h2 className="text-4xl md:text-6xl font-serif font-bold text-white text-shadow-lg">{t.exclusive.title}</h2>
+        <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto text-shadow-md">
+          {t.exclusive.subtitle}
+        </p>
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 p-8 rounded-[32px] max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl mt-10">
+          <div className="text-left">
+            <p className="text-3xl font-bold text-accent mb-1">{t.exclusive.price} <span className="text-sm font-normal text-white/80 uppercase tracking-widest">{t.exclusive.currency}</span></p>
+            <p className="font-medium text-white">{t.exclusive.duration}</p>
+          </div>
+          <div className="w-px h-12 bg-white/20 hidden md:block"></div>
+          <div className="text-left">
+            <p className="font-semibold text-white text-lg flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-accent"/> {t.exclusive.capacity}</p>
+            <p className="text-white/70 text-sm mt-1">{t.exclusive.facilities}</p>
+          </div>
+          <Button 
+            className="bg-accent text-black font-bold hover:bg-accent/90 w-full md:w-auto border-0 px-8 py-6 rounded-xl"
+            onClick={() => onWhatsApp("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
+          >
+            {t.exclusive.cta}
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -269,37 +340,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección Exclusividad "Todo el Sitio" */}
-      <section className="py-16 px-4 md:px-8 bg-primary text-primary-foreground relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
-          <span className="uppercase tracking-widest text-accent font-bold text-sm">{t.exclusive.tag}</span>
-          <h2 className="text-3xl md:text-5xl font-serif font-bold">{t.exclusive.title}</h2>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
-            {t.exclusive.subtitle}
-          </p>
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-            <div className="text-left">
-              <p className="text-3xl font-bold text-accent mb-1">{t.exclusive.price} <span className="text-sm font-normal text-white/80 uppercase tracking-widest">{t.exclusive.currency}</span></p>
-              <p className="font-medium text-white">{t.exclusive.duration}</p>
-            </div>
-            <div className="w-px h-12 bg-white/20 hidden md:block"></div>
-            <div className="text-left">
-              <p className="font-semibold text-white text-lg flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-accent"/> {t.exclusive.capacity}</p>
-              <p className="text-white/70 text-sm mt-1">{t.exclusive.facilities}</p>
-            </div>
-            <Button 
-              className="bg-accent text-accent-foreground hover:bg-accent/90 w-full md:w-auto border-0"
-              onClick={() => handleWhatsAppClick("Hola, me interesa la reserva exclusiva de Todo el Sitio para 25 personas.")}
-            >
-              {t.exclusive.cta}
-            </Button>
-          </div>
-        </div>
-      </section>
+      <ExclusiveSection t={t} onWhatsApp={handleWhatsAppClick} />
 
       {/* Sección de Tours (Experiencias X Volcán) */}
       <section id="experiencias" className="py-24 px-4 md:px-8 bg-background">
