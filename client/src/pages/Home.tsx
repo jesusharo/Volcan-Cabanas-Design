@@ -247,10 +247,6 @@ export default function Home() {
               >
                 {t.hero.cta}
               </Button>
-              <div className="flex items-center gap-2 text-white/70 animate-bounce-slow">
-                <ChevronDown className="w-5 h-5" />
-                <span className="text-xs uppercase tracking-widest font-bold">{t.hero.scrollHint}</span>
-              </div>
             </div>
           </div>
         </div>
