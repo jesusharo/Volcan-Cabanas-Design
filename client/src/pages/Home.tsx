@@ -227,10 +227,9 @@ export default function Home() {
           <img 
             src="/assets/volcan-night.jpg" 
             alt="Volcán de Noche" 
-            className="absolute inset-0 w-full h-full object-cover z-15 transition-opacity duration-500 ease-in-out"
+            className="absolute inset-0 w-full h-full object-cover z-15 transition-opacity duration-300 ease-in-out"
             style={{
               opacity: scrollProgress,
-              transform: 'scale(1.05)',
               objectPosition: 'center',
             }}
           />
@@ -242,7 +241,6 @@ export default function Home() {
             className="absolute inset-0 w-full h-full object-cover z-10"
             style={{
               filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
-              transform: 'scale(1.05)',
               opacity: 1 - scrollProgress,
               objectPosition: 'center',
             }}
