@@ -30,7 +30,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
       data-testid={`cabin-section-${cabin.id}`}
       className={`w-full pt-12 ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
     >
-      <div className="max-w-[1440px] mx-auto w-full">
+      <div className="max-w-[1440px] mx-auto w-full px-4 md:px-0">
         <div className="w-full max-w-5xl mx-auto h-[40vh] md:h-[55vh] overflow-hidden relative rounded-[32px] shadow-2xl">
           <div className="relative w-full h-full">
             {cabin.images?.map((img, i) => (
