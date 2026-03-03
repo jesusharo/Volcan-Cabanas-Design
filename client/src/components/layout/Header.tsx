@@ -23,14 +23,18 @@ export function Header() {
       <div className={`bg-foreground text-background text-xs py-2 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95`}>
         <div className="flex gap-6 items-center">
           <span className="opacity-50 text-[10px] uppercase tracking-[0.2em] font-bold">Ecosistema</span>
-          <a href="#" className="text-[#27AE60] font-semibold tracking-wide flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#27AE60] animate-pulse"></span>
+          <Link href="/" className={`${location === '/' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} tracking-wide flex items-center gap-2 transition-all`}>
+            {location === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#27AE60] animate-pulse"></span>}
             Cabañas del Volcán® / Tour X Volcán®
-          </a>
+          </Link>
           <span className="opacity-20">|</span>
-          <a href="#" className="opacity-60 hover:opacity-100 hover:text-[#27AE60] transition-all font-medium">Inventionem® <span className="font-normal opacity-70">(Escuela de Bosque)</span></a>
+          <Link href="/inventionem" className={`${location === '/inventionem' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} transition-all font-medium`}>
+            Inventionem® <span className="font-normal opacity-70">(Escuela de Bosque)</span>
+          </Link>
           <span className="opacity-20">|</span>
-          <a href="#" className="opacity-60 hover:opacity-100 hover:text-[#27AE60] transition-all font-medium">Frescos y Orgánicos®</a>
+          <Link href="/frescos" className={`${location === '/frescos' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} transition-all font-medium`}>
+            Frescos y Orgánicos®
+          </Link>
         </div>
         <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider opacity-80 hover:opacity-100 transition-opacity font-bold">
           <Phone className="w-3 h-3 text-[#27AE60]" />

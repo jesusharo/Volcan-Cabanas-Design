@@ -6,11 +6,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import Inventionem from "@/pages/Inventionem";
+import Frescos from "@/pages/Frescos";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home}/>
+      <Route path="/inventionem" component={Inventionem}/>
+      <Route path="/frescos" component={Frescos}/>
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
