@@ -21,92 +21,94 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
       data-testid={`cabin-section-${cabin.id}`}
       className={`w-full ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
     >
-      <div className="w-full h-[40vh] md:h-[55vh] overflow-hidden relative">
-        <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {cabin.images?.map((img, i) => (
-            <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
-              <img
-                src={img}
-                alt={`${cabin.title} - imagen ${i + 1}`}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
-          {cabin.images?.map((_, i) => (
-            <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
-          ))}
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute bottom-6 left-6 md:left-12 z-10">
-          <h3 className="text-3xl md:text-4xl font-serif font-bold text-white drop-shadow-lg">{cabin.title}</h3>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-14">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
-          <div className="flex-1 space-y-6">
-            <div className="flex flex-wrap gap-6 py-4 border-b border-border/40">
-              <div className="flex items-center gap-2.5 text-primary">
-                <div className="p-2 rounded-xl bg-primary/10">
-                  <Users className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="font-semibold text-sm block">{cabin.capacity} {t.cabins.capacity}</span>
-                  <span className="text-xs text-muted-foreground">{t.cabins.max}</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 text-primary">
-                <div className="p-2 rounded-xl bg-primary/10">
-                  <BedDouble className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="font-semibold text-sm block">{cabin.rooms} {t.cabins.rooms}</span>
-                  <span className="text-xs text-muted-foreground">{cabin.bedsDetail}</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 text-primary">
-                <div className="p-2 rounded-xl bg-primary/10">
-                  <Bath className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="font-semibold text-sm block">{cabin.bathrooms} {cabin.bathrooms === 1 ? t.cabins.bathrooms : t.cabins.bathroomsPlural}</span>
-                  <span className="text-xs text-muted-foreground">{t.cabins.equipped}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative" data-testid={`cabin-description-${cabin.id}`}>
-              <div className={`space-y-3 ${!expanded && needsTruncation ? 'max-h-[6.5rem] overflow-hidden' : ''}`}>
-                {descText.split(/\n\n|\n/).filter(Boolean).map((paragraph, pIdx) => (
-                  <p key={pIdx} className="text-base text-muted-foreground leading-relaxed">
-                    {paragraph.trim()}
-                  </p>
-                ))}
-              </div>
-              {!expanded && needsTruncation && (
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-14 pointer-events-none"
-                  style={{ background: `linear-gradient(to top, ${index % 2 !== 0 ? '#2b2b2b' : '#242424'}, transparent)` }}
+      <div className="max-w-[1440px] mx-auto w-full">
+        <div className="w-full h-[40vh] md:h-[55vh] overflow-hidden relative">
+          <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {cabin.images?.map((img, i) => (
+              <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
+                <img
+                  src={img}
+                  alt={`${cabin.title} - imagen ${i + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
                 />
-              )}
-              {needsTruncation && (
-                <button
-                  data-testid={`btn-readmore-${cabin.id}`}
-                  onClick={() => setExpanded(!expanded)}
-                  className="mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
-                >
-                  {expanded ? t.cabins.readLess : t.cabins.readMore}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
-                </button>
-              )}
-            </div>
+              </div>
+            ))}
           </div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
+            {cabin.images?.map((_, i) => (
+              <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
+            ))}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute bottom-6 left-6 md:left-12 z-10">
+            <h3 className="text-3xl md:text-4xl font-serif font-bold text-white drop-shadow-lg">{cabin.title}</h3>
+          </div>
+        </div>
 
-          <div className="w-full lg:w-[340px] shrink-0">
-            <ReservationCalculator cabin={cabin} onWhatsApp={onWhatsApp} />
+        <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-14">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+            <div className="flex-1 space-y-6">
+              <div className="flex flex-wrap gap-6 py-4 border-b border-border/40">
+                <div className="flex items-center gap-2.5 text-primary">
+                  <div className="p-2 rounded-xl bg-primary/10">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-sm block">{cabin.capacity} {t.cabins.capacity}</span>
+                    <span className="text-xs text-muted-foreground">{t.cabins.max}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 text-primary">
+                  <div className="p-2 rounded-xl bg-primary/10">
+                    <BedDouble className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-sm block">{cabin.rooms} {t.cabins.rooms}</span>
+                    <span className="text-xs text-muted-foreground">{cabin.bedsDetail}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 text-primary">
+                  <div className="p-2 rounded-xl bg-primary/10">
+                    <Bath className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-sm block">{cabin.bathrooms} {cabin.bathrooms === 1 ? t.cabins.bathrooms : t.cabins.bathroomsPlural}</span>
+                    <span className="text-xs text-muted-foreground">{t.cabins.equipped}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative" data-testid={`cabin-description-${cabin.id}`}>
+                <div className={`space-y-3 ${!expanded && needsTruncation ? 'max-h-[6.5rem] overflow-hidden' : ''}`}>
+                  {descText.split(/\n\n|\n/).filter(Boolean).map((paragraph, pIdx) => (
+                    <p key={pIdx} className="text-base text-muted-foreground leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+                {!expanded && needsTruncation && (
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-14 pointer-events-none"
+                    style={{ background: `linear-gradient(to top, ${index % 2 !== 0 ? '#2b2b2b' : '#242424'}, transparent)` }}
+                  />
+                )}
+                {needsTruncation && (
+                  <button
+                    data-testid={`btn-readmore-${cabin.id}`}
+                    onClick={() => setExpanded(!expanded)}
+                    className="mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
+                  >
+                    {expanded ? t.cabins.readLess : t.cabins.readMore}
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="w-full lg:w-[340px] shrink-0">
+              <ReservationCalculator cabin={cabin} onWhatsApp={onWhatsApp} />
+            </div>
           </div>
         </div>
       </div>
