@@ -539,9 +539,9 @@ export default function Home() {
             <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col md:flex-row gap-12 items-stretch h-auto md:h-[450px]">
             {/* Columna Izquierda: Mapa */}
-            <div className="w-full h-[450px] rounded-[32px] overflow-hidden shadow-2xl border border-border/50">
+            <div className="flex-1 min-h-[350px] md:min-h-0 rounded-[32px] overflow-hidden shadow-2xl border border-border/50">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15034.3315891361!2d-103.623405!3d19.495066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84246140396755d5%3A0x3d1d15205bfbcdd1!2sVolc%C3%A1n%20de%20Colima!5e0!3m2!1ses!2smx!4v1700000000000"
                 width="100%"
@@ -554,9 +554,9 @@ export default function Home() {
             </div>
 
             {/* Columna Derecha: Video */}
-            <div className="relative pt-[56.25%] w-full rounded-[32px] overflow-hidden shadow-2xl border border-border/50 bg-black">
+            <div className="flex-1 min-h-[350px] md:min-h-0 rounded-[32px] overflow-hidden shadow-2xl border border-border/50 bg-black">
               <iframe
-                className="absolute top-0 left-0 w-full h-full"
+                className="w-full h-full"
                 src="https://www.youtube.com/embed/LphJLjIws7k"
                 title="YouTube video player"
                 frameBorder="0"
