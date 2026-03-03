@@ -103,19 +103,21 @@ export async function fetchCabinsFromNotion(databaseId: string): Promise<NotionC
 
   return response.results.map((page: any) => {
     const title = getPropertyValue(page, 'Nombre') || 'Sin nombre';
-    const galleryImages = getPropertyValue(page, 'Galeria') || [];
+    const galleryImages = getPropertyValue(page, 'Galería') || [];
+    const heroImages = getPropertyValue(page, 'Foto_Hero') || [];
     const coverUrl = page.cover?.type === 'file' 
       ? page.cover.file.url 
       : page.cover?.type === 'external' 
         ? page.cover.external.url 
         : '';
 
-    const images = galleryImages.length > 0 ? galleryImages : (coverUrl ? [coverUrl] : []);
+    const allImages = [...heroImages, ...galleryImages].filter(Boolean);
+    const images = allImages.length > 0 ? allImages : (coverUrl ? [coverUrl] : []);
 
     return {
       id: page.id,
       title,
-      description: getPropertyValue(page, 'Descripcion') || '',
+      description: getPropertyValue(page, 'Description') || '',
       imageUrl: images[0] || '',
       images,
       capacity: String(getPropertyValue(page, 'Capacidad') || '0'),

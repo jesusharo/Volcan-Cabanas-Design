@@ -1,6 +1,3 @@
-// Mockup of a Notion API Client for Frontend Prototyping
-// In a full-stack version, this would fetch from a real backend that securely calls Notion.
-
 export interface Cabin {
   id: string;
   title: string;
@@ -29,10 +26,47 @@ export interface Testimonial {
   rating: number;
 }
 
-export const getCabins = async (): Promise<Cabin[]> => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 300));
+const PLACEHOLDER_IMAGES = [
+  "/src/assets/images/cabana_1.jpg",
+  "/src/assets/images/cabana_2.jpg",
+  "/src/assets/images/cabana_3.jpg",
+  "/src/assets/images/krakatoa.jpg",
+];
 
+export const getCabins = async (): Promise<Cabin[]> => {
+  try {
+    const response = await fetch("/api/cabins");
+    if (!response.ok) throw new Error("API error");
+    const data: Cabin[] = await response.json();
+    
+    return data
+      .filter((cabin) => cabin.slug !== "renta-todo-el-sitio")
+      .map((cabin, index) => ({
+        ...cabin,
+        imageUrl: cabin.imageUrl || PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length],
+        images: cabin.images.length > 0
+          ? cabin.images
+          : [PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length]],
+      }));
+  } catch (error) {
+    console.error("Error fetching cabins from API, using fallback:", error);
+    return getFallbackCabins();
+  }
+};
+
+export const getExclusiveRental = async (): Promise<Cabin | null> => {
+  try {
+    const response = await fetch("/api/cabins");
+    if (!response.ok) throw new Error("API error");
+    const data: Cabin[] = await response.json();
+    const rental = data.find((cabin) => cabin.slug === "renta-todo-el-sitio");
+    return rental || null;
+  } catch {
+    return null;
+  }
+};
+
+function getFallbackCabins(): Cabin[] {
   return [
     {
       id: "1",
@@ -43,11 +77,7 @@ export const getCabins = async (): Promise<Cabin[]> => {
       bathrooms: 2,
       bedsDetail: "1 King size, 3 matrimoniales",
       imageUrl: "/src/assets/images/cabana_1.jpg",
-      images: [
-        "/src/assets/images/cabana_1.jpg",
-        "/src/assets/images/cabana_2.jpg",
-        "/src/assets/images/cabana_3.jpg"
-      ],
+      images: ["/src/assets/images/cabana_1.jpg", "/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_3.jpg"],
       slug: "casa-de-campo"
     },
     {
@@ -59,11 +89,7 @@ export const getCabins = async (): Promise<Cabin[]> => {
       bathrooms: 1,
       bedsDetail: "2 matrimoniales, 3 individuales",
       imageUrl: "/src/assets/images/cabana_2.jpg",
-      images: [
-        "/src/assets/images/cabana_2.jpg",
-        "/src/assets/images/cabana_1.jpg",
-        "/src/assets/images/krakatoa.jpg"
-      ],
+      images: ["/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_1.jpg", "/src/assets/images/krakatoa.jpg"],
       slug: "cabana-santa-helena"
     },
     {
@@ -75,11 +101,7 @@ export const getCabins = async (): Promise<Cabin[]> => {
       bathrooms: 1,
       bedsDetail: "1 King size, 1 sofá cama",
       imageUrl: "/src/assets/images/cabana_3.jpg",
-      images: [
-        "/src/assets/images/cabana_3.jpg",
-        "/src/assets/images/krakatoa.jpg",
-        "/src/assets/images/cabana_1.jpg"
-      ],
+      images: ["/src/assets/images/cabana_3.jpg", "/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_1.jpg"],
       slug: "monte-etna"
     },
     {
@@ -91,15 +113,11 @@ export const getCabins = async (): Promise<Cabin[]> => {
       bathrooms: 1,
       bedsDetail: "1 King size",
       imageUrl: "/src/assets/images/krakatoa.jpg",
-      images: [
-        "/src/assets/images/krakatoa.jpg",
-        "/src/assets/images/cabana_3.jpg",
-        "/src/assets/images/cabana_2.jpg"
-      ],
+      images: ["/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_3.jpg", "/src/assets/images/cabana_2.jpg"],
       slug: "refugio-krakatoa"
     }
   ];
-};
+}
 
 export const getTours = async (): Promise<Tour[]> => {
   await new Promise((resolve) => setTimeout(resolve, 300));

@@ -102,7 +102,7 @@ export default function Home() {
                   <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 w-full">
                     <div className="max-w-7xl mx-auto w-full">
                       <span className="text-accent bg-accent/10 px-3 py-1 rounded-full w-fit uppercase tracking-[0.15em] text-xs font-bold mb-4 border border-accent/20 backdrop-blur-sm inline-block">
-                        {cabin.capacity}
+                        Hasta {cabin.capacity} personas
                       </span>
                       <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
                         {cabin.title}
@@ -201,6 +201,11 @@ export default function Home() {
                 <div>
                   <h3 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">{cabin.title}</h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">{cabin.description}</p>
+                  {cabin.price && (
+                    <p className="text-2xl font-bold text-accent mt-4">
+                      ${cabin.price.toLocaleString('es-MX')} <span className="text-sm font-normal text-muted-foreground uppercase tracking-widest">MXN / noche</span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 pt-6 border-t border-border/50">
