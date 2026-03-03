@@ -394,26 +394,23 @@ export default function Home() {
               {
                 title: "Pet Friendly",
                 desc: "Tus mejores amigos son bienvenidos. Aplica una tarifa de limpieza de $100 MXN por mascota.",
-                icon: <PawPrint className="w-10 h-10" />,
-                color: "bg-orange-100 text-orange-800 border-orange-200"
+                icon: <PawPrint className="w-10 h-10" />
               },
               {
                 title: "Seguridad Total",
                 desc: "Ubicación segura y cercada. Tranquilidad garantizada durante toda tu estadía en el bosque.",
-                icon: <ShieldCheck className="w-10 h-10" />,
-                color: "bg-green-100 text-green-800 border-green-200"
+                icon: <ShieldCheck className="w-10 h-10" />
               },
               {
                 title: "Horarios",
                 desc: "Check-in a partir de las 3:00 PM. El check-out de visitas (no hospedados) es a las 10:00 PM.",
-                icon: <Clock className="w-10 h-10" />,
-                color: "bg-blue-100 text-blue-800 border-blue-200"
+                icon: <Clock className="w-10 h-10" />
               }
             ].map((info, i) => (
-              <div key={i} className={`p-8 rounded-2xl border ${info.color} bg-opacity-50`}>
-                <div className="mb-4 text-current opacity-80">{info.icon}</div>
+              <div key={i} className="p-8 rounded-2xl bg-muted text-white text-center">
+                <div className="mb-4 flex justify-center opacity-80">{info.icon}</div>
                 <h3 className="text-xl font-bold mb-2 font-serif">{info.title}</h3>
-                <p className="opacity-90">{info.desc}</p>
+                <p className="opacity-70 text-sm">{info.desc}</p>
               </div>
             ))}
           </div>
