@@ -101,7 +101,7 @@ export default function Home() {
                   
                   <div className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-6 md:px-16 w-full">
                     <div className="max-w-7xl mx-auto w-full">
-                      <span className="text-accent bg-accent/10 px-3 py-1 rounded-full w-fit uppercase tracking-[0.15em] text-xs font-bold mb-4 border border-accent/20 backdrop-blur-sm inline-block">
+                      <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
                         Hasta {cabin.capacity} personas
                       </span>
                       <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
