@@ -113,7 +113,7 @@ export default function Home() {
                       <div className="flex flex-wrap gap-4">
                         <Button 
                           size="lg" 
-                          className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20"
+                          className="bg-accent text-white hover:bg-accent/90 text-base px-8 shadow-lg shadow-accent/20 border-0"
                           onClick={() => {
                             const element = document.getElementById(`cabin-detail-${cabin.id}`);
                             element?.scrollIntoView({ behavior: 'smooth' });
