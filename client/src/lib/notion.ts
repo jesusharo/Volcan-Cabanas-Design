@@ -7,6 +7,7 @@ export interface Cabin {
   id: string;
   title: string;
   description: string;
+  detailedDescription: string;
   imageUrl: string;
   images: string[];
   capacity: string;
@@ -78,6 +79,7 @@ function getFallbackCabins(): Cabin[] {
       id: "1",
       title: "Casa de Campo",
       description: "Vista espectacular al volcán, con amplios espacios ideales para familias.",
+      detailedDescription: "Hospedaje premium de montaña con las mejores vistas al Volcán de Fuego. Amplias terrazas, chimenea y espacios diseñados para el descanso familiar en plena naturaleza.",
       capacity: "8",
       rooms: 3,
       bathrooms: 2,
@@ -91,6 +93,7 @@ function getFallbackCabins(): Cabin[] {
       id: "2",
       title: "Cabaña Santa Helena",
       description: "Sostenibilidad y calidez en un ambiente que respeta la naturaleza.",
+      detailedDescription: "Cabaña sostenible y familiar ideal para turismo de naturaleza. Diseño en madera con ático acogedor para niños y espacios cálidos que respetan el entorno.",
       capacity: "7",
       rooms: 2,
       bathrooms: 1,
@@ -104,6 +107,7 @@ function getFallbackCabins(): Cabin[] {
       id: "3",
       title: "Monte Etna",
       description: "Rústica y acogedora en el corazón profundo del bosque.",
+      detailedDescription: "Cabaña rústica de madera y bambú para grupos de aventura. Un refugio entre pinos con acabados naturales y la energía del bosque profundo.",
       capacity: "4",
       rooms: 1,
       bathrooms: 1,
@@ -117,6 +121,7 @@ function getFallbackCabins(): Cabin[] {
       id: "4",
       title: "Refugio Krakatoa",
       description: "Experiencia térmica de piedra y mirador elevado hacia el coloso.",
+      detailedDescription: "Glamping de piedra y ecoturismo para desconexión total. Construcción térmica con mirador elevado único hacia el volcán y noches estrelladas.",
       capacity: "2",
       rooms: 1,
       bathrooms: 1,

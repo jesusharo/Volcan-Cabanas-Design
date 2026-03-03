@@ -52,6 +52,7 @@ export interface NotionCabin {
   id: string;
   title: string;
   description: string;
+  detailedDescription: string;
   imageUrl: string;
   images: string[];
   capacity: string;
@@ -124,6 +125,7 @@ export async function fetchCabinsFromNotion(databaseId: string): Promise<NotionC
       id: page.id,
       title,
       description: getPropertyValue(page, 'Description') || '',
+      detailedDescription: getPropertyValue(page, 'Detalles_Completos') || '',
       imageUrl: images[0] || '',
       images,
       capacity: String(getPropertyValue(page, 'Capacidad') || '0'),

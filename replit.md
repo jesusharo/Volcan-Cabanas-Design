@@ -26,8 +26,9 @@ Modern eco-tourism landing page for "Cabañas del Volcán" (cabanasdelvolcan.mx)
 
 ## Features
 - Parallax hero slider with smooth scroll indicators
-- Vertical cabin sections with horizontal image galleries
-- Reservation Calculator: person counter (respects Capacidad), animated price from tiered/base pricing, pet checkbox (+$100), WhatsApp CTA with dynamic message including pet info
+- Cabin sections: full-width gallery on top with title overlay → specs bar (capacity/rooms/bathrooms) → detailed description with "Leer más" fade truncation → simplified calculator sidebar
+- `detailedDescription` field from Notion `Detalles_Completos` (rich_text), rendered as multiple `<p>` tags for SEO
+- Reservation Calculator: person counter (respects Capacidad), animated price from tiered/base pricing (no visible tier table), pet checkbox (+$100), WhatsApp CTA; fallback "Consultar" CTA when no pricing data
 - Tours/Experiences section
 - Photo Safari section
 - Pet-friendly info section

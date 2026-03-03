@@ -3,8 +3,111 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCabins, getTours, getTestimonials, type Cabin, type Tour, type Testimonial } from "@/lib/notion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath } from "lucide-react";
+import { ArrowRight, MapPin, Star, MessageCircle, Camera, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
+
+const DESC_TRUNCATE_LENGTH = 200;
+
+function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: number; onWhatsApp: (msg: string) => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const descText = cabin.detailedDescription || cabin.description;
+  const needsTruncation = descText.length > DESC_TRUNCATE_LENGTH;
+
+  return (
+    <article
+      id={`cabin-detail-${cabin.id}`}
+      data-testid={`cabin-section-${cabin.id}`}
+      className={`w-full ${index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'}`}
+    >
+      <div className="w-full h-[40vh] md:h-[55vh] overflow-hidden relative">
+        <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {cabin.images?.map((img, i) => (
+            <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
+              <img
+                src={img}
+                alt={`${cabin.title} - imagen ${i + 1}`}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
+          {cabin.images?.map((_, i) => (
+            <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute bottom-6 left-6 md:left-12 z-10">
+          <h3 className="text-3xl md:text-4xl font-serif font-bold text-white drop-shadow-lg">{cabin.title}</h3>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-14">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+          <div className="flex-1 space-y-6">
+            <div className="flex flex-wrap gap-6 py-4 border-b border-border/40">
+              <div className="flex items-center gap-2.5 text-primary">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <Users className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="font-semibold text-sm block">{cabin.capacity} Personas</span>
+                  <span className="text-xs text-muted-foreground">Máximo</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5 text-primary">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <BedDouble className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="font-semibold text-sm block">{cabin.rooms} Habitaciones</span>
+                  <span className="text-xs text-muted-foreground">{cabin.bedsDetail}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2.5 text-primary">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <Bath className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="font-semibold text-sm block">{cabin.bathrooms} {cabin.bathrooms === 1 ? 'Baño' : 'Baños'}</span>
+                  <span className="text-xs text-muted-foreground">Equipados</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative" data-testid={`cabin-description-${cabin.id}`}>
+              <div className={`space-y-3 ${!expanded && needsTruncation ? 'max-h-[6.5rem] overflow-hidden' : ''}`}>
+                {descText.split(/\n\n|\n/).filter(Boolean).map((paragraph, pIdx) => (
+                  <p key={pIdx} className="text-base text-muted-foreground leading-relaxed">
+                    {paragraph.trim()}
+                  </p>
+                ))}
+              </div>
+              {!expanded && needsTruncation && (
+                <div className={`absolute bottom-0 left-0 right-0 h-14 pointer-events-none ${index % 2 !== 0 ? 'bg-gradient-to-t from-muted to-transparent' : 'bg-gradient-to-t from-background to-transparent'}`} />
+              )}
+              {needsTruncation && (
+                <button
+                  data-testid={`btn-readmore-${cabin.id}`}
+                  onClick={() => setExpanded(!expanded)}
+                  className="mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
+                >
+                  {expanded ? 'Leer menos' : 'Leer más…'}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="w-full lg:w-[340px] shrink-0">
+            <ReservationCalculator cabin={cabin} onWhatsApp={onWhatsApp} />
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export default function Home() {
   const [cabins, setCabins] = useState<Cabin[]>([]);
@@ -156,7 +259,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* Sección Detallada de Cabañas (Vertical Scroll con Horizontal Gallery) */}
+      {/* Sección Detallada de Cabañas */}
       <section id="nuestras-cabanas" className="w-full bg-background relative z-10">
         <div className="py-20 px-6 md:px-16 max-w-7xl mx-auto text-center">
           <span className="uppercase tracking-widest text-accent font-bold text-sm">Hospedaje</span>
@@ -168,96 +271,7 @@ export default function Home() {
 
         <div className="flex flex-col w-full">
           {cabins.map((cabin, index) => (
-            <div 
-              key={cabin.id}
-              id={`cabin-detail-${cabin.id}`} 
-              className={`min-h-[85vh] w-full flex flex-col lg:flex-row items-center justify-center py-16 px-4 md:px-12 lg:px-24 gap-12 lg:gap-20 ${
-                index % 2 !== 0 ? 'bg-muted/50' : 'bg-background'
-              }`}
-            >
-              {/* Carrusel Horizontal de Imágenes */}
-              <div className={`w-full lg:w-3/5 h-[50vh] md:h-[60vh] rounded-3xl overflow-hidden shadow-2xl relative ${
-                index % 2 !== 0 ? 'lg:order-2' : 'lg:order-1'
-              }`}>
-                <div className="flex h-full w-full overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                  {cabin.images?.map((img, i) => (
-                    <div key={i} className="w-full h-full flex-[0_0_100%] snap-center shrink-0 relative">
-                      <img 
-                        src={img} 
-                        alt={`${cabin.title} - imagen ${i + 1}`} 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                    </div>
-                  ))}
-                </div>
-                {/* Scroll hint indicator */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-none">
-                  {cabin.images?.map((_, i) => (
-                    <div key={i} className="w-2 h-2 rounded-full bg-white/70 shadow-sm" />
-                  ))}
-                </div>
-              </div>
-
-              {/* Info + Calculator */}
-              <div className={`w-full lg:w-2/5 flex flex-col justify-center space-y-6 ${
-                index % 2 !== 0 ? 'lg:order-1' : 'lg:order-2'
-              }`}>
-                <div>
-                  <h3 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-3">{cabin.title}</h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">{cabin.description}</p>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4 py-4 border-y border-border/50">
-                  <div className="flex items-center gap-2.5 text-primary">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <Users className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm block">{cabin.capacity} Pers.</span>
-                      <span className="text-xs text-muted-foreground">Máximo</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-primary">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <BedDouble className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm block">{cabin.rooms} Hab.</span>
-                      <span className="text-xs text-muted-foreground">{cabin.bedsDetail}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-primary">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <Bath className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm block">{cabin.bathrooms} Baños</span>
-                      <span className="text-xs text-muted-foreground">Equipados</span>
-                    </div>
-                  </div>
-                </div>
-
-                <ReservationCalculator cabin={cabin} onWhatsApp={handleWhatsAppClick} />
-
-                <div className="flex flex-wrap gap-3 items-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-[#FF5A5F] text-white hover:bg-[#FF5A5F]/90 px-5 py-5 rounded-xl shadow-lg shadow-[#FF5A5F]/20 transition-all hover:scale-105 border-0"
-                  >
-                    <svg viewBox="0 0 32 32" className="w-5 h-5 mr-2" fill="currentColor"><path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.011l-.176.185c-2.044 2.1-4.268 3.42-6.414 3.615l-.28.019-.267.006C5.377 31 2.5 28.584 2.5 24.522l.005-.469c.026-.928.23-1.768.83-3.244l.216-.524c.966-2.298 5.033-10.998 7.028-14.84l.55-1.046C12.464 2.057 13.94 1 16 1zm0 2c-1.239 0-2.053.539-2.987 2.21l-.523 1.008c-1.926 3.776-6.06 12.43-7.031 14.707l-.22.536c-.543 1.347-.7 2.067-.731 2.853l-.006.314c0 2.89 1.83 4.372 4.04 4.372 1.89 0 3.984-1.246 6.002-3.332l.288-.309.155-.176.103-.122c.677-.822 1.152-1.243 1.487-1.42l.334-.16c.382.162.883.61 1.583 1.458l.104.128.167.195.305.334c2.052 2.115 4.17 3.387 6.096 3.387 2.21 0 4.04-1.482 4.04-4.372l-.004-.302c-.035-.747-.197-1.478-.767-2.895l-.208-.507c-.96-2.254-5.076-10.9-7.01-14.685l-.547-1.052C18.067 3.538 17.251 3 16 3zm0 5.4c1.928 0 3.992 2.26 5.86 6.012l.142.293.125.267c.725 1.579 1.096 3.018 1.096 4.257 0 3.056-1.87 4.966-4.225 4.966-1.572 0-3.335-1.127-5.115-3.151l-.22-.24-.139-.156c-.663-.78-1.085-1.196-1.39-1.365l-.34-.176-.328.166c-.309.172-.733.593-1.408 1.385l-.146.164-.228.25c-1.782 2.025-3.545 3.153-5.118 3.153-2.355 0-4.225-1.91-4.225-4.966 0-1.239.371-2.678 1.096-4.257l.125-.267.142-.293C9.008 10.66 11.072 8.4 13 8.4h3zm0 2.2c-1.345 0-2.903 1.83-4.49 5.097l-.141.298-.12.26c-.524 1.157-.799 2.218-.799 3.14 0 1.895.962 2.966 2.225 2.966 1.085 0 2.456-.882 3.982-2.585l.135-.156.126-.148c.84-.962 1.458-1.527 2.015-1.802l.27-.123.275.126c.557.275 1.173.839 2.01 1.796l.128.15.132.155c1.528 1.706 2.9 2.59 3.984 2.59 1.263 0 2.225-1.071 2.225-2.966 0-.922-.275-1.983-.799-3.14l-.12-.26-.14-.298c-1.588-3.267-3.146-5.097-4.49-5.097z"></path></svg>
-                    Airbnb
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    className="bg-[#00AF87] text-white hover:bg-[#00AF87]/90 px-5 py-5 rounded-xl shadow-lg shadow-[#00AF87]/20 transition-all hover:scale-105 border-0"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-2" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path></svg>
-                    TripAdvisor
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <CabinSection key={cabin.id} cabin={cabin} index={index} onWhatsApp={handleWhatsAppClick} />
           ))}
         </div>
       </section>
