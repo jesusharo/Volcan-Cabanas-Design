@@ -342,6 +342,44 @@ export default function Home() {
 
       <ExclusiveSection t={t} onWhatsApp={handleWhatsAppClick} />
 
+      {/* Sección 'Cómo llegar' */}
+      <section id="como-llegar" className="py-20 px-4 md:px-8 bg-[#f9f9f9]">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          {/* Columna Izquierda: Mapa */}
+          <div className="w-full h-[450px] rounded-[32px] overflow-hidden shadow-xl">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15034.3315891361!2d-103.623405!3d19.495066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84246140396755d5%3A0x3d1d15205bfbcdd1!2sVolc%C3%A1n%20de%20Colima!5e0!3m2!1ses!2smx!4v1700000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          {/* Columna Derecha: Contenido */}
+          <div className="space-y-8">
+            <h2 id="seccion-titulo" className="text-3xl md:text-5xl font-serif font-bold text-[#232323]">
+              {t.howToGet}
+            </h2>
+            <p id="seccion-direccion" className="text-lg text-muted-foreground leading-relaxed">
+              {t.howToGetDesc}
+            </p>
+            <div className="relative pt-[56.25%] w-full rounded-[32px] overflow-hidden shadow-2xl">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/LphJLjIws7k"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Sección de Tours (Experiencias X Volcán) */}
       <section id="experiencias" className="py-24 px-4 md:px-8 bg-background">
         <div className="max-w-7xl mx-auto">

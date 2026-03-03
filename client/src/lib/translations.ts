@@ -155,6 +155,88 @@ export const translations = {
       night: "per night",
       cta: "Book via WhatsApp",
       consult: "Inquire via WhatsApp",
-    }
+    },
+    howToGet: "How to get there?",
+    howToGetDesc: "Kilometer 0.5 of the Yerbabuena to Volcano road, in Ejido San Antonio, Comala, Colima, Mexico.",
+  },
+  es: {
+    nav: {
+      hospedaje: "Hospedaje",
+      experiencias: "Experiencias",
+      safari: "Safari Fotográfico",
+      logistica: "Logística",
+    },
+    hero: {
+      tag: "Eco-Turismo de Montaña",
+      title: "El Majestuoso Volcán",
+      subtitle: "Desliza para ver la noche",
+      cta: "Explorar Cabañas",
+      scrollHint: "Haz scroll para que anochezca",
+    },
+    cabins: {
+      title: "Nuestras Cabañas",
+      subtitle: "Descubre nuestros espacios diseñados para integrarse armónicamente con el entorno natural, ofreciendo confort y vistas inigualables.",
+      capacity: "Personas",
+      max: "Máximo",
+      rooms: "Habitaciones",
+      bathrooms: "Baño",
+      bathroomsPlural: "Baños",
+      equipped: "Equipados",
+      readMore: "Leer más…",
+      readLess: "Leer menos",
+    },
+    exclusive: {
+      tag: "Reserva Exclusiva",
+      title: "Todo el Sitio para tu Evento",
+      subtitle: "Disfruta de privacidad total. Ideal para retiros, retiros corporativos o reuniones familiares grandes.",
+      price: "$7,500",
+      currency: "MXN",
+      duration: "2 Días / 1 Noche",
+      capacity: "Hasta 25 Personas",
+      facilities: "Acceso a todas las instalaciones",
+      cta: "Consultar Fechas",
+    },
+    tours: {
+      tag: "Tour X Volcán®",
+      title: "Aventura y Ecoturismo",
+      subtitle: "Experimenta el volcán desde su corazón. Actividades diseñadas para conectar con la naturaleza a través de la adrenalina y la contemplación.",
+      learnMore: "Saber más",
+    },
+    safari: {
+      title: "Safari Fotográfico",
+      description: "Únete a nuestras expediciones especializadas para fotógrafos aficionados y profesionales. Captura la majestuosidad de las erupciones controladas, los paisajes nevados y la fauna endémica en sus mejores momentos de luz.",
+      items: [
+        "Guías expertos en locaciones de luz",
+        "Acceso a miradores exclusivos",
+        "Transporte seguro al amanecer/atardecer"
+      ],
+      cta: "Agendar Safari",
+    },
+    info: {
+      title: "Información Importante",
+      subtitle: "Todo lo que necesitas saber antes de tu visita.",
+      pets: {
+        title: "Pet Friendly",
+        desc: "Tus mejores amigos son bienvenidos. Aplica una tarifa de limpieza de $100 MXN por mascota.",
+      },
+      security: {
+        title: "Seguridad Total",
+        desc: "Ubicación segura y cercada. Tranquilidad garantizada durante toda tu estadía en el bosque.",
+      },
+      hours: {
+        title: "Horarios",
+        desc: "Check-in a partir de las 3:00 PM. El check-out de visitas (no hospedados) es a las 10:00 PM.",
+      }
+    },
+    calculator: {
+      title: "¿Cuántas personas nos visitan?",
+      pets: "¿Traes mascotas? (+$100)",
+      total: "Total estimado",
+      night: "por noche",
+      cta: "Reservar por WhatsApp",
+      consult: "Consultar por WhatsApp",
+    },
+    howToGet: "¿Cómo llegar?",
+    howToGetDesc: "Kilómetro 0.5 de la brecha de la Yerbabuena al Volcán en el Ejido San Antonio, Comala, Colima, México.",
   }
 };
