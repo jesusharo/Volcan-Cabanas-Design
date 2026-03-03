@@ -28,9 +28,9 @@ export function Header() {
             Cabañas del Volcán® / Tour X Volcán®
           </a>
           <span className="opacity-20">|</span>
-          <a href="#" className="opacity-60 hover:opacity-100 hover:text-white transition-all font-medium">Inventionem® <span className="font-normal opacity-70">(Escuela de Bosque)</span></a>
+          <a href="#" className="opacity-60 hover:opacity-100 hover:text-[#27AE60] transition-all font-medium">Inventionem® <span className="font-normal opacity-70">(Escuela de Bosque)</span></a>
           <span className="opacity-20">|</span>
-          <a href="#" className="opacity-60 hover:opacity-100 hover:text-white transition-all font-medium">Frescos y Orgánicos®</a>
+          <a href="#" className="opacity-60 hover:opacity-100 hover:text-[#27AE60] transition-all font-medium">Frescos y Orgánicos®</a>
         </div>
         <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider opacity-80 hover:opacity-100 transition-opacity font-bold">
           <Phone className="w-3 h-3 text-[#27AE60]" />
