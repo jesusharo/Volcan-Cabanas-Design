@@ -73,7 +73,7 @@ export function Header() {
             <Link href="/" className="flex flex-col items-center group">
               <div className={`transition-all duration-500 flex items-center justify-center overflow-hidden ${isScrolled ? 'w-10 h-10' : 'w-24 h-24'}`}>
                 <img 
-                  src="/assets/logo.png" 
+                  src={isScrolled ? "/assets/logo-small.png" : "/assets/logo.png"} 
                   alt="Cabañas del Volcán Logo" 
                   className="w-full h-full object-contain drop-shadow-md"
                 />
