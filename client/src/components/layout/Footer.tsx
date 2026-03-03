@@ -9,9 +9,9 @@ export function Footer() {
         
         {/* Brand */}
         <div className="space-y-4 md:col-span-1">
-          <h3 className="text-2xl font-serif font-bold text-accent">{t.hero.title}</h3>
+          <h4 className="font-semibold mb-4 uppercase tracking-wider text-xs opacity-60">Sobre Nosotros</h4>
           <p className="text-sm opacity-80 max-w-xs">
-            {t.hero.subtitle}
+            Naturaleza, confort y vistas inigualables.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export function Footer() {
       </div>
       
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 text-center text-xs opacity-60 flex flex-col md:flex-row justify-between items-center">
-        <p>© {new Date().getFullYear()} {t.hero.title}. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} Cabañas del Volcán. Todos los derechos reservados.</p>
         <p className="mt-2 md:mt-0">Parte de Grupo Inovationem</p>
       </div>
     </footer>

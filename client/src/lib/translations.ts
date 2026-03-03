@@ -11,7 +11,7 @@ export const translations = {
     hero: {
       tag: "Eco-Turismo de Montaña",
       title: "Cabañas del Volcán",
-      subtitle: "Vive la experiencia única de hospedarte frente al coloso más activo de México. Naturaleza, confort y vistas inigualables.",
+      subtitle: "Naturaleza, confort y vistas inigualables.",
       cta: "Explorar Cabañas",
       scrollHint: "Haz scroll para que anochezca",
     },
@@ -103,7 +103,7 @@ export const translations = {
     hero: {
       tag: "Mountain Eco-Tourism",
       title: "Volcano Cabins",
-      subtitle: "Live the unique experience of staying in front of Mexico's most active giant. Nature, comfort, and unparalleled views.",
+      subtitle: "Nature, comfort, and unparalleled views.",
       cta: "Explore Cabins",
       scrollHint: "Scroll to make it night",
     },
@@ -196,8 +196,8 @@ export const translations = {
     },
     hero: {
       tag: "Eco-Turismo de Montaña",
-      title: "El Majestuoso Volcán",
-      subtitle: "Desliza para ver la noche",
+      title: "Cabañas del Volcán",
+      subtitle: "Naturaleza, confort y vistas inigualables.",
       cta: "Explorar Cabañas",
       scrollHint: "Haz scroll para que anochezca",
     },
