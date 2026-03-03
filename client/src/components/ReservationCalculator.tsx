@@ -104,7 +104,7 @@ export function ReservationCalculator({ cabin, onWhatsApp }: ReservationCalculat
   return (
     <div data-testid={`calculator-${cabin.id}`} className="bg-card border border-border/60 rounded-2xl p-5 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground font-medium">Personas</span>
+        <span className="text-sm text-muted-foreground font-medium">¿Cuántas personas nos visitan?</span>
         <div className="flex items-center gap-3">
           <button
             data-testid={`btn-decrease-${cabin.id}`}
