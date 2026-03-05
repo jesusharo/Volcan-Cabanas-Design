@@ -500,41 +500,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Del Campo a tu Mesa */}
-      <section id="frescos" className="py-24 px-6 md:px-16 bg-background">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6">
-            <span className="text-accent font-bold tracking-widest uppercase text-xs flex items-center gap-2">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              COSECHA ORGÁNICA
-            </span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{t.frescos.title}</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              {t.frescos.description}
-            </p>
-            <div className="grid gap-6 pt-4">
-              {t.frescos.items.map((item: any, i: number) => (
-                <div key={i} className="flex gap-4">
-                  <div className="shrink-0 w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                    <CheckCircle2 className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-foreground">{item.title}</h4>
-                    <p className="text-muted-foreground text-sm">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
+      {/* Banners 50/50 Navigation */}
+      <section className="flex flex-col md:flex-row w-full h-[600px] overflow-hidden">
+        {/* Lado Izquierdo: Inventionem */}
+        <a 
+          href="/inventionem" 
+          className="relative flex-1 group overflow-hidden flex items-center justify-center border-r border-white/10"
+        >
+          <div 
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+            style={{ backgroundImage: 'url(/assets/images/sitio-completo/2.webp)' }} // Using site image as fallback for banner-inv.jpg
+          />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500 z-10" />
+          <div className="relative z-20 text-center space-y-6 px-8">
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white tracking-widest uppercase text-shadow-lg">
+              {language === 'es' ? 'INVENTIONEM' : 'INVENTIONEM'}
+            </h2>
+            <div className="inline-block px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
+              {t.inventionem.cta}
             </div>
           </div>
-          <div className="relative h-[600px] rounded-[32px] overflow-hidden shadow-2xl group">
-            <img 
-              src="/assets/images/comida/frescos.webp" 
-              alt="Vegetales frescos y orgánicos" 
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+        </a>
+
+        {/* Lado Derecho: Frescos y Orgánicos */}
+        <a 
+          href="/organicos" 
+          className="relative flex-1 group overflow-hidden flex items-center justify-center"
+        >
+          <div 
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+            style={{ backgroundImage: 'url(/assets/images/comida/frescos.webp)' }} // Using food image for banner-org.jpg
+          />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500 z-10" />
+          <div className="relative z-20 text-center space-y-6 px-8">
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white tracking-widest uppercase text-shadow-lg">
+              {language === 'es' ? 'FRESCOS Y ORGÁNICOS' : 'FRESH & ORGANIC'}
+            </h2>
+            <div className="inline-block px-8 py-4 bg-accent text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
+              {t.organicos.cta}
+            </div>
           </div>
-        </div>
+        </a>
       </section>
 
       {/* Safari Fotográfico */}

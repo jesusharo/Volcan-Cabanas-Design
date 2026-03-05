@@ -78,103 +78,20 @@ export const translations = {
       cta: "Reservar por WhatsApp",
       consult: "Consultar por WhatsApp",
     },
-    inventionem: {
-      title: "Inventionem: El Arte del Sabor",
-      description: "Una experiencia gastronómica diseñada para los paladares más exigentes. Fusionamos técnicas ancestrales con ingredientes locales para crear platos que cuentan la historia de nuestra tierra.",
-      cta: "Ver Menú",
-    },
-    frescos: {
-      title: "Del Campo a tu Mesa",
-      description: "Creemos en la pureza. Todos nuestros ingredientes son cultivados de manera orgánica en el Ejido San Antonio, garantizando frescura total y respeto por el medio ambiente.",
-      items: [
-        { title: "Cosecha Local", desc: "Ingredientes frescos recolectados diariamente de nuestras tierras." },
-        { title: "Sin Pesticidas", desc: "Cultivos 100% orgánicos, libres de químicos y respetuosos con la salud." },
-        { title: "Apoyo al Productor", desc: "Fomentamos el comercio justo y el crecimiento de nuestra comunidad local." }
-      ]
-    }
-  },
-  en: {
-    nav: {
-      hospedaje: "Lodging",
-      experiencias: "Experiences",
-      safari: "Photo Safari",
-      logistica: "Logistics",
-    },
-    hero: {
-      tag: "Mountain Eco-Tourism",
-      title: "Volcano Cabins",
-      subtitle: "Nature, comfort, and unparalleled views.",
-      cta: "Explore Cabins",
-      scrollHint: "Scroll to make it night",
-    },
-    cabins: {
-      title: "Our Cabins",
-      subtitle: "Discover our spaces designed to integrate harmoniously with the natural environment, offering comfort and unique views.",
-      capacity: "People",
-      max: "Maximum",
-      rooms: "Bedrooms",
-      bathrooms: "Bathroom",
-      bathroomsPlural: "Bathrooms",
-      equipped: "Equipped",
-      readMore: "Read more…",
-      readLess: "Read less",
-    },
-    exclusive: {
-      tag: "Exclusive Booking",
-      title: "Entire Site for Your Event",
-      subtitle: "Enjoy total privacy. Ideal for retreats, corporate events, or large family gatherings.",
-      price: "$7,500",
-      currency: "MXN",
-      duration: "2 Days / 1 Night",
-      capacity: "Up to 25 People",
-      facilities: "Access to all facilities",
-      cta: "Check Dates",
-    },
-    tours: {
-      tag: "Volcano Tour®",
-      title: "Adventure & Eco-tourism",
-      subtitle: "Experience the volcano from its heart. Activities designed to connect with nature through adrenaline and contemplation.",
-      learnMore: "Learn more",
-    },
-    safari: {
-      title: "Photo Safari",
-      description: "Join our specialized expeditions for amateur and professional photographers. Capture the majesty of controlled eruptions, snowy landscapes, and endemic fauna in their best light moments.",
-      items: [
-        "Expert guides in lighting locations",
-        "Access to exclusive viewpoints",
-        "Safe transport at sunrise/sunset"
-      ],
-      cta: "Schedule Safari",
-    },
-    info: {
-      title: "Important Information",
-      subtitle: "Everything you need to know before your visit.",
-      pets: {
-        title: "Pet Friendly",
-        desc: "Your best friends are welcome. A $100 MXN cleaning fee per pet applies.",
+            inventionem: {
+        tag: "Signature Cuisine",
+        title: "Inventionem: The Art of Signature Cuisine",
+        subtitle: "A symphony of flavors born at the slopes of the volcano.",
+        description: "Inventionem is not just a restaurant; it's a laboratory of the senses. Here, the power of volcanic fire translates into avant-garde techniques and plating that honors the geometry of nature. Every bite is a discovery; a fusion between Colima's culinary heritage and contemporary innovation.",
+        cta: "View Menu",
       },
-      security: {
-        title: "Total Security",
-        desc: "Safe and fenced location. Peace of mind guaranteed throughout your stay in the forest.",
+      organicos: {
+        tag: "Farm to Table",
+        title: "Fresh & Organic: From Field to Being",
+        subtitle: "Conscious nutrition grown in volcanic soil.",
+        description: "We believe true health begins in the soil. In our orchard at Ejido San Antonio, we grow chemical-free ingredients, respecting the earth's cycles and the purity of mountain water. Honest flavor, real harvest.",
+        cta: "Learn More",
       },
-      hours: {
-        title: "Schedules",
-        desc: "Check-in from 3:00 PM. Visitor check-out (non-guests) is at 10:00 PM.",
-      }
-    },
-    calculator: {
-      title: "How many people are visiting?",
-      pets: "Bringing pets? (+$100)",
-      total: "Estimated total",
-      night: "per night",
-      cta: "Book via WhatsApp",
-      consult: "Inquire via WhatsApp",
-    },
-    inventionem: {
-      title: "Inventionem: The Art of Flavor",
-      description: "A gastronomic experience designed for the most demanding palates. We fuse ancestral techniques with local ingredients to create dishes that tell the story of our land.",
-      cta: "View Menu",
-    },
     frescos: {
       title: "From Farm to Table",
       description: "We believe in purity. All our ingredients are organically grown in Ejido San Antonio, guaranteeing total freshness and respect for the environment.",

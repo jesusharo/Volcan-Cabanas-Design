@@ -7,14 +7,14 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Inventionem from "@/pages/Inventionem";
-import Frescos from "@/pages/Frescos";
+import Organicos from "@/pages/Organicos";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home}/>
       <Route path="/inventionem" component={Inventionem}/>
-      <Route path="/frescos" component={Frescos}/>
+      <Route path="/organicos" component={Organicos}/>
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
