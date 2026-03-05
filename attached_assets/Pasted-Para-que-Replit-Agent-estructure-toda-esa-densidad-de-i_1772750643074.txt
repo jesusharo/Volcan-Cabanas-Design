@@ -1,0 +1,44 @@
+Para que Replit Agent estructure toda esa densidad de información de manera profesional (evitando el "muro de texto" y convirtiéndolo en una experiencia de usuario fluida), usa este prompt detallado.
+
+Está diseñado para organizar la Escuela de Bosque por pestañas o módulos, resaltando el valor científico (CONACYT) y la transparencia (YouTube).
+
+Prompt para Replit: Módulo Avanzado Inventionem
+"Actualiza la Landing Page de Inventionem integrando la siguiente estructura técnica y comercial detallada. El diseño debe ser una mezcla de academia científica y entorno natural:
+
+1. Bloque de Credenciales (Banner Superior):
+
+Resalta el registro RENIECYT y la acreditación CONACYT.
+
+Menciona la capacidad de investigación en: Ingeniería, Industria, Energía y Sustentabilidad Ambiental.
+
+2. Sistema de Pestañas (Tabs) por Niveles Educativos:
+
+Pestaña 1: Primaria (Básica): Enfoque en Inteligencias Múltiples, Defensa Personal, Supervivencia Básica y Agroecología. Duración: 5-7 años.
+
+Pestaña 2: Secundaria (Media Básica): Materias base + Física, Química, Plantas Medicinales, Teoría de la Felicidad y Economía. Duración: 3 años.
+
+Pestaña 3: Bachillerato (Media Superior): Enfoque en Propiedad Intelectual (Patentes), Modelos de Utilidad, Simulación con Métodos Numéricos y Análisis de Ciclo de Vida. Preparación para formación de capital intelectual.
+
+3. Sección de 'Educación Abierta y Transparente':
+
+Inscripción Flexible: Resalta que los alumnos pueden incorporarse en cualquier momento del año.
+
+Monitoreo YouTube: Sección con icono de video que explique que los padres pueden ver a sus hijos aprender en tiempo real en locaciones de bosque, campo y ciudad.
+
+4. Sección de Costos e Inversión (Tarjetas Comparativas):
+
+Tarjeta A (Estudiante de Bosque): $24,995 anual (o parcialidades de $2,850/mes). Incluye hospedaje, tutoría, material y campamentos de investigación gratuitos.
+
+Tarjeta B (Externos/Campamentos): $9,000 por persona. Incluye vida agreste, alimentación y materiales didácticos.
+
+Tarjeta C (Empresas): Consultoría especializada por evaluadores CONACYT en desarrollo de nuevos productos y procesos amigables con el ambiente.
+
+5. Grid de 'Áreas de Experticia':
+
+Crea una cuadrícula con iconos para: Arquitectura Bioclimática, Innovación Disruptiva, Agrobiotecnología y Gestión de Ríos.
+
+6. Footer de Alianzas:
+
+Logotipos y nombres de: Universidad de Colima, Tecnológico de Colima, UNPI y Pontificia Universidad Católica de Valparaíso.
+
+Instrucción de Estilo: Usa un fondo crema claro (#F5F5DC) para las áreas de lectura y verde profundo (#1B3022) para los encabezados. El texto debe ser bilingüe (ES/EN) usando el objeto de traducción existente.
