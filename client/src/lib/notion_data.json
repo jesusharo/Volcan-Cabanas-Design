@@ -132,11 +132,9 @@
     "title": "Refugio Krakatoa",
     "description": "Experiencia térmica en piedra. Simplicidad con un mirador elevado único.",
     "detailedDescription": "Para los amantes del minimalismo y la aventura pura, el Refugio Krakatoa ofrece una experiencia de 'posada extrema'. Construido en piedra para mantener una temperatura confortable, este refugio para 4 personas cuenta con un mirador elevado privado con vista ininterrumpida al volcán. Es un espacio diseñado para la desconexión total (sin electricidad), fomentando la convivencia y el descanso profundo. Los huéspedes tienen acceso a una cocineta general y áreas comunes, combinando la rusticidad con la seguridad de nuestro complejo ecoturístico.",
-    "imageUrl": "/assets/images/krakatoa.jpg",
+    "imageUrl": "/assets/images/krakatoa/1.webp",
     "images": [
-      "/assets/images/krakatoa.jpg",
-      "/assets/images/krakatoa.jpg",
-      "/assets/images/krakatoa.jpg"
+      "/assets/images/krakatoa/1.webp"
     ],
     "capacity": "4",
     "rooms": 1,
