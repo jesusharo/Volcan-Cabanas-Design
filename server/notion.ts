@@ -1,9 +1,9 @@
-// Notion Integration - Replit Connector
-// WARNING: Never cache the client. Access tokens expire.
-import { Client } from '@notionhq/client';
+// Notion Integration - Replit Connectors SDK (proxy pattern)
+import { ReplitConnectors } from "@replit/connectors-sdk";
 import fs from 'fs';
 import path from 'path';
 import https from 'https';
+import http from 'http';
 
 const ASSETS_DIR = path.join(process.cwd(), 'client', 'public', 'assets', 'notion');
 
@@ -11,90 +11,70 @@ if (!fs.existsSync(ASSETS_DIR)) {
   fs.mkdirSync(ASSETS_DIR, { recursive: true });
 }
 
-async function downloadImage(url: string, filename: string): Promise<string> {
-  // If the URL is already local or empty, return as is
-  if (!url || url.startsWith('/') || url.startsWith('data:')) return url;
+function downloadImage(url: string, cabinId: string, index: number): Promise<string> {
+  if (!url || url.startsWith('/') || url.startsWith('data:')) return Promise.resolve(url);
   
-  // Create a stable filename based on the URL or an ID to avoid duplicates
-  // Using a simple hash or extracting from Notion URL
-  const urlObj = new URL(url);
-  const pathname = urlObj.pathname;
-  const ext = path.extname(pathname) || '.jpg';
-  // Use the last part of the path + some hash of the whole URL to be safe
-  const baseName = path.basename(pathname, ext);
-  const safeFilename = `${baseName}_${Buffer.from(url).toString('base64').substring(0, 8)}${ext}`;
-  const filePath = path.join(ASSETS_DIR, safeFilename);
-  const publicPath = `/assets/notion/${safeFilename}`;
-
-  if (fs.existsSync(filePath)) {
-    return publicPath;
-  }
-
-  return new Promise((resolve) => {
-    const file = fs.createWriteStream(filePath);
-    https.get(url, (response) => {
-      if (response.statusCode !== 200) {
-        resolve(url); // Fallback to original URL if download fails
-        return;
-      }
-      response.pipe(file);
-      file.on('finish', () => {
-        file.close();
-        resolve(publicPath);
-      });
-    }).on('error', () => {
-      resolve(url);
-    });
-  });
-}
-
-let connectionSettings: any;
-
-async function getAccessToken() {
-  const accessToken = process.env.NOTION_API_KEY;
-  if (accessToken) return accessToken;
-
   try {
-    if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-      return connectionSettings.settings.access_token;
-    }
-    
-    const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-    const xReplitToken = process.env.REPL_IDENTITY 
-      ? 'repl ' + process.env.REPL_IDENTITY 
-      : process.env.WEB_REPL_RENEWAL 
-      ? 'depl ' + process.env.WEB_REPL_RENEWAL 
-      : null;
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    const ext = path.extname(pathname).split('?')[0] || '.jpg';
+    const safeId = cabinId.replace(/[^a-z0-9-]/gi, '');
+    const safeFilename = `${safeId}_${index}${ext}`;
+    const filePath = path.join(ASSETS_DIR, safeFilename);
+    const publicPath = `/assets/notion/${safeFilename}`;
 
-    if (!xReplitToken) {
-      return null;
-    }
-
-    const response = await fetch(
-      'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=notion',
-      {
-        headers: {
-          'Accept': 'application/json',
-          'X-Replit-Token': xReplitToken
-        }
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+      if (stats.size > 1000) {
+        return Promise.resolve(publicPath);
       }
-    );
-    
-    if (!response.ok) return null;
-    
-    connectionSettings = await response.json().then(data => data.items?.[0]);
-    const token = connectionSettings?.settings?.access_token || connectionSettings?.settings?.oauth?.credentials?.access_token;
-    return token || null;
-  } catch (error) {
-    console.error("Error getting Notion access token:", error);
-    return null;
+    }
+
+    const protocol = url.startsWith('https') ? https : http;
+
+    return new Promise((resolve) => {
+      protocol.get(url, (response) => {
+        if (response.statusCode === 301 || response.statusCode === 302) {
+          const redirectUrl = response.headers.location;
+          if (redirectUrl) {
+            downloadImage(redirectUrl, cabinId, index).then(resolve);
+            return;
+          }
+        }
+        if (response.statusCode !== 200) {
+          console.warn(`Failed to download image (${response.statusCode}): ${safeFilename}`);
+          resolve(url);
+          return;
+        }
+        const file = fs.createWriteStream(filePath);
+        response.pipe(file);
+        file.on('finish', () => {
+          file.close();
+          console.log(`Downloaded image: ${safeFilename}`);
+          resolve(publicPath);
+        });
+        file.on('error', () => {
+          resolve(url);
+        });
+      }).on('error', (err) => {
+        console.warn(`Error downloading image: ${err.message}`);
+        resolve(url);
+      });
+    });
+  } catch (e) {
+    return Promise.resolve(url);
   }
 }
 
-export async function getUncachableNotionClient() {
-  const accessToken = await getAccessToken();
-  if (!accessToken) return null;
-  return new Client({ auth: accessToken });
+async function notionRequest(endpoint: string, method: string = "POST", body?: any): Promise<any> {
+  const connectors = new ReplitConnectors();
+  const options: any = { method };
+  if (body) {
+    options.body = JSON.stringify(body);
+    options.headers = { "Content-Type": "application/json" };
+  }
+  const response = await connectors.proxy("notion", endpoint, options);
+  return response.json();
 }
 
 export interface TieredPrice {
@@ -156,17 +136,14 @@ function slugify(text: string): string {
 }
 
 export async function fetchCabinsFromNotion(databaseId: string): Promise<NotionCabin[]> {
-  const notion = await getUncachableNotionClient();
-  if (!notion) {
-    console.warn("Notion client not available, returning empty cabins");
+  const data = await notionRequest(`/v1/databases/${databaseId}/query`);
+  
+  if (!data || !data.results) {
+    console.warn("No results from Notion query:", JSON.stringify(data).substring(0, 200));
     return [];
   }
-  
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
 
-  const cabins = await Promise.all(response.results.map(async (page: any) => {
+  const cabins = await Promise.all(data.results.map(async (page: any) => {
     const title = getPropertyValue(page, 'Nombre') || 'Sin nombre';
     const galleryImages = getPropertyValue(page, 'Galería') || [];
     const heroImages = getPropertyValue(page, 'Foto_Hero') || [];
@@ -179,8 +156,9 @@ export async function fetchCabinsFromNotion(databaseId: string): Promise<NotionC
     const rawImages = [...heroImages, ...galleryImages].filter(Boolean);
     const initialImages = rawImages.length > 0 ? rawImages : (coverUrl ? [coverUrl] : []);
     
-    // Download and localize images
-    const localizedImages = await Promise.all(initialImages.map(img => downloadImage(img, `img_${page.id}`)));
+    const localizedImages = await Promise.all(
+      initialImages.map((img, idx) => downloadImage(img, page.id, idx))
+    );
 
     return {
       id: page.id,
@@ -229,14 +207,18 @@ function parseTieredPricing(raw: any): TieredPrice[] {
 }
 
 export async function listDatabases() {
-  const notion = await getUncachableNotionClient();
-  if (!notion) return [];
-  const response = await notion.search({
-    filter: { property: 'object', value: 'database' },
-  });
-  return response.results.map((db: any) => ({
-    id: db.id,
-    title: db.title?.map((t: any) => t.plain_text).join('') || 'Sin título',
-    properties: Object.keys(db.properties || {}),
-  }));
+  try {
+    const data = await notionRequest("/v1/search", "POST", {
+      filter: { property: 'object', value: 'database' }
+    });
+    if (!data || !data.results) return [];
+    return data.results.map((db: any) => ({
+      id: db.id,
+      title: db.title?.map((t: any) => t.plain_text).join('') || 'Sin título',
+      properties: Object.keys(db.properties || {}),
+    }));
+  } catch (e) {
+    console.error("Error listing databases:", e);
+    return [];
+  }
 }
