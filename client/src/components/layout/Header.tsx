@@ -46,25 +46,25 @@ export function Header() {
   return (
     <div className="w-full fixed top-0 z-50 transition-all duration-500">
       {/* Subheader / Brand Switcher */}
-      <div className={`bg-foreground text-background text-xs py-2 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95`}>
-        <div className="flex gap-6 items-center">
-          <span className="opacity-50 text-[10px] uppercase tracking-[0.2em] font-bold">Ecosistema</span>
-          <Link href="/" className={`${location === '/' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} tracking-wide flex items-center gap-2 transition-all`}>
-            {location === '/' && <span className="w-1.5 h-1.5 rounded-full bg-[#27AE60] animate-pulse"></span>}
+      <div className={`bg-foreground text-background text-sm py-3 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95 border-b border-white/5`}>
+        <div className="flex gap-8 items-center">
+          <span className="opacity-50 text-[11px] uppercase tracking-[0.25em] font-black">Ecosistema</span>
+          <Link href="/" className={`${location === '/' ? 'text-[#27AE60] font-bold' : 'opacity-70 hover:opacity-100 hover:text-[#27AE60]'} tracking-wide flex items-center gap-2.5 transition-all text-sm`}>
+            {location === '/' && <span className="w-2 h-2 rounded-full bg-[#27AE60] animate-pulse"></span>}
             Cabañas del Volcán® / Tour X Volcán®
           </Link>
-          <span className="opacity-20">|</span>
-          <Link href="/inventionem" className={`${location === '/inventionem' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} transition-all font-medium`}>
-            Inventionem® <span className="font-normal opacity-70">(Escuela de Bosque)</span>
+          <span className="opacity-20 text-lg">|</span>
+          <Link href="/inventionem" className={`${location === '/inventionem' ? 'text-[#27AE60] font-bold' : 'opacity-70 hover:opacity-100 hover:text-[#27AE60]'} transition-all text-sm`}>
+            Inventionem® <span className="font-normal opacity-60">(Escuela de Bosque)</span>
           </Link>
-          <span className="opacity-20">|</span>
-          <Link href="/frescos" className={`${location === '/frescos' ? 'text-[#27AE60] font-semibold' : 'opacity-60 hover:opacity-100 hover:text-[#27AE60]'} transition-all font-medium`}>
+          <span className="opacity-20 text-lg">|</span>
+          <Link href="/organicos" className={`${location === '/organicos' ? 'text-[#27AE60] font-bold' : 'opacity-70 hover:opacity-100 hover:text-[#27AE60]'} transition-all text-sm`}>
             Frescos y Orgánicos®
           </Link>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[11px] tracking-wider opacity-80 hover:opacity-100 transition-opacity font-bold">
-          <Phone className="w-3 h-3 text-[#27AE60]" />
-          <a href="tel:3121500516">312 150 0516</a>
+        <div className="flex items-center gap-3 font-mono text-xs tracking-wider opacity-90 hover:opacity-100 transition-opacity font-black">
+          <Phone className="w-4 h-4 text-[#27AE60]" />
+          <a href="tel:3121500516" className="text-[13px]">312 150 0516</a>
         </div>
       </div>
 
