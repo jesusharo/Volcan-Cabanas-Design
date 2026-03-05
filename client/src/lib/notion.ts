@@ -1,3 +1,5 @@
+import notionData from "./notion_data.json";
+
 export interface TieredPrice {
   persons: number;
   price: number;
@@ -19,69 +21,15 @@ export interface Cabin {
   tieredPricing: TieredPrice[];
 }
 
-export interface Tour {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-export interface Testimonial {
-  id: string;
-  author: string;
-  quote: string;
-  rating: number;
-}
-
-const PLACEHOLDER_IMAGES = [
-  "/assets/images/cabana_1.jpg",
-  "/assets/images/cabana_2.jpg",
-  "/assets/images/cabana_3.jpg",
-  "/assets/images/krakatoa.jpg",
-];
-
 export const getCabins = async (): Promise<Cabin[]> => {
-  try {
-    const response = await fetch("/api/cabins");
-    if (!response.ok) throw new Error("API error");
-    const data: Cabin[] = await response.json();
-
-    if (!data || data.length === 0) {
-      return getFallbackCabins();
-    }
-
-    const order = ["casa-de-campo-volcan", "cabana-santa-helena", "monte-etna", "refugio-krakatoa"];
-    return data
-      .filter((cabin) => cabin.slug !== "renta-todo-el-sitio" && cabin.slug !== "sin-nombre" && cabin.title !== "Sin nombre")
-      .sort((a, b) => {
-        const ia = order.indexOf(a.slug);
-        const ib = order.indexOf(b.slug);
-        return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
-      })
-      .map((cabin, index) => ({
-        ...cabin,
-        imageUrl: cabin.imageUrl || PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length],
-        images: cabin.images.length > 0
-          ? cabin.images
-          : [PLACEHOLDER_IMAGES[index % PLACEHOLDER_IMAGES.length]],
-      }));
-  } catch (error) {
-    console.error("Error fetching cabins from API, using fallback:", error);
-    return getFallbackCabins();
-  }
+  const data = (notionData as any[]).filter(c => c.slug !== 'renta-todo-el-sitio');
+  if (data.length > 0) return data;
+  return getFallbackCabins();
 };
 
 export const getExclusiveRental = async (): Promise<Cabin | null> => {
-  try {
-    const response = await fetch("/api/cabins");
-    if (!response.ok) throw new Error("API error");
-    const data: Cabin[] = await response.json();
-    const rental = data.find((cabin) => cabin.slug === "renta-todo-el-sitio");
-    if (rental) return rental;
-    return getExclusiveFallback();
-  } catch {
-    return getExclusiveFallback();
-  }
+  const rental = (notionData as any[]).find(c => c.slug === 'renta-todo-el-sitio');
+  return rental || getExclusiveFallback();
 };
 
 function getExclusiveFallback(): Cabin {
