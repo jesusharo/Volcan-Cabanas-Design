@@ -12,11 +12,18 @@ Modern eco-tourism landing page for "Cabañas del Volcán" (cabanasdelvolcan.mx)
 ## Key Files
 - `client/src/pages/Home.tsx` - Main landing page with hero slider, cabin sections, tours, safari
 - `client/src/components/ReservationCalculator.tsx` - Smart reservation calculator per cabin
-- `client/src/lib/notion.ts` - Client-side data fetching + fallback mock data
-- `server/notion.ts` - Notion API integration (fetchCabinsFromNotion)
+- `client/src/lib/notion.ts` - Client-side data fetching + fallback data with local images
+- `server/notion.ts` - Notion API integration via @replit/connectors-sdk proxy pattern, with local image caching
 - `server/routes.ts` - API routes (/api/cabins, /api/notion/databases)
 - `client/src/components/layout/Header.tsx` - Multi-brand navigation header
 - `client/src/index.css` - Global styles, CSS variables, theme
+
+## Image Strategy
+- All images stored locally in `client/public/assets/images/` (cabins, tours, safari)
+- When Notion API is available, images are downloaded and cached to `client/public/assets/notion/`
+- Fallback images always available at `/assets/images/` paths (works in dev and production)
+- Safari hero fallback: `/assets/safari-hero.jpg`
+- Exclusive rental section and tours use fallback local images when Notion is unavailable
 
 ## Notion Database
 - **ID**: Set via `NOTION_DATABASE_ID` secret

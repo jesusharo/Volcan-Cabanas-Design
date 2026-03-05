@@ -34,10 +34,10 @@ export interface Testimonial {
 }
 
 const PLACEHOLDER_IMAGES = [
-  "/src/assets/images/cabana_1.jpg",
-  "/src/assets/images/cabana_2.jpg",
-  "/src/assets/images/cabana_3.jpg",
-  "/src/assets/images/krakatoa.jpg",
+  "/assets/images/cabana_1.jpg",
+  "/assets/images/cabana_2.jpg",
+  "/assets/images/cabana_3.jpg",
+  "/assets/images/krakatoa.jpg",
 ];
 
 export const getCabins = async (): Promise<Cabin[]> => {
@@ -45,10 +45,14 @@ export const getCabins = async (): Promise<Cabin[]> => {
     const response = await fetch("/api/cabins");
     if (!response.ok) throw new Error("API error");
     const data: Cabin[] = await response.json();
-    
+
+    if (!data || data.length === 0) {
+      return getFallbackCabins();
+    }
+
     const order = ["casa-de-campo-volcan", "cabana-santa-helena", "monte-etna", "refugio-krakatoa"];
     return data
-      .filter((cabin) => cabin.slug !== "renta-todo-el-sitio")
+      .filter((cabin) => cabin.slug !== "renta-todo-el-sitio" && cabin.slug !== "sin-nombre" && cabin.title !== "Sin nombre")
       .sort((a, b) => {
         const ia = order.indexOf(a.slug);
         const ib = order.indexOf(b.slug);
@@ -73,26 +77,55 @@ export const getExclusiveRental = async (): Promise<Cabin | null> => {
     if (!response.ok) throw new Error("API error");
     const data: Cabin[] = await response.json();
     const rental = data.find((cabin) => cabin.slug === "renta-todo-el-sitio");
-    return rental || null;
+    if (rental) return rental;
+    return getExclusiveFallback();
   } catch {
-    return null;
+    return getExclusiveFallback();
   }
 };
+
+function getExclusiveFallback(): Cabin {
+  return {
+    id: "exclusive",
+    title: "Renta Todo el Sitio",
+    description: "Experiencia exclusiva con acceso a todas las cabañas y áreas del complejo.",
+    detailedDescription: "Renta completa del complejo ecoturístico para eventos privados, retiros corporativos o celebraciones familiares. Incluye acceso a todas las cabañas, áreas comunes, senderos y actividades.",
+    capacity: "25",
+    rooms: 4,
+    bathrooms: 4,
+    bedsDetail: "Todas las camas del complejo",
+    imageUrl: "/assets/images/cabana_1.jpg",
+    images: [
+      "/assets/images/cabana_1.jpg",
+      "/assets/images/cabana_2.jpg",
+      "/assets/images/cabana_3.jpg",
+      "/assets/images/krakatoa.jpg",
+      "/assets/images/hiking.jpg",
+      "/assets/images/horseback.jpg",
+      "/assets/images/biking.jpg",
+      "/assets/images/zipline.jpg",
+      "/assets/images/volcano-tour_1.jpg",
+      "/assets/images/volcano-tour_2.jpg",
+    ],
+    slug: "renta-todo-el-sitio",
+    tieredPricing: [{persons: 25, price: 7500}]
+  };
+}
 
 function getFallbackCabins(): Cabin[] {
   return [
     {
       id: "1",
-      title: "Casa de Campo",
+      title: "Casa de Campo Volcán",
       description: "Vista espectacular al volcán, con amplios espacios ideales para familias.",
       detailedDescription: "Hospedaje premium de montaña con las mejores vistas al Volcán de Fuego. Amplias terrazas, chimenea y espacios diseñados para el descanso familiar en plena naturaleza.",
       capacity: "8",
       rooms: 3,
       bathrooms: 2,
       bedsDetail: "1 King size, 3 matrimoniales",
-      imageUrl: "/src/assets/images/cabana_1.jpg",
-      images: ["/src/assets/images/cabana_1.jpg", "/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_3.jpg"],
-      slug: "casa-de-campo",
+      imageUrl: "/assets/images/cabana_1.jpg",
+      images: ["/assets/images/cabana_1.jpg", "/assets/images/cabana_2.jpg", "/assets/images/cabana_3.jpg"],
+      slug: "casa-de-campo-volcan",
       tieredPricing: [{persons:2,price:800},{persons:4,price:900},{persons:6,price:1000},{persons:8,price:1100}]
     },
     {
@@ -104,8 +137,8 @@ function getFallbackCabins(): Cabin[] {
       rooms: 2,
       bathrooms: 1,
       bedsDetail: "2 matrimoniales, 3 individuales",
-      imageUrl: "/src/assets/images/cabana_2.jpg",
-      images: ["/src/assets/images/cabana_2.jpg", "/src/assets/images/cabana_1.jpg", "/src/assets/images/krakatoa.jpg"],
+      imageUrl: "/assets/images/cabana_2.jpg",
+      images: ["/assets/images/cabana_2.jpg", "/assets/images/cabana_1.jpg", "/assets/images/krakatoa.jpg"],
       slug: "cabana-santa-helena",
       tieredPricing: [{persons:2,price:700},{persons:4,price:800},{persons:7,price:900}]
     },
@@ -118,8 +151,8 @@ function getFallbackCabins(): Cabin[] {
       rooms: 1,
       bathrooms: 1,
       bedsDetail: "1 King size, 1 sofá cama",
-      imageUrl: "/src/assets/images/cabana_3.jpg",
-      images: ["/src/assets/images/cabana_3.jpg", "/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_1.jpg"],
+      imageUrl: "/assets/images/cabana_3.jpg",
+      images: ["/assets/images/cabana_3.jpg", "/assets/images/krakatoa.jpg", "/assets/images/cabana_1.jpg"],
       slug: "monte-etna",
       tieredPricing: [{persons:2,price:600},{persons:4,price:700}]
     },
@@ -132,8 +165,8 @@ function getFallbackCabins(): Cabin[] {
       rooms: 1,
       bathrooms: 1,
       bedsDetail: "1 King size",
-      imageUrl: "/src/assets/images/krakatoa.jpg",
-      images: ["/src/assets/images/krakatoa.jpg", "/src/assets/images/cabana_3.jpg", "/src/assets/images/cabana_2.jpg"],
+      imageUrl: "/assets/images/krakatoa.jpg",
+      images: ["/assets/images/krakatoa.jpg", "/assets/images/cabana_3.jpg", "/assets/images/cabana_2.jpg"],
       slug: "refugio-krakatoa",
       tieredPricing: [{persons:2,price:500}]
     }
@@ -141,32 +174,30 @@ function getFallbackCabins(): Cabin[] {
 }
 
 export const getTours = async (): Promise<Tour[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  
   return [
     {
       id: "t1",
       title: "Sendero Aéreo",
       description: "Tirolesas extremas cruzando el dosel del bosque.",
-      imageUrl: "/src/assets/images/zipline.jpg"
+      imageUrl: "/assets/images/zipline.jpg"
     },
     {
       id: "t2",
       title: "Caminata al Coloso",
       description: "Recorrido de 5 a 8 horas cruzando 3 ecosistemas únicos.",
-      imageUrl: "/src/assets/images/hiking.jpg"
+      imageUrl: "/assets/images/hiking.jpg"
     },
     {
       id: "t3",
       title: "Paseos a Caballo",
       description: "Rutas tranquilas explorando los alrededores del volcán.",
-      imageUrl: "/src/assets/images/horseback.jpg"
+      imageUrl: "/assets/images/horseback.jpg"
     },
     {
       id: "t4",
       title: "Ciclismo de Montaña",
       description: "Rutas de adrenalina y resistencia por los senderos del bosque.",
-      imageUrl: "/src/assets/images/biking.jpg"
+      imageUrl: "/assets/images/biking.jpg"
     }
   ];
 };
