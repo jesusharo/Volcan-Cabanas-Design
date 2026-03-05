@@ -5,7 +5,11 @@
     "description": "Vista espectacular al volcán, con amplios espacios ideales para familias.",
     "detailedDescription": "La Casa de Campo Volcán es nuestro hospedaje premium de montaña, diseñado para familias y grupos que buscan una experiencia única frente al majestuoso Volcán de Fuego de Colima. Con amplias terrazas que ofrecen vistas panorámicas ininterrumpidas, chimenea interior para las noches frescas de montaña, y espacios generosos que invitan al descanso y la convivencia.\n\nCuenta con 3 habitaciones completamente equipadas, 2 baños completos, cocina integral y sala-comedor con vista directa al volcán. El diseño arquitectónico integra materiales naturales de la región, creando una atmósfera cálida y auténtica que respeta el entorno natural del bosque de montaña.",
     "imageUrl": "/assets/images/cabana_1.jpg",
-    "images": ["/assets/images/cabana_1.jpg", "/assets/images/cabana_2.jpg", "/assets/images/cabana_3.jpg"],
+    "images": [
+      "/assets/images/cabana_1.jpg",
+      "/assets/images/cabana_1.jpg",
+      "/assets/images/cabana_1.jpg"
+    ],
     "capacity": "8",
     "rooms": 3,
     "bathrooms": 2,
@@ -13,10 +17,22 @@
     "slug": "casa-de-campo-volcan",
     "price": 800,
     "tieredPricing": [
-      {"persons": 2, "price": 800},
-      {"persons": 4, "price": 900},
-      {"persons": 6, "price": 1000},
-      {"persons": 8, "price": 1100}
+      {
+        "persons": 2,
+        "price": 800
+      },
+      {
+        "persons": 4,
+        "price": 900
+      },
+      {
+        "persons": 6,
+        "price": 1000
+      },
+      {
+        "persons": 8,
+        "price": 1100
+      }
     ]
   },
   {
@@ -25,7 +41,11 @@
     "description": "Sostenibilidad y calidez en un ambiente que respeta la naturaleza.",
     "detailedDescription": "La Cabaña Santa Helena es un refugio sostenible y familiar, ideal para quienes buscan turismo de naturaleza con conciencia ambiental. Su diseño en madera certificada incluye un encantador ático acogedor perfecto para niños, creando una experiencia memorable para toda la familia.\n\nCon espacios cálidos que respetan el entorno natural, la cabaña cuenta con 2 habitaciones, baño completo, área de estar con chimenea, y una terraza privada con vista al bosque. Los materiales y acabados fueron seleccionados para minimizar el impacto ambiental mientras maximizan el confort de nuestros huéspedes.",
     "imageUrl": "/assets/images/cabana_2.jpg",
-    "images": ["/assets/images/cabana_2.jpg", "/assets/images/cabana_1.jpg", "/assets/images/krakatoa.jpg"],
+    "images": [
+      "/assets/images/cabana_2.jpg",
+      "/assets/images/cabana_2.jpg",
+      "/assets/images/cabana_2.jpg"
+    ],
     "capacity": "7",
     "rooms": 2,
     "bathrooms": 1,
@@ -33,9 +53,18 @@
     "slug": "cabana-santa-helena",
     "price": 700,
     "tieredPricing": [
-      {"persons": 2, "price": 700},
-      {"persons": 4, "price": 800},
-      {"persons": 7, "price": 900}
+      {
+        "persons": 2,
+        "price": 700
+      },
+      {
+        "persons": 4,
+        "price": 800
+      },
+      {
+        "persons": 7,
+        "price": 900
+      }
     ]
   },
   {
@@ -44,7 +73,11 @@
     "description": "Rústica y acogedora en el corazón profundo del bosque.",
     "detailedDescription": "Monte Etna es una cabaña rústica de madera y bambú diseñada para grupos de aventura y parejas que buscan una conexión profunda con la naturaleza. Ubicada en el corazón del bosque, este refugio entre pinos ofrece acabados naturales y la energía vibrante del bosque profundo.\n\nCuenta con 1 habitación principal con cama King size, un sofá cama adicional, baño completo y una pequeña terraza con hamaca. La construcción combina técnicas tradicionales con materiales locales sostenibles, creando un espacio que se integra armónicamente con el paisaje forestal circundante.",
     "imageUrl": "/assets/images/cabana_3.jpg",
-    "images": ["/assets/images/cabana_3.jpg", "/assets/images/krakatoa.jpg", "/assets/images/cabana_1.jpg"],
+    "images": [
+      "/assets/images/cabana_3.jpg",
+      "/assets/images/cabana_3.jpg",
+      "/assets/images/cabana_3.jpg"
+    ],
     "capacity": "4",
     "rooms": 1,
     "bathrooms": 1,
@@ -52,8 +85,14 @@
     "slug": "monte-etna",
     "price": 600,
     "tieredPricing": [
-      {"persons": 2, "price": 600},
-      {"persons": 4, "price": 700}
+      {
+        "persons": 2,
+        "price": 600
+      },
+      {
+        "persons": 4,
+        "price": 700
+      }
     ]
   },
   {
@@ -62,7 +101,11 @@
     "description": "Experiencia térmica en piedra. Simplicidad con un mirador elevado único.",
     "detailedDescription": "Para los amantes del minimalismo y la aventura pura, el Refugio Krakatoa ofrece una experiencia de 'posada extrema'. Construido en piedra para mantener una temperatura confortable, este refugio para 4 personas cuenta con un mirador elevado privado con vista ininterrumpida al volcán. Es un espacio diseñado para la desconexión total (sin electricidad), fomentando la convivencia y el descanso profundo. Los huéspedes tienen acceso a una cocineta general y áreas comunes, combinando la rusticidad con la seguridad de nuestro complejo ecoturístico.",
     "imageUrl": "/assets/images/krakatoa.jpg",
-    "images": ["/assets/images/krakatoa.jpg", "/assets/images/cabana_3.jpg", "/assets/images/cabana_2.jpg"],
+    "images": [
+      "/assets/images/krakatoa.jpg",
+      "/assets/images/krakatoa.jpg",
+      "/assets/images/krakatoa.jpg"
+    ],
     "capacity": "4",
     "rooms": 1,
     "bathrooms": 1,
@@ -70,10 +113,22 @@
     "slug": "refugio-krakatoa",
     "price": 500,
     "tieredPricing": [
-      {"persons": 1, "price": 500},
-      {"persons": 2, "price": 800},
-      {"persons": 3, "price": 1100},
-      {"persons": 4, "price": 1300}
+      {
+        "persons": 1,
+        "price": 500
+      },
+      {
+        "persons": 2,
+        "price": 800
+      },
+      {
+        "persons": 3,
+        "price": 1100
+      },
+      {
+        "persons": 4,
+        "price": 1300
+      }
     ]
   },
   {
@@ -101,7 +156,10 @@
     "slug": "renta-todo-el-sitio",
     "price": 7500,
     "tieredPricing": [
-      {"persons": 25, "price": 7500}
+      {
+        "persons": 25,
+        "price": 7500
+      }
     ]
   }
 ]
