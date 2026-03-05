@@ -500,6 +500,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Del Campo a tu Mesa */}
+      <section id="frescos" className="py-24 px-6 md:px-16 bg-background">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="space-y-6">
+            <span className="text-accent font-bold tracking-widest uppercase text-xs flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+              COSECHA ORGÁNICA
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">{t.frescos.title}</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              {t.frescos.description}
+            </p>
+            <div className="grid gap-6 pt-4">
+              {t.frescos.items.map((item: any, i: number) => (
+                <div key={i} className="flex gap-4">
+                  <div className="shrink-0 w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground">{item.title}</h4>
+                    <p className="text-muted-foreground text-sm">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative h-[600px] rounded-[32px] overflow-hidden shadow-2xl group">
+            <img 
+              src="/assets/images/comida/frescos.webp" 
+              alt="Vegetales frescos y orgánicos" 
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+          </div>
+        </div>
+      </section>
+
       {/* Safari Fotográfico */}
       <section id="safari" className="py-24 px-4 md:px-8 bg-muted border-y border-border">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
