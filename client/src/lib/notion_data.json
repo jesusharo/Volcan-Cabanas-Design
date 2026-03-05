@@ -54,11 +54,15 @@
     "title": "Cabaña Santa Helena",
     "description": "Sostenibilidad y calidez en un ambiente que respeta la naturaleza.",
     "detailedDescription": "La Cabaña Santa Helena es un refugio sostenible y familiar, ideal para quienes buscan turismo de naturaleza con conciencia ambiental. Su diseño en madera certificada incluye un encantador ático acogedor perfecto para niños, creando una experiencia memorable para toda la familia.\n\nCon espacios cálidos que respetan el entorno natural, la cabaña cuenta con 2 habitaciones, baño completo, área de estar con chimenea, y una terraza privada con vista al bosque. Los materiales y acabados fueron seleccionados para minimizar el impacto ambiental mientras maximizan el confort de nuestros huéspedes.",
-    "imageUrl": "/assets/images/cabana_2.jpg",
+    "imageUrl": "/assets/images/santa-helena/1.webp",
     "images": [
-      "/assets/images/cabana_2.jpg",
-      "/assets/images/cabana_2.jpg",
-      "/assets/images/cabana_2.jpg"
+      "/assets/images/santa-helena/1.webp",
+      "/assets/images/santa-helena/2.webp",
+      "/assets/images/santa-helena/3.webp",
+      "/assets/images/santa-helena/4.webp",
+      "/assets/images/santa-helena/5.webp",
+      "/assets/images/santa-helena/6.webp",
+      "/assets/images/santa-helena/7.webp"
     ],
     "capacity": "7",
     "rooms": 2,
