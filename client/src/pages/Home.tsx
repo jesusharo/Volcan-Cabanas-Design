@@ -269,15 +269,23 @@ export default function Home() {
 
       <Header />
 
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+      <div className="fixed bottom-6 right-6 z-50 flex gap-4 items-center">
+        <button 
+          onClick={() => window.open("https://www.tripadvisor.es/Hotel_Review-g1744419-d12877799-Reviews-Cabanas_del_Volcan-Comala_Pacific_Coast.html?m=19905", "_blank")}
+          className="bg-[#34E0A1] text-black p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
+          aria-label="Ver en TripAdvisor"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 fill-current">
+            <path d="M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0zm0 21c-4.962 0-9-4.038-9-9s4.038-9 9-9 9 4.038 9 9-4.038 9-9 9zM7.5 9c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm9 0c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zM12 14c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
+          </svg>
+        </button>
+
         <button 
           onClick={() => window.open("https://www.airbnb.mx/rooms/31803875?guests=1&adults=1&s=67&unique_share_id=3a57641b-0421-4812-bca8-a685f213dbf4", "_blank")}
           className="bg-[#FF5A5F] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
           aria-label="Reservar en Airbnb"
         >
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 fill-current" aria-hidden="true" role="presentation" focusable="false">
-            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.011l-.176.185c-2.044 2.1-4.393 3.406-6.472 3.406-3.522 0-6.367-2.466-6.367-6.478l.001-.282c.01-.841.191-1.61.467-2.34l.155-.39c.816-1.913 5.047-11.233 7.152-15.345l.433-.846C12.583 1.968 14.018 1 16 1zm0 2c-1.235 0-2.208.599-3.007 2.023l-.504.981c-2.11 4.123-6.131 12.96-7.03 15.068l-.161.406c-.25.603-.418 1.223-.48 1.882l-.018.418v.228c0 2.924 2.015 4.478 4.367 4.478 1.52 0 3.442-.98 5.234-2.822l.169-.176.117-.123 1.32 1.32c.118.114.228.221.332.32 1.92 1.77 3.824 2.766 5.437 2.766 2.31 0 4.357-1.573 4.357-4.478l-.001-.282c-.042-.767-.251-1.536-.615-2.399l-.161-.406c-.886-2.103-5.01-11.233-7.066-15.424l-.454-.923C18.232 3.606 17.254 3 16 3zm0 13.333c1.47 0 2.666 1.196 2.666 2.667 0 1.47-1.196 2.666-2.666 2.666-1.47 0-2.667-1.196-2.667-2.666 0-1.47 1.197-2.667 2.667-2.667z"></path>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-airbnb w-7 h-7"><path d="M10 14.5L12 19l2-4.5"/><path d="M12 3c-1.1 0-2.1.4-2.8 1.2L3.9 10.5c-1.2 1.4-1.2 3.6 0 5s3.2 1.4 4.4 0L12 12l3.7 3.5c1.2 1.4 3.2 1.4 4.4 0s1.2-3.6 0-5l-5.3-6.3C14.1 3.4 13.1 3 12 3z"/><circle cx="12" cy="10" r="1"/></svg>
         </button>
 
         <button 
