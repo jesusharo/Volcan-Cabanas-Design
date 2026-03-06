@@ -282,10 +282,10 @@ export default function Home() {
 
         <button 
           onClick={() => window.open("https://www.airbnb.mx/rooms/31803875?guests=1&adults=1&s=67&unique_share_id=3a57641b-0421-4812-bca8-a685f213dbf4", "_blank")}
-          className="bg-[#FF5A5F] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
+          className="bg-[#FF5A5F] text-white p-3 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center w-[56px] h-[56px]"
           aria-label="Reservar en Airbnb"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-airbnb w-7 h-7"><path d="M10 14.5L12 19l2-4.5"/><path d="M12 3c-1.1 0-2.1.4-2.8 1.2L3.9 10.5c-1.2 1.4-1.2 3.6 0 5s3.2 1.4 4.4 0L12 12l3.7 3.5c1.2 1.4 3.2 1.4 4.4 0s1.2-3.6 0-5l-5.3-6.3C14.1 3.4 13.1 3 12 3z"/><circle cx="12" cy="10" r="1"/></svg>
+          <img src="/assets/airbnb-logo.png" alt="Airbnb" className="w-8 h-8 object-contain" />
         </button>
 
         <button 
