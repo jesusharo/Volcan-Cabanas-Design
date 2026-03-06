@@ -46,7 +46,7 @@ export function Header() {
   return (
     <div className="w-full fixed top-0 z-50 transition-all duration-500">
       {/* Subheader / Brand Switcher */}
-      <div className={`bg-foreground text-background text-sm py-3 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95 border-b border-white/5`}>
+      <div className={`bg-black text-white text-sm py-3 px-4 md:px-8 hidden md:flex justify-between items-center transition-all duration-500 opacity-95 border-b border-white/5`}>
         <div className="flex gap-8 items-center">
           <span className="opacity-50 text-[11px] uppercase tracking-[0.25em] font-black">Ecosistema</span>
           <Link href="/" className={`${location === '/' ? 'text-[#27AE60] font-bold' : 'opacity-70 hover:opacity-100 hover:text-[#27AE60]'} tracking-wide flex items-center gap-2.5 transition-all text-sm`}>
