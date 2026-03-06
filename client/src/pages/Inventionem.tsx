@@ -29,13 +29,25 @@ export default function InventionemPage() {
     <div className="min-h-screen flex flex-col bg-[#111111] text-white selection:bg-[#C0CE00] selection:text-black">
       <Header />
 
-      <button
-        onClick={() => window.open("https://wa.me/523121500516?text=Hola, me interesa información sobre Inventionem Escuela de Bosque.", "_blank")}
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300"
-        aria-label="Contactar por WhatsApp"
-      >
-        <MessageCircle className="w-7 h-7" />
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <button
+          onClick={() => window.open("https://www.airbnb.mx/rooms/31803875?guests=1&adults=1&s=67&unique_share_id=3a57641b-0421-4812-bca8-a685f213dbf4", "_blank")}
+          className="bg-[#FF5A5F] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
+          aria-label="Reservar en Airbnb"
+        >
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 fill-current" aria-hidden="true" role="presentation" focusable="false">
+            <path d="M16 1c2.008 0 3.463.963 4.751 3.269l.533 1.025c1.954 3.83 6.114 12.54 7.1 14.836l.145.353c.667 1.591.91 2.472.96 3.396l.01.415.001.228c0 4.062-2.877 6.478-6.357 6.478-2.224 0-4.556-1.258-6.709-3.386l-.257-.26-.172-.179h-.011l-.176.185c-2.044 2.1-4.393 3.406-6.472 3.406-3.522 0-6.367-2.466-6.367-6.478l.001-.282c.01-.841.191-1.61.467-2.34l.155-.39c.816-1.913 5.047-11.233 7.152-15.345l.433-.846C12.583 1.968 14.018 1 16 1zm0 2c-1.235 0-2.208.599-3.007 2.023l-.504.981c-2.11 4.123-6.131 12.96-7.03 15.068l-.161.406c-.25.603-.418 1.223-.48 1.882l-.018.418v.228c0 2.924 2.015 4.478 4.367 4.478 1.52 0 3.442-.98 5.234-2.822l.169-.176.117-.123 1.32 1.32c.118.114.228.221.332.32 1.92 1.77 3.824 2.766 5.437 2.766 2.31 0 4.357-1.573 4.357-4.478l-.001-.282c-.042-.767-.251-1.536-.615-2.399l-.161-.406c-.886-2.103-5.01-11.233-7.066-15.424l-.454-.923C18.232 3.606 17.254 3 16 3zm0 13.333c1.47 0 2.666 1.196 2.666 2.667 0 1.47-1.196 2.666-2.666 2.666-1.47 0-2.667-1.196-2.667-2.666 0-1.47 1.197-2.667 2.667-2.667z"></path>
+          </svg>
+        </button>
+
+        <button
+          onClick={() => window.open("https://wa.me/523121500516?text=Hola, me interesa información sobre Inventionem Escuela de Bosque.", "_blank")}
+          className="bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
+          aria-label="Contactar por WhatsApp"
+        >
+          <MessageCircle className="w-7 h-7" />
+        </button>
+      </div>
 
       <main className="flex-grow pt-28">
 
