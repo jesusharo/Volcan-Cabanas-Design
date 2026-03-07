@@ -12,7 +12,7 @@ export const translations = {
       tag: "DIÁLOGO CON LA NATURALEZA",
       title: "El Volcán a tus Pies, las Estrellas a tu Alcance.",
       subtitle: "Sin distracciones. Solo la arquitectura de la montaña y la pureza del entorno. Ven a vivir el privilegio de la simplicidad.",
-      cta: "COMIENZA EL VIAJE",
+      cta: "CONOCE NUESTRAS CABAÑAS",
       scrollHint: "Haz scroll para que anochezca",
     },
     cabins: {
@@ -230,7 +230,7 @@ export const translations = {
       tag: "DIALOGUE WITH NATURE",
       title: "The Volcano at your Feet, the Stars within Reach.",
       subtitle: "No distractions. Only the mountain's architecture and the purity of the surroundings. Come experience the privilege of simplicity.",
-      cta: "START THE JOURNEY",
+      cta: "EXPLORE OUR CABINS",
       scrollHint: "Scroll to make it night",
     },
     cabins: {
