@@ -183,7 +183,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   <button
                     data-testid={`btn-readmore-${cabin.id}`}
                     onClick={() => setExpanded(!expanded)}
-                    className="hidden md:flex mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
+                    className="hidden md:flex mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors items-center gap-1"
                   >
                     {expanded ? t.cabins.readLess : t.cabins.readMore}
                     <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
@@ -584,7 +584,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-serif font-bold text-white tracking-widest uppercase text-shadow-lg">
               {language === 'es' ? 'INVENTIONEM' : 'INVENTIONEM'}
             </h2>
-            <div className="inline-block px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
+            <div className="hidden md:inline-block px-8 py-4 bg-white text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
               {t.inventionem.cta}
             </div>
           </div>
@@ -604,7 +604,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-serif font-bold text-white tracking-widest uppercase text-shadow-lg">
               {language === 'es' ? 'FRESCOS Y ORGÁNICOS' : 'FRESH & ORGANIC'}
             </h2>
-            <div className="inline-block px-8 py-4 bg-accent text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
+            <div className="hidden md:inline-block px-8 py-4 bg-accent text-black font-bold uppercase tracking-widest text-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 rounded-lg shadow-xl">
               {t.organicos.cta}
             </div>
           </div>
