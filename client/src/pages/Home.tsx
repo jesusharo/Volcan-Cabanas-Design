@@ -159,7 +159,14 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
               </div>
 
               <div className="relative" data-testid={`cabin-description-${cabin.id}`}>
-                <div className={`space-y-3 ${!expanded && needsTruncation ? 'max-h-[6.5rem] overflow-hidden' : ''}`}>
+                <div className={`space-y-3 hidden md:block ${!expanded && needsTruncation ? 'max-h-[6.5rem] overflow-hidden' : ''}`}>
+                  {descText.split(/\n\n|\n/).filter(Boolean).map((paragraph, pIdx) => (
+                    <p key={pIdx} className="text-base text-muted-foreground leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+                <div className="space-y-3 md:hidden">
                   {descText.split(/\n\n|\n/).filter(Boolean).map((paragraph, pIdx) => (
                     <p key={pIdx} className="text-base text-muted-foreground leading-relaxed">
                       {paragraph.trim()}
@@ -168,7 +175,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                 </div>
                 {!expanded && needsTruncation && (
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-14 pointer-events-none"
+                    className="absolute bottom-0 left-0 right-0 h-14 pointer-events-none hidden md:block"
                     style={{ background: `linear-gradient(to top, ${index % 2 !== 0 ? '#2b2b2b' : '#242424'}, transparent)` }}
                   />
                 )}
@@ -176,7 +183,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
                   <button
                     data-testid={`btn-readmore-${cabin.id}`}
                     onClick={() => setExpanded(!expanded)}
-                    className="mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
+                    className="hidden md:flex mt-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors flex items-center gap-1"
                   >
                     {expanded ? t.cabins.readLess : t.cabins.readMore}
                     <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
