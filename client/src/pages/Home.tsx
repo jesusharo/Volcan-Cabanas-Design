@@ -398,7 +398,8 @@ export default function Home() {
             </p>
             <div className="flex flex-col items-center gap-8">
               <button 
-                className="text-white text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2"
+                className="text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2"
+                style={{ color: '#C0CE02' }}
                 onClick={() => {
                   const element = document.getElementById('nuestras-cabanas');
                   element?.scrollIntoView({ behavior: 'smooth' });
