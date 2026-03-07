@@ -14,6 +14,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [scrollStart, setScrollStart] = useState<number | null>(null);
   const { t } = useLanguage();
   const descText = cabin.detailedDescription || cabin.description;
   const needsTruncation = descText.length > DESC_TRUNCATE_LENGTH;
@@ -55,6 +56,18 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
     onTouchEnd();
   };
 
+  const onWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      e.preventDefault();
+      const distance = e.deltaX;
+      if (distance > minSwipeDistance) {
+        setCurrentImageIndex((prev) => (prev - 1 + (cabin.images?.length || 1)) % (cabin.images?.length || 1));
+      } else if (distance < -minSwipeDistance) {
+        setCurrentImageIndex((prev) => (prev + 1) % (cabin.images?.length || 1));
+      }
+    }
+  };
+
   useEffect(() => {
     if (!cabin.images || cabin.images.length <= 1) return;
     const interval = setInterval(() => {
@@ -79,6 +92,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseUp}
+          onWheel={onWheel}
         >
           <div className="relative w-full h-full">
             {cabin.images?.map((img, i) => (
@@ -375,27 +389,27 @@ export default function Home() {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
 
-          <div className="relative z-30 h-full flex flex-col justify-end pb-32 px-6 md:px-16 max-w-7xl mx-auto w-full">
-            <span className="text-accent uppercase tracking-[0.15em] text-xs font-bold mb-4 inline-block">
+          <div className="relative z-30 h-full flex flex-col justify-center items-center pb-32 px-6 md:px-16 max-w-4xl mx-auto w-full text-center">
+            <span className="text-white uppercase tracking-[0.15em] text-xs font-bold mb-6 inline-block">
               {t.hero.tag}
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight text-shadow-md">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight text-shadow-md">
               {t.hero.title}
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-8 text-shadow-sm font-medium">
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-12 text-shadow-sm font-medium">
               {t.hero.subtitle}
             </p>
-            <div className="flex flex-wrap items-center gap-6">
-              <Button 
-                size="lg" 
-                className="bg-accent text-black hover:bg-accent/90 text-sm py-6 px-8 rounded-xl shadow-none transition-all hover:scale-[1.02] border-0 font-bold uppercase tracking-widest"
+            <div className="flex flex-col items-center gap-8">
+              <button 
+                className="text-white text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2"
                 onClick={() => {
                   const element = document.getElementById('nuestras-cabanas');
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 {t.hero.cta}
-              </Button>
+                <ChevronDown className="w-5 h-5 animate-bounce" />
+              </button>
             </div>
           </div>
         </div>

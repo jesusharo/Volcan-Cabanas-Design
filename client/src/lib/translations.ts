@@ -9,10 +9,10 @@ export const translations = {
       logistica: "Logística",
     },
     hero: {
-      tag: "Eco-Turismo de Montaña",
-      title: "Cabañas del Volcán",
-      subtitle: "Naturaleza, confort y vistas inigualables.",
-      cta: "Explorar Cabañas",
+      tag: "DIÁLOGO CON LA NATURALEZA",
+      title: "El Volcán a tus Pies, las Estrellas a tu Alcance.",
+      subtitle: "Sin distracciones. Solo la arquitectura de la montaña y la pureza del entorno. Ven a vivir el privilegio de la simplicidad.",
+      cta: "COMIENZA EL VIAJE",
       scrollHint: "Haz scroll para que anochezca",
     },
     cabins: {
@@ -227,10 +227,10 @@ export const translations = {
       logistica: "Logistics",
     },
     hero: {
-      tag: "Mountain Eco-Tourism",
-      title: "Volcano Cabins",
-      subtitle: "Nature, comfort, and unparalleled views.",
-      cta: "Explore Cabins",
+      tag: "DIALOGUE WITH NATURE",
+      title: "The Volcano at your Feet, the Stars within Reach.",
+      subtitle: "No distractions. Only the mountain's architecture and the purity of the surroundings. Come experience the privilege of simplicity.",
+      cta: "START THE JOURNEY",
       scrollHint: "Scroll to make it night",
     },
     cabins: {
