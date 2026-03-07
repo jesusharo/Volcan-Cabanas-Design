@@ -390,9 +390,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
 
           <div className="relative z-30 h-full flex flex-col justify-end items-center px-6 md:px-16 max-w-4xl mx-auto w-full text-center" style={{ paddingBottom: '40px' }}>
-            <span className="text-white uppercase tracking-[0.15em] text-xs font-bold mb-6 inline-block">
-              {t.hero.tag}
-            </span>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight text-shadow-md">
               {t.hero.title}
             </h1>
