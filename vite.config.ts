@@ -4,14 +4,15 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  root: 'client',
+  // 1. Quitamos root: 'client' para que busque el index.html en la raíz
   build: {
-    outDir: '../dist',
+    outDir: 'dist', // 2. El outDir ahora es simplemente 'dist'
     emptyOutDir: true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(process.cwd(), 'client/src'),
+      // 3. Ajustamos el alias para que encuentre la carpeta src correctamente
+      '@': path.resolve(process.cwd(), 'src'), 
     },
   },
 });
