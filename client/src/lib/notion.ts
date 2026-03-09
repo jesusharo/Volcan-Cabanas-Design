@@ -35,8 +35,47 @@ export interface Testimonial {
   rating: number;
 }
 
+export interface InventionemData {
+  tag: string;
+  title: string;
+  subtitle: string;
+  credentials: {
+    tag: string;
+    title: string;
+    subtitle: string;
+    areas: string[];
+  };
+  openEducation: {
+    title: string;
+    flexTitle: string;
+    flexDesc: string;
+    youtubeTitle: string;
+    youtubeDesc: string;
+  };
+  pricing: {
+    title: string;
+    subtitle: string;
+    cards: {
+      name?: string;
+      price?: string;
+      period?: string;
+      monthly: string;
+      features: string[];
+      highlight?: boolean;
+    }[];
+  };
+  expertise: {
+    title: string;
+    areas: { title: string; desc: string }[];
+  };
+  alliances: {
+    title: string;
+    partners: string[];
+  };
+}
+
 export const getCabins = async (): Promise<Cabin[]> => {
-  const data = (siteData.cabins as any[]).filter(
+  const data = (siteData.cabins as unknown as Cabin[]).filter(
     c => c.slug !== 'renta-todo-el-sitio' && c.slug !== 'sin-nombre' && c.title !== 'Sin nombre'
   );
   const order = ["casa-de-campo-volcan", "cabana-santa-helena", "monte-etna", "refugio-krakatoa"];
@@ -48,12 +87,12 @@ export const getCabins = async (): Promise<Cabin[]> => {
 };
 
 export const getExclusiveRental = async (): Promise<Cabin | null> => {
-  const rental = (siteData.cabins as any[]).find(c => c.slug === 'renta-todo-el-sitio');
+  const rental = (siteData.cabins as unknown as Cabin[]).find(c => c.slug === 'renta-todo-el-sitio');
   return rental || null;
 };
 
-export const getInventionemData = async (): Promise<any> => {
-  return siteData.inventionem;
+export const getInventionemData = async (): Promise<InventionemData> => {
+  return siteData.inventionem as unknown as InventionemData;
 };
 
 export const getTours = async (): Promise<Tour[]> => {

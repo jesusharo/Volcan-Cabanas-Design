@@ -7,6 +7,7 @@ import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPri
 import { ReservationCalculator } from "@/components/ReservationCalculator";
 import { useLanguage } from "@/lib/LanguageContext";
 import { SITE_DATA } from "@/lib/config";
+import { translations } from "@/lib/translations";
 
 const DESC_TRUNCATE_LENGTH = 200;
 
@@ -203,7 +204,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
   );
 }
 
-function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: any; onWhatsApp: (msg: string) => void; exclusiveData: Cabin | null }) {
+function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: typeof translations.es; onWhatsApp: (msg: string) => void; exclusiveData: Cabin | null }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   useEffect(() => {

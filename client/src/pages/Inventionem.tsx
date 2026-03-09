@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { useLanguage, Language } from "@/lib/LanguageContext";
 import { CheckCircle2, BookOpen, FlaskConical, GraduationCap, Video, CalendarPlus, Building2, Leaf, Droplets, Lightbulb, MessageCircle } from "lucide-react";
-import { getInventionemData } from "@/lib/notion";
+import { getInventionemData, type InventionemData } from "@/lib/notion";
 import { SITE_DATA } from "@/lib/config";
 
 const tabIcons: Record<string, React.ReactNode> = {
@@ -21,7 +21,7 @@ const expertiseIcons = [
 
 export default function InventionemPage() {
   const { t, language } = useLanguage();
-  const [inv, setInv] = useState<any>(null);
+  const [inv, setInv] = useState<InventionemData | null>(null);
   const [activeTab, setActiveTab] = useState<string>("primary");
 
   useEffect(() => {
