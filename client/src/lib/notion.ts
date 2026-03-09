@@ -1,4 +1,4 @@
-import notionData from "./notion_data.json";
+import siteData from "./data.json";
 
 export interface TieredPrice {
   persons: number;
@@ -36,7 +36,7 @@ export interface Testimonial {
 }
 
 export const getCabins = async (): Promise<Cabin[]> => {
-  const data = (notionData as any[]).filter(
+  const data = (siteData.cabins as any[]).filter(
     c => c.slug !== 'renta-todo-el-sitio' && c.slug !== 'sin-nombre' && c.title !== 'Sin nombre'
   );
   const order = ["casa-de-campo-volcan", "cabana-santa-helena", "monte-etna", "refugio-krakatoa"];
@@ -48,8 +48,12 @@ export const getCabins = async (): Promise<Cabin[]> => {
 };
 
 export const getExclusiveRental = async (): Promise<Cabin | null> => {
-  const rental = (notionData as any[]).find(c => c.slug === 'renta-todo-el-sitio');
+  const rental = (siteData.cabins as any[]).find(c => c.slug === 'renta-todo-el-sitio');
   return rental || null;
+};
+
+export const getInventionemData = async (): Promise<any> => {
+  return siteData.inventionem;
 };
 
 export const getTours = async (): Promise<Tour[]> => {

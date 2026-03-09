@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
 import { useLanguage } from "@/lib/LanguageContext";
+import { SITE_DATA } from "@/lib/config";
 
 const DESC_TRUNCATE_LENGTH = 200;
 
@@ -202,13 +203,8 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
   );
 }
 
-function ExclusiveSection({ t, onWhatsApp }: { t: any; onWhatsApp: (msg: string) => void }) {
-  const [exclusiveData, setExclusiveData] = useState<Cabin | null>(null);
+function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: any; onWhatsApp: (msg: string) => void; exclusiveData: Cabin | null }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-
-  useEffect(() => {
-    getExclusiveRental().then(setExclusiveData);
-  }, []);
 
   useEffect(() => {
     if (!exclusiveData || !exclusiveData.images || exclusiveData.images.length <= 1) return;
@@ -283,6 +279,7 @@ export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [safariImage, setSafariImage] = useState("/assets/safari-hero.jpg");
   const [exclusiveImages, setExclusiveImages] = useState<string[]>([]);
+  const [exclusiveData, setExclusiveData] = useState<Cabin | null>(null);
 
   // Calculate scroll progress for the night effect (0 to 1) over first 800px
   const scrollProgress = Math.min(scrollY / 800, 1);
@@ -317,6 +314,7 @@ export default function Home() {
     getTours().then(setTours);
     getTestimonials().then(setTestimonials);
     getExclusiveRental().then((data) => {
+      setExclusiveData(data);
       if (data && data.images && data.images.length > 0) {
         setExclusiveImages(data.images);
         if (data.images.length >= 2) {
@@ -329,6 +327,14 @@ export default function Home() {
   const handleWhatsAppClick = (customMessage?: string) => {
     const message = encodeURIComponent(customMessage || waMessage);
     window.open(`https://wa.me/523121500516?text=${message}`, '_blank');
+  };
+
+  // Mapeo de datos de configuración (SITE_DATA) a la vista con manejo de errores
+  const heroData = SITE_DATA?.hero?.[language as 'es' | 'en'] || {
+    tag: "BIENVENIDO",
+    titulo: "Cabañas del Volcán",
+    subtítulo: "Experiencia única en la montaña.",
+    boton: "RESERVAR"
   };
 
   return (
@@ -375,7 +381,7 @@ export default function Home() {
           <div className="absolute inset-0 z-15 pointer-events-none" style={{ opacity: scrollProgress }}>
             <img 
               src="/assets/volcan-night.jpg" 
-              alt="Volcán de Noche" 
+              alt={`${heroData.titulo} - Vista Nocturna`}
               className="w-full h-full object-cover"
               style={{ objectPosition: 'center' }}
             />
@@ -385,7 +391,7 @@ export default function Home() {
           <div className="absolute inset-0 z-10 pointer-events-none" style={{ opacity: 1 - scrollProgress }}>
             <img 
               src="/assets/volcan-day.jpg" 
-              alt="Volcán de Fuego" 
+              alt={`${heroData.titulo} - Vista Diurna`}
               className="w-full h-full object-cover"
               style={{
                 filter: `brightness(${1 - (scrollProgress * 0.7)}) contrast(${1 + (scrollProgress * 0.2)}) hue-rotate(${scrollProgress * 200}deg) saturate(${1 - (scrollProgress * 0.2)})`,
@@ -397,14 +403,16 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none" />
 
           <div className="relative z-30 h-full flex flex-col justify-end items-center px-6 md:px-16 max-w-4xl mx-auto w-full text-center" style={{ paddingBottom: '40px' }}>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight text-shadow-md">
-              {t.hero.title}
+            <span className="text-[#C0CE00] tracking-[0.3em] font-bold uppercase text-xs block mb-4 animate-fade-in">{heroData.tag}</span>
+            <h1 id="hero-title" className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight text-shadow-md">
+              {heroData.titulo}
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-12 text-shadow-sm font-medium">
-              {t.hero.subtitle}
+            <p id="hero-subtitle" className="text-lg md:text-xl text-white/90 max-w-2xl mb-12 text-shadow-sm font-medium">
+              {heroData.subtítulo}
             </p>
             <div className="flex flex-col items-center gap-8">
               <button 
+                id="hero-cta"
                 className="text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2"
                 style={{ color: '#C0CE02' }}
                 onClick={() => {
@@ -412,7 +420,7 @@ export default function Home() {
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                {t.hero.cta}
+                {heroData.boton}
                 <ChevronDown className="w-5 h-5 animate-bounce" />
               </button>
             </div>
@@ -439,7 +447,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ExclusiveSection t={t} onWhatsApp={handleWhatsAppClick} />
+      <ExclusiveSection t={t} onWhatsApp={handleWhatsAppClick} exclusiveData={exclusiveData} />
 
       {/* Sección de Tours (Experiencias X Volcán) */}
       <section id="experiencias" className="py-24 px-4 md:px-8 bg-background">

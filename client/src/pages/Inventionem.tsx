@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage, Language } from "@/lib/LanguageContext";
 import { CheckCircle2, BookOpen, FlaskConical, GraduationCap, Video, CalendarPlus, Building2, Leaf, Droplets, Lightbulb, MessageCircle } from "lucide-react";
+import { getInventionemData } from "@/lib/notion";
+import { SITE_DATA } from "@/lib/config";
 
 const tabIcons: Record<string, React.ReactNode> = {
   primary: <BookOpen className="w-5 h-5" />,
@@ -18,12 +20,55 @@ const expertiseIcons = [
 ];
 
 export default function InventionemPage() {
-  const { t } = useLanguage();
-  const inv = t.inventionem as any;
+  const { t, language } = useLanguage();
+  const [inv, setInv] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<string>("primary");
 
-  const tabs = inv.tabs || {};
-  const currentTab = tabs[activeTab] || tabs.primary || {};
+  useEffect(() => {
+    getInventionemData().then(setInv);
+  }, []);
+
+  if (!inv) {
+    return <div className="min-h-screen flex items-center justify-center bg-[#111111] text-white">Cargando...</div>;
+  }
+
+  // Usamos SITE_DATA para las pestañas y asignaturas (Mapeo Dinámico)
+  const configTabs = SITE_DATA.inventionem?.tabs || {};
+  // Fallback seguro si no hay datos en config
+  const currentTabConfig = configTabs[activeTab as keyof typeof configTabs] || configTabs.primary || {
+    label: { es: "Cargando...", en: "Loading..." },
+    sublabel: { es: "", en: "" },
+    duration: "",
+    description: { es: "Información no disponible", en: "Information not available" },
+    subjects: []
+  };
+  const langKey = language as 'es' | 'en';
+
+  // Construimos las tarjetas de precios dinámicamente desde SITE_DATA y data.json
+  const precios = SITE_DATA.inventionem?.precios || { anual: "$0", mensual: "$0", externo: "$0" };
+  const pricingCards = inv.pricing?.cards ? [
+    {
+      name: language === 'es' ? "Estudiante de Bosque" : "Forest Student",
+      price: precios.anual,
+      period: language === 'es' ? "Anual" : "Annual",
+      monthly: language === 'es' ? `o parcialidades de ${precios.mensual}/mes` : `or installments of ${precios.mensual}/month`,
+      features: inv.pricing.cards[0].features,
+      highlight: true,
+    },
+    {
+      name: language === 'es' ? "Externos / Campamentos" : "External / Camps",
+      price: precios.externo,
+      period: language === 'es' ? "Por persona" : "Per person",
+      monthly: language === 'es' ? "programa completo" : "complete program",
+      features: inv.pricing.cards[1].features,
+      highlight: false,
+    },
+    // La tarjeta de "Empresas" se mantiene como estaba en data.json
+    inv.pricing.cards[2]
+  ] : [];
+
+
+
 
   return (
     <div className="min-h-screen flex flex-col bg-[#111111] text-white selection:bg-[#C0CE00] selection:text-black">
@@ -31,7 +76,7 @@ export default function InventionemPage() {
 
       <div className="fixed bottom-6 right-6 z-50 flex gap-4 items-center">
         <button
-          onClick={() => window.open("https://wa.me/523121500516?text=Hola, me interesa información sobre Inventionem Escuela de Bosque.", "_blank")}
+          onClick={() => window.open(`https://wa.me/${SITE_DATA.inventionem.contacto.whatsapp}?text=Hola, me interesa información sobre Inventionem Escuela de Bosque.`, "_blank")}
           className="bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center"
           aria-label="Contactar por WhatsApp"
         >
@@ -70,8 +115,8 @@ export default function InventionemPage() {
         <section className="bg-[#1a1a1a] py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 sm:border-b-2 border-white/10 mb-12">
-              {Object.keys(tabs).map((key) => {
-                const tab = tabs[key];
+              {Object.keys(configTabs).map((key) => {
+                const tab = configTabs[key as keyof typeof configTabs];
                 return (
                   <button
                     key={key}
@@ -85,9 +130,9 @@ export default function InventionemPage() {
                   >
                     {tabIcons[key]}
                     <div className="text-left">
-                      <div>{tab.label}</div>
+                      <div>{tab.label[langKey]}</div>
                       <div className={`text-[10px] font-normal normal-case tracking-normal ${activeTab === key ? 'text-black/50' : 'text-white/30'}`}>
-                        {tab.sublabel}
+                        {tab.sublabel[langKey]}
                       </div>
                     </div>
                   </button>
@@ -98,24 +143,24 @@ export default function InventionemPage() {
             <div className="space-y-8">
               <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                 <div className="space-y-2">
-                  <h3 className="text-2xl md:text-4xl font-serif font-bold text-white">{currentTab.label}</h3>
-                  <p className="text-white/50 text-lg">{currentTab.description}</p>
+                  <h3 className="text-2xl md:text-4xl font-serif font-bold text-white">{currentTabConfig?.label[langKey]}</h3>
+                  <p className="text-white/50 text-lg">{currentTabConfig?.description[langKey]}</p>
                 </div>
                 <span className="shrink-0 px-5 py-2 bg-[#C0CE00] text-black text-sm font-bold rounded-full uppercase tracking-wider">
-                  {currentTab.duration}
+                  {currentTabConfig?.duration}
                 </span>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                {currentTab.subjects?.map((subject: any, i: number) => (
+                {currentTabConfig?.subjects?.map((subject: any, i: number) => (
                   <div key={i} data-testid={`subject-${activeTab}-${i}`} className="bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/8 transition-all">
                     <div className="flex items-start gap-4">
                       <div className="shrink-0 w-10 h-10 bg-[#C0CE00]/15 rounded-xl flex items-center justify-center text-[#C0CE00]">
                         <CheckCircle2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-white text-lg mb-1">{subject.title}</h4>
-                        <p className="text-white/50 text-sm leading-relaxed">{subject.desc}</p>
+                        <h4 className="font-bold text-white text-lg mb-1">{subject.title[langKey]}</h4>
+                        <p className="text-white/50 text-sm leading-relaxed">{subject.desc[langKey]}</p>
                       </div>
                     </div>
                   </div>
@@ -157,7 +202,7 @@ export default function InventionemPage() {
           </div>
 
           <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-            {inv.pricing?.cards?.map((card: any, i: number) => (
+            {pricingCards.map((card: any, i: number) => (
               <div
                 key={i}
                 data-testid={`pricing-card-${i}`}
