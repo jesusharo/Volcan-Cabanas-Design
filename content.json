@@ -1,0 +1,8 @@
+{
+  "hero": {
+    "titulo": { "es": "Cabañas del Volcán", "en": "Volcano Cabins" },
+    "subtitulo": { "es": "Experiencia única", "en": "Unique experience" },
+    "imagen": "URL_DE_TU_IMAGEN_DEL_VOLCAN"
+  },
+  "cabanas": []
+}
