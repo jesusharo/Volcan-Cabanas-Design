@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'wouter';
 import { LanguageProvider } from './lib/LanguageContext';
 import IndexPage from './pages/index'; // La página principal, antes home.tsx
-import LoginPage from './pages/login';
+import LoginPage from './pages/Login';
 import InventionemPage from './pages/Inventionem';
 import FrescosPage from './pages/Frescos';
 
