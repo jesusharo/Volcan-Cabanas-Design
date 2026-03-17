@@ -22,11 +22,16 @@ export default function Login() {
       if (res.ok) {
         window.location.href = '/'; // Correcto: Redirige a la página principal
       } else {
-        const data = await res.json();
-        setError(data.error || 'Error al iniciar sesión');
+        if (res.status === 401) {
+          setError('Contraseña incorrecta');
+        } else if (res.status === 404) {
+          setError('Error de conexión: API no encontrada (404)');
+        } else {
+          setError(`Error del servidor (${res.status}). Intenta más tarde.`);
+        }
       }
     } catch (err) {
-      setError('Error de conexión');
+      setError('Error de conexión: No se pudo contactar al servidor');
     } finally {
       setLoading(false);
     }
