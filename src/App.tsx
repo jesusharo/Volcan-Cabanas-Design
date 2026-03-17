@@ -1,27 +1,39 @@
-import React from 'react';
-import { Switch, Route } from 'wouter';
-import { LanguageProvider } from './lib/LanguageContext';
-import IndexPage from './pages/index'; // La página principal, antes home.tsx
-import Login from './pages/Login';
-import InventionemPage from './pages/Inventionem';
-import FrescosPage from './pages/Frescos';
+import { Switch, Route } from "wouter";
+import { queryClient } from "./lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/lib/LanguageContext";
+import NotFound from "@/pages/not-found";
+import Home from "@/pages/Home";
+import Inventionem from "@/pages/Inventionem";
+import Frescos from "@/pages/Frescos";
+import Login from "@/pages/Login";
 
-export default function App() {
+function Router() {
   return (
-    <LanguageProvider>
-      <Switch>
-        <Route path="/" component={IndexPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/inventionem" component={InventionemPage} />
-        <Route path="/organicos" component={FrescosPage} />
-        
-        {/* Ruta para la página no encontrada (404) */}
-        <Route>
-          <div className="min-h-screen flex items-center justify-center bg-[#111111] text-white">
-            <h1 className="text-4xl font-serif">404: Página No Encontrada</h1>
-          </div>
-        </Route>
-      </Switch>
-    </LanguageProvider>
+    <Switch>
+      <Route path="/" component={Home}/>
+      <Route path="/login" component={Login}/>
+      <Route path="/inventionem" component={Inventionem}/>
+      <Route path="/organicos" component={Frescos}/>
+      {/* Fallback to 404 */}
+      <Route component={NotFound} />
+    </Switch>
   );
 }
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </LanguageProvider>
+    </QueryClientProvider>
+  );
+}
+
+export default App;
