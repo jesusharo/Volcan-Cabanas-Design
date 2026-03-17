@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'wouter';
 import { LanguageProvider } from './lib/LanguageContext';
 import IndexPage from './pages/index'; // La página principal, antes home.tsx
-import LoginPage from './pages/Login';
+import Login from './pages/Login';
 import InventionemPage from './pages/Inventionem';
 import FrescosPage from './pages/Frescos';
 
@@ -11,7 +11,7 @@ export default function App() {
     <LanguageProvider>
       <Switch>
         <Route path="/" component={IndexPage} />
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login" component={Login} />
         <Route path="/inventionem" component={InventionemPage} />
         <Route path="/organicos" component={FrescosPage} />
         
