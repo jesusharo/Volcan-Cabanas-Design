@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import type { ContentData, Cabin, Tour, Testimonial } from "@/lib/content-types";
@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Star, MessageCircle, CheckCircle2, Calendar, PawPrint, ShieldCheck, Clock, Users, BedDouble, Bath, ChevronDown } from "lucide-react";
 import { ReservationCalculator } from "@/components/ReservationCalculator";
 import { useLanguage } from "@/lib/LanguageContext";
-import { translations } from "@/lib/translations";
+import { AdminBar } from '@/components/AdminBar';
+import { getCabins, getExclusiveRental, getTestimonials, getTours } from '@/lib/notion';
+import { SITE_DATA } from '@/lib/config';
 
 const DESC_TRUNCATE_LENGTH = 200;
 
@@ -16,7 +18,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [scrollStart, setScrollStart] = useState<number | null>(null);
-  const { t } = useLanguage();
+  const { t } = useLanguage(); // Assuming useLanguage provides 't' for translations
   
   const descText = cabin.detailedDescription || cabin.description;
   const needsTruncation = descText.length > DESC_TRUNCATE_LENGTH;
@@ -204,7 +206,7 @@ function CabinSection({ cabin, index, onWhatsApp }: { cabin: Cabin; index: numbe
   );
 }
 
-function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: typeof translations.es; onWhatsApp: (msg: string) => void; exclusiveData: Cabin | null }) {
+function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: any; onWhatsApp: (msg: string) => void; exclusiveData: Cabin | null }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   useEffect(() => {
@@ -270,7 +272,7 @@ function ExclusiveSection({ t, onWhatsApp, exclusiveData }: { t: typeof translat
   );
 }
 
-export default function Home() {
+export default function IndexPage() {
   const { language, t } = useLanguage();
   const [cabins, setCabins] = useState<Cabin[]>([]);
   const [tours, setTours] = useState<Tour[]>([]);
