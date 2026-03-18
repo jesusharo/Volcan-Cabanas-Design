@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import Inventionem from "@/pages/Inventionem";
+import Inventionem from "@/pages/Inventionem.tsx";
 import Frescos from "@/pages/Frescos";
 import Login from "@/pages/Login";
 
